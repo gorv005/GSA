@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">GSA</string>
+    <string name="back">Back</string>
+    <string name="something_went_wrong">Something went wrong. Please try again</string>
+    <string name="click_back_to_exit">Please click BACK button again to exit</string>
+    <string name="internal_error">Some internal error occurred. Please try again later.</string>
+    <string name="no_network_message">No Internet connection. Please try later!</string>
+    <string name="request_timed_out_message">Unable to connect to server. Please check internet connection and try
+        again.
+    </string>
+    <string name="server_error">Some server error occurred. Please try again later.</string>
+    <string name="error_field_cant_blank">field can\'t blank</string>
+    <string name="error_field_country_code">Please enter country code</string>
+    <string name="error_field_cant_blank_address">Please enter additional details, it will help us to deliver the order</string>
+
+    <string name="error_field_not_valid_email">email is not valid</string>
+    <string name="error_password_min_length">password min length is %1$d</string>
+    <string name="error_password_max_length">password should not greater than %1$d</string>
+    <string name="error_password_not_match">password should be same as confirm password</string>
+
+
+    <string name="please_wait">Please wait…</string>
+    <string name="default_error_button_retry_text">Retry</string>
+    <string name="prompt_mobile">Mobile Number</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in_short">Login</string>
+    <string name="new_user"><u> New User? Click Here for Registration</u>></string>
+    <string name="set_your_password">Set Your Password</string>
+    <string name="contact_name">Contact Name</string>
+    <string name="shop_name">Shop Name</string>
+    <string name="gst_number">GST Number</string>
+    <string name="pan_number">Pan Number</string>
+    <string name="aadhar_number">Aadhar Number</string>
+    <string name="email">Email</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="address">Address</string>
+    <string name="register">Register</string>
+    <string name="register_as_retailer">Register as Retailer</string>
+    <string name="error_mobile_not_validation">Mobile number digits should be greater than 6  and less than 12</string>
+    <string name="error_password_not_validation"><![CDATA[Password should have !, @, #, $, & one of these special character]]></string>
+    <string name="alert">Alert</string>
+    <string name="ok">Ok</string>
+    <string name="title_home">Home</string>
+    <string name="orders">Orders</string>
+    <string name="points">Points</string>
+    <string name="ledger">Ledger</string>
+    <string name="account">Account</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

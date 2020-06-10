@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.gsa.ui.register.RegistrationActivity">
+
+    <include layout="@layout/app_custom_tool_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="56dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/prompt_mobile"
+                    android:textColor="@color/black"
+                    android:textSize="15.8sp"
+
+                    />
+
+                <EditText
+                    android:id="@+id/etMobile"
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/prompt_mobile"
+                    android:inputType="number"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/prompt_password"
+                    android:textColor="@color/black"
+                    android:textSize="15.8sp"
+
+                    />
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/set_your_password"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/black">
+
+            </View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/contact_name"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+                <EditText
+                    android:id="@+id/etShop_name"
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/shop_name"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <EditText
+                    android:id="@+id/etGst"
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/gst_number"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+                <EditText
+                    android:id="@+id/et_pan_number"
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/pan_number"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <EditText
+                    android:id="@+id/etaadhar_number"
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/aadhar_number"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/email"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/black">
+
+            </View>
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="15dp"
+                android:animateLayoutChanges="@bool/show"
+                android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                android:drawablePadding="@dimen/margin5x2"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="@string/address"
+                android:paddingStart="@dimen/padding3x4"
+                android:paddingEnd="@dimen/padding3x4"
+                android:singleLine="@bool/show"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:ignore="UnusedAttribute" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <EditText
+                    android:id="@+id/etState"
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawableRight="@drawable/ic_expand_more_black_24dp"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/state"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:focusable="false"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+                <EditText
+                    android:id="@+id/et_city"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:layout_width="0dp"
+                    android:layout_height="43dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawableRight="@drawable/ic_expand_more_black_24dp"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/city"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Spinner
+                    android:id="@+id/spinner_state"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/state"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+                <Spinner
+                    android:id="@+id/spinner_city"
+
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="@bool/show"
+                    android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+                    android:drawablePadding="@dimen/margin5x2"
+                    android:fontFamily="@font/roboto_regular"
+                    android:hint="@string/city"
+                    android:paddingStart="@dimen/padding3x4"
+                    android:paddingEnd="@dimen/padding3x4"
+                    android:singleLine="@bool/show"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:ignore="UnusedAttribute" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin5x4"
+                android:background="@drawable/rounded_corners_app_blue_button_bg"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/register"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="19sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
