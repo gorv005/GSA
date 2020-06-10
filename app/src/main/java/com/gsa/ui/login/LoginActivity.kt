@@ -17,6 +17,7 @@ import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.app_custom_tool_bar.*
 
 class LoginActivity : BaseActivity<LoginViewModel>(LoginViewModel::class) {
     override fun layout(): Int = R.layout.activity_login
@@ -64,7 +65,6 @@ class LoginActivity : BaseActivity<LoginViewModel>(LoginViewModel::class) {
         subscribeLoading()
         subscribeUiLogin()
     }
-
     fun doSignIn() {
 
         this?.let { UiUtils.hideSoftKeyboard(it) }

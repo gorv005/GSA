@@ -6,8 +6,8 @@ class Config {
 
 
         const val CLICK_VIEW_CATEGORY = 99
-        const val CLICK_VIEW_MORE = 100
-        const val CLICK_VIEW_SUB_CATEGORY = 97
+        const val CLICK_VIEW_COMPANIES = 100
+        const val CLICK_VIEW_FEATURE_PRODUCT = 97
         const val CLICK_VIEW_PRODUCT = 96
         const val CLICK_ADD_TO_CART_PRODUCT = 95
         const val CLICK_VIEW_PLUS_PRODUCT = 1000
@@ -55,6 +55,9 @@ class Config {
         const val LOGIN_API = BASE_PATH + "common/login"
         const val CITY_LIST = BASE_PATH + "common/get_city_list"
         const val STATE_LIST = BASE_PATH + "common/get_state_list"
+        const val COMPANIES_LIST = BASE_PATH + "common/companylist"
+        const val CATEGORIES_LIST = BASE_PATH + "common/categorylist"
+        const val FEATURE_PRODUCT_LIST = BASE_PATH + "common/isfeatureproduct"
 
         const val FETCH_USER_API = BASE_PATH + "users/account_profile"
         const val DELETE_USER_API = BASE_PATH + "users/account_profile"
@@ -98,6 +101,8 @@ class Config {
         const val PROPERTY_LOGIN_PREF = "PROPERTY_LOGIN_PREF" // is user logged in
         const val PROPERTY_JWT_TOKEN = "PROPERTY_JWT_TOKEN" // auth token
         const val PROPERTY_USER_ID = "PROPERTY_USER_ID" // user id
+        const val PROPERTY_ROLE_ID = "PROPERTY_ROLE_ID" // user id
+
         const val PROPERTY_USER_NAME = "PROPERTY_USER_NAME" // user name
         const val PROPERTY_USER_EMAIL = "PROPERTY_USER_EMAIL" // user email
         const val PROPERTY_USER_ERN_NUMBER = "PROPERTY_USER_ERN" // user email

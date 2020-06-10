@@ -2,6 +2,9 @@ package com.gsa.network
 
 
 import com.gsa.model.city_list.CityListResponse
+import com.gsa.model.feature_product.FeatureProductResponse
+import com.gsa.model.home.CompaniesListResponse
+import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.login.LoginResponsePayload
 import com.gsa.model.register.RegisterResponsePayload
 import com.gsa.model.stateList.StateListResponse
@@ -50,6 +53,27 @@ interface AppRestApiFast {
         @Field("service") service: String, @Field("state_id") state_id: String
 
         ): Single<CityListResponse>
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.COMPANIES_LIST)
+    fun companyList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+            , @Field("role_id") role_id: String
+    ): Single<CompaniesListResponse>
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.CATEGORIES_LIST)
+    fun categoriesList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String
+    ): Single<CategoriesListResponse>
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.FEATURE_PRODUCT_LIST)
+    fun featureProductList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String
+    ): Single<FeatureProductResponse>
 /*
     @POST(Config.Endpoints.LOGIN_API)
     fun login(@Body data: LoginRequestPayload)

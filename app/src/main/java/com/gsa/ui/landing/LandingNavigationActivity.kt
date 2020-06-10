@@ -18,6 +18,7 @@ import com.ncapdevi.fragnav.FragNavSwitchController
 import com.ncapdevi.fragnav.FragNavTransactionOptions
 import com.ncapdevi.fragnav.tabhistory.UniqueTabHistoryStrategy
 import kotlinx.android.synthetic.main.activity_landing_navigation.*
+import kotlinx.android.synthetic.main.app_custom_tool_bar.*
 
 const val INDEX_HOME = FragNavController.TAB1
 const val INDEX_ORDERS = FragNavController.TAB2
@@ -153,6 +154,24 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
         }, initial)
         bottomBar.setOnTabReselectListener { fragNavController.clearStack() }
     }
+    fun setBack(isShow: Boolean) {
+        if (isShow) {
+            fl_left_img_container.visibility = View.VISIBLE
+        } else {
+            fl_left_img_container.visibility = View.INVISIBLE
+
+        }
+    }
+    public fun getVisibleFragmentHome(): Boolean {
+        if (fragNavController.isRootFragment && fragNavController.currentFrag is HomeFragment) {
+            return true
+        }
+        return false
+    }
+    fun setTitleOnBar(title: String?) {
+        tv_tool_title.text = title
+    }
+
     override fun onBackPressed() {
         if (fragNavController.popFragment().not()) {
             super.onBackPressed()

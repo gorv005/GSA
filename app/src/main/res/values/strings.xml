@@ -49,5 +49,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="browse_by_companies">Browse by companies</string>
+    <string name="see_all">See All</string>
+    <string name="browse_by_categories">Browse by Categories</string>
+    <string name="featured_product">Featured Product(s)</string>
+    <string name="part_no">Part No:</string>
+    <string name="mrp">MRP:</string>
+    <string name="welcome">Welcome</string>
 
 </resources>

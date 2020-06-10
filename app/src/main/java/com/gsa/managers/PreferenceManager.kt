@@ -30,6 +30,8 @@ class PreferenceManager(context: Context) /*: BasePrefManager(context)*/ {
 
     fun saveUserData(user: UserList?) {
         savePreference(Config.SharedPreferences.PROPERTY_USER_ID, user?.userId)
+        savePreference(Config.SharedPreferences.PROPERTY_ROLE_ID, user?.roleId)
+
         savePreference(Config.SharedPreferences.PROPERTY_USER_NAME, user?.name)
         savePreference(Config.SharedPreferences.PROPERTY_USER_EMAIL, user?.email)
      //   saveUserImage(user?.profilePicture?.url)

@@ -5,6 +5,9 @@ import android.app.Application
 import com.gsa.interfaces.ApplicationSchedulerProvider
 import com.gsa.interfaces.SchedulerProvider
 import com.gsa.managers.PreferenceManager
+import com.gsa.ui.landing.home.HomeRepository
+import com.gsa.ui.landing.home.HomeRepositoryImpl
+import com.gsa.ui.landing.home.HomeViewModel
 import com.gsa.ui.login.LoginRepository
 import com.gsa.ui.login.LoginRepositoryImpl
 import com.gsa.ui.login.LoginViewModel
@@ -39,6 +42,9 @@ object AppModule {
 
         single<RegisterRepository> { RegisterRepositoryImpl(get(), get()) }
         viewModel { RegistrationViewModel(get(),get()) }
+
+        single<HomeRepository> { HomeRepositoryImpl(get(), get()) }
+        viewModel { HomeViewModel(get(),get(),get()) }
 
         viewModel { SplashViewModel(get()) }
 
