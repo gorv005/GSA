@@ -5,6 +5,14 @@ import android.app.Application
 import com.gsa.interfaces.ApplicationSchedulerProvider
 import com.gsa.interfaces.SchedulerProvider
 import com.gsa.managers.PreferenceManager
+import com.gsa.model.home.CompaniesListResponse
+import com.gsa.ui.CategoryList.CategoryListRepository
+import com.gsa.ui.CategoryList.CategoryListRepositoryImpl
+import com.gsa.ui.CategoryList.CategoryListViewModel
+import com.gsa.ui.companyList.CompanyListActivity
+import com.gsa.ui.companyList.CompanyListRepository
+import com.gsa.ui.companyList.CompanyListRepositoryImpl
+import com.gsa.ui.companyList.CompanyListViewModel
 import com.gsa.ui.landing.home.HomeRepository
 import com.gsa.ui.landing.home.HomeRepositoryImpl
 import com.gsa.ui.landing.home.HomeViewModel
@@ -45,6 +53,12 @@ object AppModule {
 
         single<HomeRepository> { HomeRepositoryImpl(get(), get()) }
         viewModel { HomeViewModel(get(),get(),get()) }
+
+        single<CompanyListRepository> { CompanyListRepositoryImpl(get(), get()) }
+        viewModel { CompanyListViewModel(get(),get(),get()) }
+
+        single<CategoryListRepository> { CategoryListRepositoryImpl(get(), get()) }
+        viewModel { CategoryListViewModel(get(),get(),get()) }
 
         viewModel { SplashViewModel(get()) }
 

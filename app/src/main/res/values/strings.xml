@@ -56,5 +56,10 @@
     <string name="part_no">Part No:</string>
     <string name="mrp">MRP:</string>
     <string name="welcome">Welcome</string>
+    <string name="shop_by_company">Shop by Company</string>
+    <string name="shop_by_category">Shop by Category</string>
+    <string name="search_company">Search Company</string>
+    <string name="search_category">Search Category</string>
+    <string name="search">Search</string>
 
 </resources>

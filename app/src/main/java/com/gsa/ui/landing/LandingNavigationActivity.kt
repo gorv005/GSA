@@ -158,7 +158,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
         if (isShow) {
             fl_left_img_container.visibility = View.VISIBLE
         } else {
-            fl_left_img_container.visibility = View.INVISIBLE
+            fl_left_img_container.visibility = View.GONE
 
         }
     }

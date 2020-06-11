@@ -1,11 +1,13 @@
 package com.gsa.ui.landing.home
 
 
+import android.app.ActivityOptions
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gsa.R
 import com.gsa.base.BaseFragment
@@ -18,6 +20,8 @@ import com.gsa.model.home.CompaniesListResponse
 import com.gsa.model.home.CompanyListItem
 import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.home.categories.CategoryListItem
+import com.gsa.ui.CategoryList.CategoryListActivity
+import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.landing.LandingNavigationActivity
 import com.gsa.ui.landing.home.adapter.AdapterFeatureProduct
 import com.gsa.ui.landing.home.adapter.AdapterHomeCategories
@@ -54,8 +58,8 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
     private var adapterFeatureProduct: AdapterFeatureProduct? = null
 
     private var adapterCompanies: AdapterHomeCompanies? = null
-    internal var categoriesList: List<CategoryListItem>? = null
-    internal var companyList: List<CompanyListItem>? = null
+    internal var categoriesList: ArrayList<CategoryListItem>? = null
+    internal var companyList: ArrayList<CompanyListItem>? = null
     internal var featureProductList: List<FeatureProductListItem>? = null
 
     override fun onClickAdapterView(
@@ -87,17 +91,12 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val manager = GridLayoutManager(context, 4)
 
-        var manager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.HORIZONTAL, false
-        )
         rv_categories.layoutManager = manager
 
-        var manager1 = LinearLayoutManager(
-            context,
-            LinearLayoutManager.HORIZONTAL, false
-        )
+        val manager1 = GridLayoutManager(context, 4)
+
         rv_companies.layoutManager = manager1
 
 
@@ -125,6 +124,32 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
             adapterFeatureProduct = AdapterFeatureProduct(this, it)
 
         }
+
+        tvSeeAllCompany.setOnClickListener {
+
+            activity?.let {
+                UiUtils.hideSoftKeyboard(it)
+                startActivity(
+                    CompanyListActivity.getIntent(
+                        it
+                    ),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                )
+            }
+        }
+        tvSeeAllCategories.setOnClickListener {
+
+            activity?.let {
+                UiUtils.hideSoftKeyboard(it)
+                startActivity(
+                    CategoryListActivity.getIntent(
+                        it
+                    ),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                )
+            }
+        }
+
         rv_featuredProduct.adapter = adapterFeatureProduct
         subscribeLoading()
         subscribeUi()
@@ -196,7 +221,13 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
 
         categoriesList = data?.categoryList
         categoriesList?.let {
-            adapterCategories?.submitList(it)
+            if(it.size>4){
+                it.subList(4,it.size).clear()
+                adapterCategories?.submitList(it)
+
+            }else {
+                adapterCategories?.submitList(it)
+            }
             ViewCompat.setNestedScrollingEnabled(rv_categories, false)
             adapterCategories?.notifyDataSetChanged()
         }
@@ -205,7 +236,13 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
     private fun showData(data: CompaniesListResponse?) {
         companyList = data?.companyList
         companyList?.let {
-            adapterCompanies?.submitList(it)
+            if(it.size>4){
+                it.subList(4,it.size).clear()
+                adapterCompanies?.submitList(it)
+
+            }else {
+                adapterCompanies?.submitList(it)
+            }
             ViewCompat.setNestedScrollingEnabled(rv_companies, false)
 
             adapterCompanies?.notifyDataSetChanged()
