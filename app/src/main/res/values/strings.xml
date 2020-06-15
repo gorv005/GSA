@@ -61,5 +61,7 @@
     <string name="search_company">Search Company</string>
     <string name="search_category">Search Category</string>
     <string name="search">Search</string>
+    <string name="shop_by_product">Shop by Product</string>
+    <string name="search_product">Search Product</string>
 
 </resources>

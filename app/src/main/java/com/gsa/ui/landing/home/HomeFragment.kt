@@ -22,6 +22,7 @@ import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.home.categories.CategoryListItem
 import com.gsa.ui.CategoryList.CategoryListActivity
 import com.gsa.ui.companyList.CompanyListActivity
+import com.gsa.ui.featureList.FeatureListActivity
 import com.gsa.ui.landing.LandingNavigationActivity
 import com.gsa.ui.landing.home.adapter.AdapterFeatureProduct
 import com.gsa.ui.landing.home.adapter.AdapterHomeCategories
@@ -143,6 +144,18 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
                 UiUtils.hideSoftKeyboard(it)
                 startActivity(
                     CategoryListActivity.getIntent(
+                        it
+                    ),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                )
+            }
+        }
+        tvSeeProducts.setOnClickListener {
+
+            activity?.let {
+                UiUtils.hideSoftKeyboard(it)
+                startActivity(
+                    FeatureListActivity.getIntent(
                         it
                     ),
                     ActivityOptions.makeSceneTransitionAnimation(it).toBundle()

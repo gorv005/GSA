@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.CategoryList.CategoryListActivity"></activity>
+        <activity android:name=".ui.featureList.FeatureListActivity"></activity>
+        <activity android:name=".ui.CategoryList.CategoryListActivity" />
         <activity android:name=".ui.companyList.CompanyListActivity" />
         <activity android:name=".ui.register.RegistrationActivity" />
         <activity android:name=".ui.landing.LandingNavigationActivity" />
