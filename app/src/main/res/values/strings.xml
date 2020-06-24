@@ -63,5 +63,14 @@
     <string name="search">Search</string>
     <string name="shop_by_product">Shop by Product</string>
     <string name="search_product">Search Product</string>
+    <string name="search_products">Search Products</string>
+    <string name="cart">Shopping cart</string>
+    <string name="pay_now">PAY NOW</string>
+    <string name="get_discount"><u>Get 3% Additional Discount</u></string>
+    <string name="pay_later">PAY LATER</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="charges">Total Amount</string>
+    <string name="discount">Discount</string>
+    <string name="grand_total">Grand Total</string>
 
 </resources>

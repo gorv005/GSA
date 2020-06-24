@@ -57,7 +57,10 @@ class Config {
         const val STATE_LIST = BASE_PATH + "common/get_state_list"
         const val COMPANIES_LIST = BASE_PATH + "common/companylist"
         const val CATEGORIES_LIST = BASE_PATH + "common/categorylist"
+        const val COMPANY_CATEGORIES_LIST = BASE_PATH + "common/companycategorylist"
+
         const val FEATURE_PRODUCT_LIST = BASE_PATH + "common/isfeatureproduct"
+        const val PRODUCT_LIST = BASE_PATH + "common/productlist"
 
         const val FETCH_USER_API = BASE_PATH + "users/account_profile"
         const val DELETE_USER_API = BASE_PATH + "users/account_profile"
@@ -69,9 +72,10 @@ class Config {
         const val BANNER_DATA_API = BASE_PATH + "banners"
         const val DIVISION_DATA_API = BASE_PATH + "divisions"
 
-        const val ADD_PRODUCT_API = BASE_PATH + "shopping_carts/add_order_items"
+        const val ADD_PRODUCT_API = BASE_PATH + "order/addtocart"
 
-        const val CART_LIST = BASE_PATH + "shopping_carts/show_current"
+
+        const val CART_LIST = BASE_PATH + "order/cartlist"
         const val PLACE_ORDER_API = BASE_PATH + "shopping_carts/place_order"
         const val CANCEL_ORDER_API = BASE_PATH + "shopping_carts/cancele_order"
 

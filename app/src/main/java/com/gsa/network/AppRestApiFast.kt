@@ -1,11 +1,15 @@
 package com.gsa.network
 
 
+import com.gsa.model.cart.AddToCartResponse
+import com.gsa.model.cart.CartListResponse
 import com.gsa.model.city_list.CityListResponse
+import com.gsa.model.companyCategoryList.CompanyCategoryList
 import com.gsa.model.feature_product.FeatureProductResponse
 import com.gsa.model.home.CompaniesListResponse
 import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.login.LoginResponsePayload
+import com.gsa.model.productList.ProductListResponse
 import com.gsa.model.register.RegisterResponsePayload
 import com.gsa.model.stateList.StateListResponse
 import com.gsa.utils.Config
@@ -68,12 +72,48 @@ interface AppRestApiFast {
         , @Field("role_id") role_id: String
     ): Single<CategoriesListResponse>
 
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.COMPANY_CATEGORIES_LIST)
+    fun companyCategoriesList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String,@Field("company_id") company_id: String
+    ): Single<CompanyCategoryList>
+
     @FormUrlEncoded
     @POST(Config.Endpoints.FEATURE_PRODUCT_LIST)
     fun featureProductList(
         @Field("service") service: String, @Field("user_id") user_id: String
         , @Field("role_id") role_id: String
     ): Single<FeatureProductResponse>
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.PRODUCT_LIST)
+    fun productList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String,@Field("company_id") company_id: String,@Field("category_id") category_id: String
+
+    ): Single<ProductListResponse>
+
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.ADD_PRODUCT_API)
+    fun addToCart(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String,@Field("item_id") item_id: String,
+        @Field("item_qty") item_qty: String,@Field("item_amount") item_amount: String
+
+    ): Single<AddToCartResponse>
+
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.CART_LIST)
+    fun cartList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String
+
+    ): Single<CartListResponse>
+
 /*
     @POST(Config.Endpoints.LOGIN_API)
     fun login(@Body data: LoginRequestPayload)

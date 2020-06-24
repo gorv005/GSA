@@ -1,5 +1,6 @@
 package com.gsa.ui.landing
 
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +12,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.gsa.R
 import com.gsa.base.BaseFragment
+import com.gsa.ui.cart.CartActivity
+import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.landing.home.HomeFragment
+import com.gsa.util.UiUtils
 import com.ncapdevi.fragnav.FragNavController
 import com.ncapdevi.fragnav.FragNavLogger
 import com.ncapdevi.fragnav.FragNavSwitchController
@@ -152,6 +156,19 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                 }
             }
         }, initial)
+
+        rlCart.setOnClickListener {
+
+            let {
+                UiUtils.hideSoftKeyboard(it)
+                startActivity(
+                    CartActivity.getIntent(
+                        it
+                    ),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                )
+            }
+        }
         bottomBar.setOnTabReselectListener { fragNavController.clearStack() }
     }
     fun setBack(isShow: Boolean) {
@@ -162,7 +179,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
 
         }
     }
-    public fun getVisibleFragmentHome(): Boolean {
+     fun getVisibleFragmentHome(): Boolean {
         if (fragNavController.isRootFragment && fragNavController.currentFrag is HomeFragment) {
             return true
         }

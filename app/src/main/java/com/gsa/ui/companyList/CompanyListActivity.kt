@@ -1,5 +1,6 @@
 package com.gsa.ui.companyList
 
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,9 +12,11 @@ import com.gsa.base.BaseActivity
 import com.gsa.callbacks.AdapterViewCompanyClickListener
 import com.gsa.model.home.CompaniesListResponse
 import com.gsa.model.home.CompanyListItem
+import com.gsa.ui.companyCategoryList.CompanyCategoryListActivity
 import com.gsa.ui.landing.home.adapter.AdapterHomeCompanies
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
+import com.gsa.utils.Config
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
 import kotlinx.android.synthetic.main.app_custom_tool_bar.*
@@ -26,7 +29,24 @@ class CompanyListActivity : BaseActivity<CompanyListViewModel>(CompanyListViewMo
         viewType: Int,
         position: Int
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        when (viewType) {
+
+            Config.AdapterClickViewTypes.CLICK_VIEW_COMPANIES -> {
+
+                let {
+                    let {
+                        UiUtils.hideSoftKeyboard(it)
+                        startActivity(
+                            CompanyCategoryListActivity.getIntent(
+                                it,objectAtPosition.id
+                            ),
+                            ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                        )
+                    }
+
+                }
+            }
+        }
     }
 
     override fun tag(): String {

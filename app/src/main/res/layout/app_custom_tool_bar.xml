@@ -53,41 +53,24 @@
                 android:text="@string/app_name"
                 android:ellipsize="end"
                 />
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_weight="3"
-                android:layout_width="0dp"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:id="@+id/barIcons"
-
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_height="match_parent">
-                <!--<ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/search"
-                    tools:visibility="visible"
-                    android:padding="@dimen/margin_small_10"
-                    android:id="@+id/iv_search"
-                    tools:ignore="ContentDescription"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/notification"
-                    tools:visibility="visible"
-                    android:padding="@dimen/margin_small_10"
-                    android:id="@+id/iv_notification"
-                    tools:ignore="ContentDescription"
-                    android:layout_marginTop="1dp"
-                    />
                 <RelativeLayout
-                    android:id="@+id/counterValuePanel"
+
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:layout_gravity="right"
+                    android:id="@+id/rlCart"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" >
                 <ImageView
+                    android:tint="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/cart"
+                    app:srcCompat="@drawable/ic_shopping_basket_black_24dp"
                     tools:visibility="visible"
                     android:layout_centerVertical="true"
                     android:paddingLeft="@dimen/margin_small_10"
@@ -107,11 +90,11 @@
                         android:fontFamily="@font/roboto_regular"
                         android:textColor="@color/white"
                         android:textSize="10sp"
-                        android:background="@drawable/circular_back_pink" />
+                    />
 
-                </RelativeLayout>-->
+                </RelativeLayout>
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
 
         </LinearLayout>
 

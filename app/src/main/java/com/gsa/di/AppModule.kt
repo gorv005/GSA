@@ -9,6 +9,12 @@ import com.gsa.model.home.CompaniesListResponse
 import com.gsa.ui.CategoryList.CategoryListRepository
 import com.gsa.ui.CategoryList.CategoryListRepositoryImpl
 import com.gsa.ui.CategoryList.CategoryListViewModel
+import com.gsa.ui.cart.CartRepository
+import com.gsa.ui.cart.CartRepositoryImpl
+import com.gsa.ui.cart.CartViewModel
+import com.gsa.ui.companyCategoryList.CategoryCompanyListRepository
+import com.gsa.ui.companyCategoryList.CategoryCompanyListRepositoryImpl
+import com.gsa.ui.companyCategoryList.CompanyCategoryListViewModel
 import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.companyList.CompanyListRepository
 import com.gsa.ui.companyList.CompanyListRepositoryImpl
@@ -19,6 +25,9 @@ import com.gsa.ui.landing.home.HomeViewModel
 import com.gsa.ui.login.LoginRepository
 import com.gsa.ui.login.LoginRepositoryImpl
 import com.gsa.ui.login.LoginViewModel
+import com.gsa.ui.productList.ProductListRepository
+import com.gsa.ui.productList.ProductListRepositoryImpl
+import com.gsa.ui.productList.ProductListViewModel
 import com.gsa.ui.register.RegisterRepository
 import com.gsa.ui.register.RegisterRepositoryImpl
 import com.gsa.ui.register.RegistrationViewModel
@@ -59,6 +68,15 @@ object AppModule {
 
         single<CategoryListRepository> { CategoryListRepositoryImpl(get(), get()) }
         viewModel { CategoryListViewModel(get(),get(),get()) }
+
+        single<CategoryCompanyListRepository> { CategoryCompanyListRepositoryImpl(get(), get()) }
+        viewModel { CompanyCategoryListViewModel(get(),get(),get()) }
+
+        single<ProductListRepository> { ProductListRepositoryImpl(get(), get()) }
+        viewModel { ProductListViewModel(get(),get(),get()) }
+
+        single<CartRepository> { CartRepositoryImpl(get(), get()) }
+        viewModel { CartViewModel(get(),get(),get()) }
 
         viewModel { SplashViewModel(get()) }
 

@@ -1,4 +1,4 @@
-package com.gsa.ui.landing.home.adapter
+package com.gsa.ui.cart.adapter
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -12,20 +12,21 @@ import com.gsa.callbacks.AdapterViewClickListener
 import com.gsa.callbacks.AdapterViewCompanyClickListener
 import com.gsa.callbacks.AdapterViewFeatureProductClickListener
 import com.gsa.managers.ImageRequestManager
+import com.gsa.model.cart.CartListItem
 import com.gsa.model.feature_product.FeatureProductListItem
 import com.gsa.model.home.CompanyListItem
 import com.gsa.utils.Config
 import kotlinx.android.synthetic.main.item_feature_product.view.*
 import kotlinx.android.synthetic.main.item_product.view.*
 
-class AdapterFeatureProduct(
-    private val adapterViewClickListener: AdapterViewFeatureProductClickListener<FeatureProductListItem>?,
+class AdapterCartProduct(
+    private val adapterViewClickListener: AdapterViewFeatureProductClickListener<CartListItem>?,
     val activity: Activity
-) : ListAdapter<FeatureProductListItem, AdapterFeatureProduct.ViewHolder>(
-    AdapterFeatureProductCallback()
+) : ListAdapter<CartListItem, AdapterCartProduct.ViewHolder>(
+    AdapterCartCallback()
 )
 {
-    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): AdapterFeatureProduct.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
         val itemView = LayoutInflater.from(
             parent.context
         ).inflate(R.layout.item_feature_product, parent, false)
@@ -46,11 +47,12 @@ class AdapterFeatureProduct(
     class ViewHolder(itemView: View, val activity: Activity) : RecyclerView.ViewHolder(itemView) {
 
 
-        fun bind(allProducts: FeatureProductListItem, adapterViewClick: AdapterViewFeatureProductClickListener<FeatureProductListItem>?) {
+        fun bind(allProducts: CartListItem,
+                 adapterViewClick: AdapterViewFeatureProductClickListener<CartListItem>?) {
 
-            itemView.text_part_no?.text = allProducts.pOemNo
-            itemView.text_mrp?.text = allProducts.userPrice
-            itemView.tvQuantity.setText(""+allProducts.CartItemQty)
+            itemView.text_part_no?.text = allProducts.productName
+            itemView.text_mrp?.text = allProducts.itemAmount
+            itemView.tvQuantity.setText(""+allProducts.itemQty)
             itemView.rlMinus.setOnClickListener {
                 adapterViewClick?.onClickFeatureProductAdapterView(
                     allProducts,

@@ -32,5 +32,7 @@ data class FeatureProductListItem(@SerializedName("p_unit")
                                   val pNet_3: String = "",
                                   @SerializedName("p_description")
                                   val pDescription: String = "",
+                                  @SerializedName("CartItemQty")
+                                  var CartItemQty: Int=0,
                                   @SerializedName("id")
                                   val id: String = "")

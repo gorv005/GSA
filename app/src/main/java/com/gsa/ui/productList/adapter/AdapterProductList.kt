@@ -1,4 +1,4 @@
-package com.gsa.ui.landing.home.adapter
+package com.gsa.ui.productList.adapter
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -14,18 +14,19 @@ import com.gsa.callbacks.AdapterViewFeatureProductClickListener
 import com.gsa.managers.ImageRequestManager
 import com.gsa.model.feature_product.FeatureProductListItem
 import com.gsa.model.home.CompanyListItem
+import com.gsa.model.productList.ProductListItem
 import com.gsa.utils.Config
 import kotlinx.android.synthetic.main.item_feature_product.view.*
 import kotlinx.android.synthetic.main.item_product.view.*
 
-class AdapterFeatureProduct(
-    private val adapterViewClickListener: AdapterViewFeatureProductClickListener<FeatureProductListItem>?,
+class AdapterProductList(
+    private val adapterViewClickListener: AdapterViewFeatureProductClickListener<ProductListItem>?,
     val activity: Activity
-) : ListAdapter<FeatureProductListItem, AdapterFeatureProduct.ViewHolder>(
-    AdapterFeatureProductCallback()
+) : ListAdapter<ProductListItem, AdapterProductList.ViewHolder>(
+    AdapterProductListCallback()
 )
 {
-    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): AdapterFeatureProduct.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): AdapterProductList.ViewHolder {
         val itemView = LayoutInflater.from(
             parent.context
         ).inflate(R.layout.item_feature_product, parent, false)
@@ -46,23 +47,12 @@ class AdapterFeatureProduct(
     class ViewHolder(itemView: View, val activity: Activity) : RecyclerView.ViewHolder(itemView) {
 
 
-        fun bind(allProducts: FeatureProductListItem, adapterViewClick: AdapterViewFeatureProductClickListener<FeatureProductListItem>?) {
+        fun bind(allProducts: ProductListItem, adapterViewClick: AdapterViewFeatureProductClickListener<ProductListItem>?) {
 
             itemView.text_part_no?.text = allProducts.pOemNo
             itemView.text_mrp?.text = allProducts.userPrice
             itemView.tvQuantity.setText(""+allProducts.CartItemQty)
-            itemView.rlMinus.setOnClickListener {
-                adapterViewClick?.onClickFeatureProductAdapterView(
-                    allProducts,
-                    Config.AdapterClickViewTypes.CLICK_VIEW_MINUS_PRODUCT, adapterPosition
-                )
-            }
-            itemView.rlPlus.setOnClickListener {
-                adapterViewClick?.onClickFeatureProductAdapterView(
-                    allProducts,
-                    Config.AdapterClickViewTypes.CLICK_VIEW_PLUS_PRODUCT, adapterPosition
-                )
-            }
+
             itemView.setOnClickListener {
                 adapterViewClick?.onClickFeatureProductAdapterView(
                     allProducts,

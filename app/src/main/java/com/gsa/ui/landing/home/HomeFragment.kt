@@ -14,6 +14,7 @@ import com.gsa.base.BaseFragment
 import com.gsa.callbacks.AdapterViewClickListener
 import com.gsa.callbacks.AdapterViewCompanyClickListener
 import com.gsa.callbacks.AdapterViewFeatureProductClickListener
+import com.gsa.model.cart.AddToCartResponse
 import com.gsa.model.feature_product.FeatureProductListItem
 import com.gsa.model.feature_product.FeatureProductResponse
 import com.gsa.model.home.CompaniesListResponse
@@ -21,18 +22,23 @@ import com.gsa.model.home.CompanyListItem
 import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.home.categories.CategoryListItem
 import com.gsa.ui.CategoryList.CategoryListActivity
+import com.gsa.ui.cart.CartViewModel
+import com.gsa.ui.companyCategoryList.CompanyCategoryListActivity
 import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.featureList.FeatureListActivity
 import com.gsa.ui.landing.LandingNavigationActivity
 import com.gsa.ui.landing.home.adapter.AdapterFeatureProduct
 import com.gsa.ui.landing.home.adapter.AdapterHomeCategories
 import com.gsa.ui.landing.home.adapter.AdapterHomeCompanies
+import com.gsa.ui.productList.ProductListActivity
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
+import com.gsa.utils.Config
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
 import kotlinx.android.synthetic.main.app_custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -45,31 +51,115 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
         viewType: Int,
         position: Int
     ) {
+        fPos=position
+        when (viewType) {
+
+            Config.AdapterClickViewTypes.CLICK_VIEW_FEATURE_PRODUCT -> {
+
+                let {
+
+                }
+            }
+            Config.AdapterClickViewTypes.CLICK_VIEW_MINUS_PRODUCT -> {
+
+                let {
+                    updateData(objectAtPosition,0)
+                }
+            }
+            Config.AdapterClickViewTypes.CLICK_VIEW_PLUS_PRODUCT -> {
+
+                let {
+                    updateData(objectAtPosition,1)
+
+                }
+            }
+        }
     }
+
 
     override fun onClickCompanyAdapterView(
         objectAtPosition: CompanyListItem,
         viewType: Int,
         position: Int
     ) {
+        when (viewType) {
+
+            Config.AdapterClickViewTypes.CLICK_VIEW_COMPANIES -> {
+
+                let {
+                    activity?.let {
+                        UiUtils.hideSoftKeyboard(it)
+                        startActivity(
+                            CompanyCategoryListActivity.getIntent(
+                                it, objectAtPosition.id
+                            ),
+                            ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                        )
+                    }
+
+                }
+            }
+        }
     }
 
     override fun getLayoutId() = R.layout.fragment_home
     private var adapterCategories: AdapterHomeCategories? = null
     private var adapterFeatureProduct: AdapterFeatureProduct? = null
+    val modelCart: CartViewModel by viewModel()
 
     private var adapterCompanies: AdapterHomeCompanies? = null
     internal var categoriesList: ArrayList<CategoryListItem>? = null
     internal var companyList: ArrayList<CompanyListItem>? = null
     internal var featureProductList: List<FeatureProductListItem>? = null
-
+    var fPos:Int=0
+    var q: Int=0
     override fun onClickAdapterView(
         objectAtPosition: CategoryListItem,
         viewType: Int,
         position: Int
     ) {
+        when (viewType) {
+
+            Config.AdapterClickViewTypes.CLICK_VIEW_CATEGORY -> {
+
+                let {
+
+                    activity?.let {
+                        UiUtils.hideSoftKeyboard(it)
+                        startActivity(
+                            ProductListActivity.getIntent(
+                                it, "", objectAtPosition.id
+                            ),
+                            ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                        )
+                    }
+                }
+            }
+        }
     }
 
+    private fun updateData(objectAtPosition: FeatureProductListItem,status: Int) {
+
+        if (NetworkUtil.isInternetAvailable(activity)) {
+            if(status==1) {
+                 q = objectAtPosition.CartItemQty + 1
+            }
+            else{
+                 q = objectAtPosition.CartItemQty - 1
+
+            }
+            if(status==-1 && objectAtPosition.CartItemQty==0) {
+
+            }
+           else {
+                modelCart.addToCart(
+                    "Add Cart", model.getUserID()!!, model.getRoleID()!!,
+                    objectAtPosition.id, "" + q, objectAtPosition.pMrp
+                )
+            }
+        }
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         categoriesList = ArrayList()
@@ -168,6 +258,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
         subscribeUi()
         getData()
     }
+
     override fun onResume() {
         super.onResume()
         if ((activity as LandingNavigationActivity).getVisibleFragmentHome()) {
@@ -176,7 +267,6 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
             (activity as LandingNavigationActivity).setBack(false)
         }
     }
-
 
     private fun getData() {
 
@@ -203,6 +293,18 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
                 UiUtils.showInternetDialog(activity, R.string.something_went_wrong)
             }
         })
+
+        modelCart.searchEvent.observe(this, Observer {
+            if (it.isLoading) {
+                showProgressDialog()
+            } else {
+                hideProgressDialog()
+            }
+            it.error?.let {
+                UiUtils.showInternetDialog(activity, R.string.something_went_wrong)
+            }
+        })
+
     }
 
     private fun subscribeUi() {
@@ -218,6 +320,11 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
 
         })
         model.featureProductyModel.observe(this, Observer {
+            Logger.Debug("DEBUG", it.toString())
+            showData(it)
+
+        })
+        modelCart.addToCartModel.observe(this, Observer {
             Logger.Debug("DEBUG", it.toString())
             showData(it)
 
@@ -271,4 +378,15 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
             adapterFeatureProduct?.notifyDataSetChanged()
         }
     }
+    private fun showData(data: AddToCartResponse?) {
+        if(data!!.status){
+            featureProductList?.get(fPos)?.CartItemQty=q
+        }
+        featureProductList?.let {
+            adapterFeatureProduct?.submitList(it)
+            ViewCompat.setNestedScrollingEnabled(rv_featuredProduct, false)
+            adapterFeatureProduct?.notifyDataSetChanged()
+        }
+    }
+
 }
