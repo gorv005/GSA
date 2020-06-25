@@ -212,7 +212,7 @@ class RegistrationActivity : BaseActivity<RegistrationViewModel>(RegistrationVie
                 showSnackbar(it.message, true)
                 model.saveUserId(it.message, "" + it.userId)
                 this.let { UiUtils.hideSoftKeyboard(it) }
-
+                onBackPressed()
             } else {
                 showSnackbar(it.message, true)
 

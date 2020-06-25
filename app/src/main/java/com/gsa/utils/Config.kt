@@ -76,7 +76,7 @@ class Config {
 
 
         const val CART_LIST = BASE_PATH + "order/cartlist"
-        const val PLACE_ORDER_API = BASE_PATH + "shopping_carts/place_order"
+        const val PLACE_ORDER_API = BASE_PATH + "order/add"
         const val CANCEL_ORDER_API = BASE_PATH + "shopping_carts/cancele_order"
 
         const val ORDER_DETAILS_API = BASE_PATH + "shopping_carts/{id}"

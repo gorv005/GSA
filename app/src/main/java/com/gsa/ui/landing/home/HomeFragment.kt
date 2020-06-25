@@ -36,7 +36,6 @@ import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Config
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
-import kotlinx.android.synthetic.main.app_custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -54,9 +53,10 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
         fPos=position
         when (viewType) {
 
-            Config.AdapterClickViewTypes.CLICK_VIEW_FEATURE_PRODUCT -> {
+            Config.AdapterClickViewTypes.CLICK_VIEW_QUANTITY_CHANGED -> {
 
                 let {
+                    updateData(objectAtPosition, -1)
 
                 }
             }
@@ -143,12 +143,13 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
         if (NetworkUtil.isInternetAvailable(activity)) {
             if(status==1) {
                  q = objectAtPosition.CartItemQty + 1
-            }
-            else{
-                 q = objectAtPosition.CartItemQty - 1
+            } else if (status === -1) {
+                q = objectAtPosition.CartItemQty.toInt()
+            } else{
+                q = objectAtPosition.CartItemQty - 1
 
             }
-            if(status==-1 && objectAtPosition.CartItemQty==0) {
+            if (status === 0 && objectAtPosition.CartItemQty === 0) {
 
             }
            else {

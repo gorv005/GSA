@@ -2,8 +2,12 @@ package com.gsa.ui.cart
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gsa.R
@@ -13,6 +17,7 @@ import com.gsa.model.cart.AddToCartResponse
 import com.gsa.model.cart.CartListItem
 import com.gsa.model.cart.CartListResponse
 import com.gsa.ui.cart.adapter.AdapterCartProduct
+import com.gsa.ui.landing.LandingNavigationActivity
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Config
@@ -20,6 +25,7 @@ import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
 import kotlinx.android.synthetic.main.activity_cart.*
 import kotlinx.android.synthetic.main.app_custom_tool_bar.*
+import kotlinx.android.synthetic.main.dialog_custom.view.*
 
 class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
     AdapterViewFeatureProductClickListener<CartListItem> {
@@ -31,9 +37,10 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
         fPos = position
         when (viewType) {
 
-            Config.AdapterClickViewTypes.CLICK_VIEW_FEATURE_PRODUCT -> {
+            Config.AdapterClickViewTypes.CLICK_VIEW_QUANTITY_CHANGED -> {
 
                 let {
+                    updateData(objectAtPosition, -1)
 
                 }
             }
@@ -53,16 +60,19 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
         }
     }
 
-    private fun updateData(objectAtPosition: CartListItem, status: Int) {
+    private fun updateData(objectAtPosition:CartListItem , status: Int) {
 
         if (NetworkUtil.isInternetAvailable(this)) {
             if (status == 1) {
                 q = objectAtPosition.itemQty.toInt() + 1
-            } else {
+            } else if(status===-1){
+                q=objectAtPosition.itemQty.toInt()
+            }
+            else {
                 q = objectAtPosition.itemQty.toInt() - 1
 
             }
-            if (status == -1 && objectAtPosition.itemQty.toInt() == 0) {
+            if (status === 0 && objectAtPosition.itemQty.toInt() === 0) {
 
             } else {
                 model.addToCart(
@@ -105,6 +115,15 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
         let {
             adapterFeatureProduct = AdapterCartProduct(this, it)
             rv_cart.adapter = adapterFeatureProduct
+
+        }
+        fl_left_img_container.setOnClickListener {
+            onBackPressed()
+        }
+        rlBuyNow.setOnClickListener {
+            if (NetworkUtil.isInternetAvailable(this)) {
+                model.orderPlace("Add Order", model.getUserID()!!, model.getRoleID()!!)
+            }
 
         }
         subscribeLoading()
@@ -155,6 +174,19 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
             Logger.Debug("DEBUG", it.toString())
             showData(it)
 
+        })
+
+        model.orderPlaceModel.observe(this, Observer {
+            Logger.Debug("DEBUG", it.toString())
+            if(it.status) {
+                customAlertDialog(it.message)
+            }
+            else{
+                showSnackbar(
+                    it.message,
+                    false
+                )
+            }
         })
     }
 
@@ -223,5 +255,31 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
 
         }
     }
+
+
+    fun customAlertDialog(m: String) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@CartActivity)
+        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val customView = inflater.inflate(R.layout.dialog_custom, null, false)
+
+        builder.setView(customView)
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.show()
+        customView.tvMessage.text = m
+        customView.tvTitle.text = AndroidUtils.getString(R.string.order_placed)
+        customView.tvSuccess.text = AndroidUtils.getString(R.string.goto_orders)
+
+        customView.tvSuccess.setOnClickListener({
+            alertDialog.dismiss()
+            startActivity(LandingNavigationActivity.getIntent(this, 3))
+
+            // gotoLogin()
+        })
+
+
+    }
+
 
 }

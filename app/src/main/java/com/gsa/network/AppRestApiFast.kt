@@ -114,6 +114,13 @@ interface AppRestApiFast {
 
     ): Single<CartListResponse>
 
+    @FormUrlEncoded
+    @POST(Config.Endpoints.PLACE_ORDER_API)
+    fun orderPlace(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String
+
+    ): Single<AddToCartResponse>
 /*
     @POST(Config.Endpoints.LOGIN_API)
     fun login(@Body data: LoginRequestPayload)

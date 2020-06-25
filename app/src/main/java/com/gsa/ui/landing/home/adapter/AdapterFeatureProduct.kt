@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.drawee.drawable.ScalingUtils
@@ -14,6 +15,7 @@ import com.gsa.callbacks.AdapterViewFeatureProductClickListener
 import com.gsa.managers.ImageRequestManager
 import com.gsa.model.feature_product.FeatureProductListItem
 import com.gsa.model.home.CompanyListItem
+import com.gsa.util.UiUtils
 import com.gsa.utils.Config
 import kotlinx.android.synthetic.main.item_feature_product.view.*
 import kotlinx.android.synthetic.main.item_product.view.*
@@ -51,6 +53,24 @@ class AdapterFeatureProduct(
             itemView.text_part_no?.text = allProducts.pOemNo
             itemView.text_mrp?.text = allProducts.userPrice
             itemView.tvQuantity.setText(""+allProducts.CartItemQty)
+
+
+            itemView.tvQuantity.setOnEditorActionListener { v, actionId, event ->
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    UiUtils.hideSoftKeyboard(activity)
+
+                    allProducts.CartItemQty=itemView.tvQuantity.text.toString().toInt()
+                    adapterViewClick?.onClickFeatureProductAdapterView(
+                        allProducts,
+                        Config.AdapterClickViewTypes.CLICK_VIEW_QUANTITY_CHANGED, adapterPosition
+                    )
+                    true
+                } else {
+                    false
+                }
+            }
+
+
             itemView.rlMinus.setOnClickListener {
                 adapterViewClick?.onClickFeatureProductAdapterView(
                     allProducts,

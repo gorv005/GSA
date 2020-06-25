@@ -72,5 +72,7 @@
     <string name="charges">Total Amount</string>
     <string name="discount">Discount</string>
     <string name="grand_total">Grand Total</string>
+    <string name="order_placed">Order Placed</string>
+    <string name="goto_orders">Go to Orders</string>
 
 </resources>

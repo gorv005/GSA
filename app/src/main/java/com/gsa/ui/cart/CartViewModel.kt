@@ -29,6 +29,7 @@ class CartViewModel(
 
     val searchEvent = SingleLiveEvent<SearchEvent>()
     val addToCartModel = MutableLiveData<AddToCartResponse>()
+    val orderPlaceModel = MutableLiveData<AddToCartResponse>()
 
     val cartListModel = MutableLiveData<CartListResponse>()
 
@@ -117,7 +118,50 @@ class CartViewModel(
         }
     }
 
-   fun getUserID(): String?{
+
+    fun orderPlace(service :String, user_id: String, role_id: String) {
+        searchEvent.value = SearchEvent(isLoading = true)
+
+        launch {
+            cartRepository.orderPlace(service,user_id,role_id)
+                .subscribeOn(scheduler.io())
+                .observeOn(scheduler.ui())
+                .subscribe({
+                    Logger.Debug(msg = it.toString())
+                    orderPlaceModel.value = it
+                    searchEvent.value =
+                        SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = true)
+
+                }, {
+
+                    try {
+                        Logger.Debug(msg = it.toString())
+                        val error = it as HttpException
+                        val errorBody = error?.response()?.errorBody()?.run {
+
+                            val r = string()
+                            Logger.Debug(msg = r)
+                            val error = r.replaceRange(0, 0, "")
+                                .replaceRange(r.length, r.length, "")
+                            //  val json = Gson().toJson(error)
+
+                            orderPlaceModel.value =
+                                Gson().fromJson(error, AddToCartResponse::class.java)
+                            searchEvent.value =
+                                SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)
+
+
+                        }
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }// searchEvent.value = SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)
+                })
+        }
+    }
+
+
+    fun getUserID(): String?{
       return pre.getStringPreference(Config.SharedPreferences.PROPERTY_USER_ID)
    }
     fun getRoleID(): String?{

@@ -16,6 +16,14 @@ class CartRepositoryImpl(
     private val restApi: AppRestApiFast,
     private val pre: PreferenceManager
 ) : CartRepository {
+    override fun orderPlace(
+        service: String,
+        user_id: String,
+        role_id: String
+    ): Single<AddToCartResponse> {
+        return restApi.orderPlace(service, user_id, role_id)
+    }
+
     override fun cartList(
         service: String,
         user_id: String,
