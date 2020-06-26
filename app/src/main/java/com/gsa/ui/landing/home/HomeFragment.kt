@@ -90,8 +90,8 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
                     activity?.let {
                         UiUtils.hideSoftKeyboard(it)
                         startActivity(
-                            CompanyCategoryListActivity.getIntent(
-                                it, objectAtPosition.id
+                            ProductListActivity.getIntent(
+                                it, objectAtPosition.id, ""
                             ),
                             ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
                         )

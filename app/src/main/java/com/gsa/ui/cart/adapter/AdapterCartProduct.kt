@@ -55,6 +55,7 @@ class AdapterCartProduct(
             itemView.text_part_no?.text = allProducts.productName
             itemView.text_mrp?.text = allProducts.itemAmount
             itemView.tvQuantity.setText(""+allProducts.itemQty)
+            itemView.ll_company_name.visibility=View.GONE
 
             itemView.tvQuantity.setOnEditorActionListener { v, actionId, event ->
                 if(actionId == EditorInfo.IME_ACTION_DONE){

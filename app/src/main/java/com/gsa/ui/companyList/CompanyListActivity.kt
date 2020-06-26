@@ -14,6 +14,7 @@ import com.gsa.model.home.CompaniesListResponse
 import com.gsa.model.home.CompanyListItem
 import com.gsa.ui.companyCategoryList.CompanyCategoryListActivity
 import com.gsa.ui.landing.home.adapter.AdapterHomeCompanies
+import com.gsa.ui.productList.ProductListActivity
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Config
@@ -37,8 +38,8 @@ class CompanyListActivity : BaseActivity<CompanyListViewModel>(CompanyListViewMo
                     let {
                         UiUtils.hideSoftKeyboard(it)
                         startActivity(
-                            CompanyCategoryListActivity.getIntent(
-                                it,objectAtPosition.id
+                            ProductListActivity.getIntent(
+                                it, objectAtPosition.id, ""
                             ),
                             ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
                         )

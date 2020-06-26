@@ -19,6 +19,9 @@ import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.companyList.CompanyListRepository
 import com.gsa.ui.companyList.CompanyListRepositoryImpl
 import com.gsa.ui.companyList.CompanyListViewModel
+import com.gsa.ui.featureList.FeatureListRepository
+import com.gsa.ui.featureList.FeatureListRepositoryImpl
+import com.gsa.ui.featureList.FeatureListViewModel
 import com.gsa.ui.landing.home.HomeRepository
 import com.gsa.ui.landing.home.HomeRepositoryImpl
 import com.gsa.ui.landing.home.HomeViewModel
@@ -74,6 +77,9 @@ object AppModule {
 
         single<ProductListRepository> { ProductListRepositoryImpl(get(), get()) }
         viewModel { ProductListViewModel(get(),get(),get()) }
+
+        single<FeatureListRepository> { FeatureListRepositoryImpl(get(), get()) }
+        viewModel { FeatureListViewModel(get(),get(),get()) }
 
         single<CartRepository> { CartRepositoryImpl(get(), get()) }
         viewModel { CartViewModel(get(),get(),get()) }

@@ -15,11 +15,14 @@ import com.gsa.model.companyCategoryList.CompanyCategoryList
 import com.gsa.model.companyCategoryList.CompanyCategoryListItem
 import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.home.categories.CategoryListItem
+import com.gsa.model.productList.ProductListItem
+import com.gsa.model.productList.ProductListResponse
 import com.gsa.ui.CategoryList.CategoryListActivity
 import com.gsa.ui.CategoryList.CategoryListViewModel
 import com.gsa.ui.companyCategoryList.adapter.AdapterCompanyCategories
 import com.gsa.ui.landing.home.adapter.AdapterHomeCategories
 import com.gsa.ui.productList.ProductListActivity
+import com.gsa.ui.productList.adapter.AdapterProductList
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Config
@@ -47,6 +50,8 @@ class CompanyCategoryListActivity : BaseActivity<CompanyCategoryListViewModel>(C
     internal var categoryList: ArrayList<CompanyCategoryListItem>? = null
     private var adapterCompanyCategories: AdapterCompanyCategories? = null
     var company_id: String?=null
+    internal var productList: ArrayList<ProductListItem>? = null
+    private var adapterProductList: AdapterProductList? = null
 
     override fun onClickAdapterView(
         objectAtPosition: CompanyCategoryListItem,
@@ -99,7 +104,7 @@ class CompanyCategoryListActivity : BaseActivity<CompanyCategoryListViewModel>(C
 
     override fun onResume() {
         super.onResume()
-        tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_category)
+        tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_product)
 
     }
 
@@ -107,7 +112,7 @@ class CompanyCategoryListActivity : BaseActivity<CompanyCategoryListViewModel>(C
 
 
         if (NetworkUtil.isInternetAvailable(this)) {
-            model.getCategories("Category List", model.getUserID()!!, model.getRoleID()!!,company_id!!)
+            model.getProducts("Product List", model.getUserID()!!, model.getRoleID()!!,company_id!!)
         }
 
     }
@@ -134,6 +139,12 @@ class CompanyCategoryListActivity : BaseActivity<CompanyCategoryListViewModel>(C
             showData(it)
 
         })
+        model.productModel.observe(this, Observer {
+            Logger.Debug("DEBUG", it.toString())
+
+            showData(it)
+
+        })
     }
 
     fun showProgressDialog() {
@@ -148,6 +159,15 @@ class CompanyCategoryListActivity : BaseActivity<CompanyCategoryListViewModel>(C
 
             adapterCompanyCategories?.submitList(it)
             adapterCompanyCategories?.notifyDataSetChanged()
+        }
+    }
+    private fun showData(data: ProductListResponse?) {
+
+        productList = data?.productList
+        productList?.let {
+
+            adapterProductList?.submitList(it)
+            adapterProductList?.notifyDataSetChanged()
         }
     }
 

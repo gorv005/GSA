@@ -10,6 +10,7 @@
     <include layout="@layout/app_custom_tool_bar" />
 
     <ScrollView
+        android:layout_marginTop="@dimen/toolbar_height"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none">
@@ -17,7 +18,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="56dp"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -168,6 +168,7 @@
                     android:hint="@string/gst_number"
                     android:paddingStart="@dimen/padding3x4"
                     android:paddingEnd="@dimen/padding3x4"
+                    android:textAllCaps="true"
                     android:singleLine="@bool/show"
                     android:textColor="@color/black"
                     android:textSize="18sp"
@@ -179,6 +180,8 @@
                     android:layout_height="43dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
+                    android:textAllCaps="true"
+                    android:inputType="text"
                     android:animateLayoutChanges="@bool/show"
                     android:background="@drawable/rounded_corners_app_grey_edittext_bg"
                     android:drawablePadding="@dimen/margin5x2"
@@ -206,6 +209,7 @@
                     android:layout_height="43dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
+                    android:inputType="number"
                     android:animateLayoutChanges="@bool/show"
                     android:background="@drawable/rounded_corners_app_grey_edittext_bg"
                     android:drawablePadding="@dimen/margin5x2"

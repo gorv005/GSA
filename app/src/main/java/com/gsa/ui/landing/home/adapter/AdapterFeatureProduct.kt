@@ -50,10 +50,10 @@ class AdapterFeatureProduct(
 
         fun bind(allProducts: FeatureProductListItem, adapterViewClick: AdapterViewFeatureProductClickListener<FeatureProductListItem>?) {
 
-            itemView.text_part_no?.text = allProducts.pOemNo
-            itemView.text_mrp?.text = allProducts.userPrice
+            itemView.text_part_no?.text = allProducts.productName
+            itemView.text_mrp?.text = allProducts.pMrp
             itemView.tvQuantity.setText(""+allProducts.CartItemQty)
-
+            itemView.text_company_name.text=allProducts.companyName
 
             itemView.tvQuantity.setOnEditorActionListener { v, actionId, event ->
                 if(actionId == EditorInfo.IME_ACTION_DONE){

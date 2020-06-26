@@ -97,6 +97,13 @@ interface AppRestApiFast {
 
 
     @FormUrlEncoded
+    @POST(Config.Endpoints.PRODUCT_LIST)
+    fun productList1(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String,@Field("company_id") company_id: String
+
+    ): Single<ProductListResponse>
+    @FormUrlEncoded
     @POST(Config.Endpoints.ADD_PRODUCT_API)
     fun addToCart(
         @Field("service") service: String, @Field("user_id") user_id: String

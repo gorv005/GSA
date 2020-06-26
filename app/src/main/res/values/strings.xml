@@ -24,7 +24,7 @@
     <string name="prompt_mobile">Mobile Number</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_short">Login</string>
-    <string name="new_user"><u> New User? Click Here for Registration</u>></string>
+    <string name="new_user"><u> New User? Click Here for Registration</u></string>
     <string name="set_your_password">Set Your Password</string>
     <string name="contact_name">Contact Name</string>
     <string name="shop_name">Shop Name</string>
@@ -37,7 +37,7 @@
     <string name="address">Address</string>
     <string name="register">Register</string>
     <string name="register_as_retailer">Register as Retailer</string>
-    <string name="error_mobile_not_validation">Mobile number digits should be greater than 6  and less than 12</string>
+    <string name="error_mobile_not_validation">Mobile Number Invalid</string>
     <string name="error_password_not_validation"><![CDATA[Password should have !, @, #, $, & one of these special character]]></string>
     <string name="alert">Alert</string>
     <string name="ok">Ok</string>
@@ -74,5 +74,12 @@
     <string name="grand_total">Grand Total</string>
     <string name="order_placed">Order Placed</string>
     <string name="goto_orders">Go to Orders</string>
+    <string name="error_field_gst_number">Invalid GST number</string>
+    <string name="error_pan_number">Invalid PAN number</string>
+    <string name="error_aadhar_number">Invalid Aadhar Number</string>
+    <string name="company_name">Company Name:</string>
+    <string name="place_order">Place Order</string>
+    <string name="shop_more">Shop Now</string>
+    <string name="no_item_cart">No Item in cart</string>
 
 </resources>

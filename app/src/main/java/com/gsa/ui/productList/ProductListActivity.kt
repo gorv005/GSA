@@ -90,7 +90,7 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
 
     override fun onResume() {
         super.onResume()
-        tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_category)
+        tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_product)
 
     }
 

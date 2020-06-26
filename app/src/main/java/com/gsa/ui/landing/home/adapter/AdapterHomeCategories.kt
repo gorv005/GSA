@@ -48,7 +48,7 @@ class AdapterHomeCategories(
             itemView.tv_item_name?.text = allProducts.catName
             ImageRequestManager.with(itemView.iv_item_image)
                 .url(allProducts.image)
-                .setScaleType(ScalingUtils.ScaleType.FIT_CENTER)
+                .setScaleType(ScalingUtils.ScaleType.CENTER_INSIDE)
                 .build()
             itemView.setOnClickListener {
                 adapterViewClick?.onClickAdapterView(

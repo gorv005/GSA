@@ -59,9 +59,8 @@ class RegistrationActivity : BaseActivity<RegistrationViewModel>(RegistrationVie
         super.onResume()
 
         tv_tool_title.text = AndroidUtils.getString(R.string.register_as_retailer)
-        fl_left_img_container.setOnClickListener {
-            onBackPressed()
-        }
+        iv_cart.visibility=View.GONE
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,6 +124,9 @@ class RegistrationActivity : BaseActivity<RegistrationViewModel>(RegistrationVie
             doRegister()
 
         }
+        fl_left_img_container.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     fun doRegister() {
@@ -136,20 +138,23 @@ class RegistrationActivity : BaseActivity<RegistrationViewModel>(RegistrationVie
         val validateNameError = AndroidUtils.validateName(etName.text.toString())
         val validateShopNameError = AndroidUtils.validateName(etShop_name.text.toString())
         val validateGSTError = AndroidUtils.validateName(etGst.text.toString())
-        val validatePanNumberError = AndroidUtils.validateName(et_pan_number.text.toString())
-        val validateaadharNumberError = AndroidUtils.validateName(etaadhar_number.text.toString())
+        val validateGSTValidError = AndroidUtils.gstValidation(etGst.text.toString())
+
+        val validatePanNumberError = AndroidUtils.panValidation(et_pan_number.text.toString())
+        val validateaadharNumberError = AndroidUtils.aadharValidation(etaadhar_number.text.toString())
         val validateEmailError = AndroidUtils.validateEmail(et_email.text.toString())
         val validateAddressError = AndroidUtils.validateName(et_address.text.toString())
         val validateStateError = AndroidUtils.validateName(etState.text.toString())
         val validateCityError = AndroidUtils.validateName(et_city.text.toString())
 
         if (
-            TextUtils.isEmpty(validateMobileError) || TextUtils.isEmpty(validatePasswordError)
-            || TextUtils.isEmpty(validateNameError) || TextUtils.isEmpty(validateShopNameError)
-            || TextUtils.isEmpty(validateGSTError) || TextUtils.isEmpty(validatePanNumberError)
-            || TextUtils.isEmpty(validateaadharNumberError) || TextUtils.isEmpty(validateEmailError)
-            || TextUtils.isEmpty(validateAddressError) || TextUtils.isEmpty(validateStateError)
-            || TextUtils.isEmpty(validateCityError)
+            TextUtils.isEmpty(validateMobileError) && TextUtils.isEmpty(validatePasswordError)
+            && TextUtils.isEmpty(validateNameError) && TextUtils.isEmpty(validateShopNameError)
+            && TextUtils.isEmpty(validateGSTError) && TextUtils.isEmpty(validateGSTValidError)
+            && TextUtils.isEmpty(validatePanNumberError)
+            && TextUtils.isEmpty(validateaadharNumberError) && TextUtils.isEmpty(validateEmailError)
+            && TextUtils.isEmpty(validateAddressError) && TextUtils.isEmpty(validateStateError)
+            && TextUtils.isEmpty(validateCityError)
         ) {
             if (NetworkUtil.isInternetAvailable(this)) {
                 model.register(
@@ -159,7 +164,7 @@ class RegistrationActivity : BaseActivity<RegistrationViewModel>(RegistrationVie
                     etName.text.toString(),
                     etShop_name.text.toString(),
                     et_email.text.toString(),
-                    "151001",
+                    "",
                     et_address.text.toString(),
                     state_id!!,
                     city_id!!,
@@ -177,6 +182,7 @@ class RegistrationActivity : BaseActivity<RegistrationViewModel>(RegistrationVie
             etName.error = validateNameError
             etShop_name.error = validateShopNameError
             etGst.error = validateGSTError
+            etGst.error = validateGSTValidError
             et_pan_number.error = validatePanNumberError
             etaadhar_number.error = validateaadharNumberError
             et_email.error = validateEmailError

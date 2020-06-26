@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.drawee.drawable.ScalingUtils
 import com.gsa.R
-import com.gsa.callbacks.AdapterViewClickListener
 import com.gsa.callbacks.AdapterViewCompanyClickListener
 import com.gsa.managers.ImageRequestManager
 import com.gsa.model.home.CompanyListItem
@@ -47,8 +46,8 @@ class AdapterHomeCompanies(
 
             itemView.tv_item_name?.text = allProducts.companyName
             ImageRequestManager.with(itemView.iv_item_image)
-                .url(allProducts.image)
-                .setScaleType(ScalingUtils.ScaleType.FIT_CENTER)
+                .url(allProducts.image).setScaleType(ScalingUtils.ScaleType.CENTER_INSIDE)
+
                 .build()
             itemView.setOnClickListener {
                 adapterViewClick?.onClickCompanyAdapterView(

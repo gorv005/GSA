@@ -126,6 +126,10 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
             }
 
         }
+        tvShopMore.setOnClickListener {
+            startActivity(LandingNavigationActivity.getIntent(this, 3))
+
+        }
         subscribeLoading()
         subscribeUi()
         getData()
@@ -134,6 +138,7 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
     override fun onResume() {
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.cart)
+        iv_cart.visibility=View.GONE
 
     }
 
@@ -228,6 +233,8 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
             if(it.size>0){
                 llPaylow.visibility=View.VISIBLE
                 llCheckout.visibility=View.VISIBLE
+            }else{
+                rlNoData.visibility=View.VISIBLE
             }
 
         }

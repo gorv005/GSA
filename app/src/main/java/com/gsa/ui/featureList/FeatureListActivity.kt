@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -76,7 +77,6 @@ class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewMo
     override fun onResume() {
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_product)
-
     }
     private fun getData() {
 

@@ -147,7 +147,7 @@ class AndroidUtils {
             return o.format(d)
         }
         fun mobilePassword(mobile: String): CharSequence? {
-            val REGEX: String? = "^(?:\\+971|00971|0)((?:3|4|5|6|7|9|50|51|52|55|56)[0-9]{7,})\$"
+            val REGEX: String? = "^(?:(?:\\+|0{0,2})91(\\\\s*[\\-]\\s*)?|[0]?)?[789]\\d{9}\$"
             var pattern = Pattern.compile(REGEX)
             if (TextUtils.isEmpty(mobile)) {
                 return AndroidUtils.getString(R.string.error_field_cant_blank)
@@ -158,6 +158,48 @@ class AndroidUtils {
                             )
 
                         }
+
+            return null
+        }
+        fun panValidation(pan: String): CharSequence? {
+            val REGEX: String? = "(([A-Za-z]{5})([0-9]{4})([a-zA-Z]))"
+            var pattern = Pattern.compile(REGEX)
+            if (TextUtils.isEmpty(pan)) {
+                return AndroidUtils.getString(R.string.error_field_cant_blank)
+            } else
+                if (!pattern.matcher(pan).matches()) {
+                    return AndroidUtils.getString(
+                        R.string.error_pan_number
+                    )
+
+                }
+
+            return null
+        }
+        fun aadharValidation(pan: String): CharSequence? {
+            val REGEX: String? = "^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$"
+            var pattern = Pattern.compile(REGEX)
+            if (TextUtils.isEmpty(pan)) {
+                return AndroidUtils.getString(R.string.error_field_cant_blank)
+            } else
+                if (!pattern.matcher(pan).matches()) {
+                    return AndroidUtils.getString(
+                        R.string.error_aadhar_number
+                    )
+
+                }
+
+            return null
+        }
+
+        fun gstValidation(gst: String): CharSequence? {
+
+            if(GSTINValidator.validGSTIN(gst)){
+                return null
+            }else{
+                return AndroidUtils.getString(R.string.error_field_gst_number)
+
+            }
 
             return null
         }
