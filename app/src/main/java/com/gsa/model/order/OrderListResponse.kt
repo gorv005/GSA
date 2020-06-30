@@ -1,9 +1,9 @@
-package com.gsa.model.stateList
+package com.gsa.model.order
 
 import com.google.gson.annotations.SerializedName
 
-data class StateListResponse(@SerializedName("StateList")
-                             val stateList: ArrayList<StateListItem>?,
+data class OrderListResponse(@SerializedName("OrderList")
+                             val orderList: ArrayList<OrderListItem>?,
                              @SerializedName("message")
                              val message: String = "",
                              @SerializedName("status")

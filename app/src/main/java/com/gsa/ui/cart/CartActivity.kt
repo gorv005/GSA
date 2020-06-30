@@ -280,7 +280,7 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
 
         customView.tvSuccess.setOnClickListener({
             alertDialog.dismiss()
-            startActivity(LandingNavigationActivity.getIntent(this, 3))
+            startActivity(LandingNavigationActivity.getIntent(this, 2))
 
             // gotoLogin()
         })

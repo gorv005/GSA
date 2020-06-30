@@ -12,6 +12,7 @@ import com.gsa.base.BaseActivity
 import com.gsa.callbacks.AdapterViewCompanyClickListener
 import com.gsa.model.home.CompaniesListResponse
 import com.gsa.model.home.CompanyListItem
+import com.gsa.ui.cart.CartActivity
 import com.gsa.ui.companyCategoryList.CompanyCategoryListActivity
 import com.gsa.ui.landing.home.adapter.AdapterHomeCompanies
 import com.gsa.ui.productList.ProductListActivity
@@ -83,6 +84,19 @@ class CompanyListActivity : BaseActivity<CompanyListViewModel>(CompanyListViewMo
         fl_left_img_container.setOnClickListener {
             onBackPressed()
         }
+        rlCart.setOnClickListener {
+
+            let {
+                UiUtils.hideSoftKeyboard(it)
+                startActivity(
+                    CartActivity.getIntent(
+                        it
+                    ),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                )
+            }
+        }
+
         subscribeLoading()
         subscribeUi()
         getData()

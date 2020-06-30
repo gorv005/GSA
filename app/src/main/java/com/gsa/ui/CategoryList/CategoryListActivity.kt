@@ -1,5 +1,6 @@
 package com.gsa.ui.CategoryList
 
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +12,7 @@ import com.gsa.base.BaseActivity
 import com.gsa.callbacks.AdapterViewClickListener
 import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.home.categories.CategoryListItem
+import com.gsa.ui.cart.CartActivity
 import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.landing.home.adapter.AdapterHomeCategories
 import com.gsa.util.UiUtils
@@ -64,6 +66,19 @@ class CategoryListActivity : BaseActivity<CategoryListViewModel>(CategoryListVie
         fl_left_img_container.setOnClickListener {
             onBackPressed()
         }
+        rlCart.setOnClickListener {
+
+            let {
+                UiUtils.hideSoftKeyboard(it)
+                startActivity(
+                    CartActivity.getIntent(
+                        it
+                    ),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                )
+            }
+        }
+
         subscribeLoading()
         subscribeUi()
         getData()

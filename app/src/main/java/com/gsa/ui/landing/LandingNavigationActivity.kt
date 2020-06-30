@@ -12,10 +12,15 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.gsa.R
 import com.gsa.base.BaseFragment
+import com.gsa.managers.PreferenceManager
 import com.gsa.ui.cart.CartActivity
 import com.gsa.ui.companyList.CompanyListActivity
+import com.gsa.ui.landing.accounts.FragmentAccount
 import com.gsa.ui.landing.home.HomeFragment
+import com.gsa.ui.order.OrderFragment
 import com.gsa.util.UiUtils
+import com.gsa.utils.AndroidUtils
+import com.gsa.utils.Config
 import com.ncapdevi.fragnav.FragNavController
 import com.ncapdevi.fragnav.FragNavLogger
 import com.ncapdevi.fragnav.FragNavSwitchController
@@ -67,9 +72,9 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
         when (index) {
             INDEX_HOME -> return HomeFragment.getInstance(0)
             INDEX_POINTS -> return HomeFragment.getInstance(0)
-            INDEX_ORDERS -> return HomeFragment.getInstance(0)
+            INDEX_ORDERS -> return OrderFragment.getInstance(0)
             INDEX_LEDGER -> return HomeFragment.getInstance(0)
-            INDEX_ACCOUNT -> return HomeFragment.getInstance(0)
+            INDEX_ACCOUNT -> return FragmentAccount.getInstance(0)
 
         }
         throw IllegalStateException("Need to send an index that we know")
@@ -91,10 +96,13 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
             return intent
         }
     }
+    var preferenceManager: PreferenceManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing_navigation)
+        preferenceManager = PreferenceManager(this)
+
         fragNavController.apply {
             transactionListener = this@LandingNavigationActivity
             rootFragmentListener = this@LandingNavigationActivity
@@ -119,25 +127,37 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                 }
             })
         }
+        var i = intent.getIntExtra(KEY_TAB, 1)
+
         fragNavController.initialize(INDEX_HOME, savedInstanceState)
         val initial = savedInstanceState == null
         if (initial) {
             bottomBar.selectTabAtPosition(INDEX_HOME)
         }
+        if (i === 2) {
+            bottomBar.selectTabAtPosition(INDEX_ORDERS)
+
+        }
         bottomBar.setOnTabSelectListener({ tabId ->
             when (tabId) {
                 R.id.navigation_home -> {
                     fragNavController.switchTab(INDEX_HOME)
-                  /*  if (fragNavController.isRootFragment && fragNavController.currentFrag is HomeFragment) {
+                    if (fragNavController.isRootFragment && fragNavController.currentFrag is HomeFragment) {
                         //  (fragNavController.currentFrag as HomeFragment).showDivisionDialog()
-                        setTitleOnBar(AndroidUtils.getString(R.string.dubai_refreshments))
+                        setTitleOnBar(AndroidUtils.getString(R.string.welcome)+ " "+preferenceManager?.getStringPreference(
+                            Config.SharedPreferences.PROPERTY_USER_NAME,
+                            ""
+                        ))
                         setBack(false)
+
                     }
-*/
                 }
                 R.id.navigation_orders -> {
                     fragNavController.switchTab(INDEX_ORDERS)
+                    setTitleOnBar(AndroidUtils.getString(R.string.my_orders)
 
+                    )
+                    setBack(false)
                 }
                 R.id.navigation_points -> {
                     fragNavController.switchTab(INDEX_POINTS)
@@ -151,8 +171,10 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                 }
                 R.id.navigation_account -> {
                     fragNavController.switchTab(INDEX_ACCOUNT)
-                    /*setTitleOnBar(AndroidUtils.getString(R.string.more))
-                    setBack(false)*/
+                    setTitleOnBar(AndroidUtils.getString(R.string.my_account)
+
+                    )
+                    setBack(false)
                 }
             }
         }, initial)
@@ -185,6 +207,13 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
         }
         return false
     }
+    fun getVisibleFragmentOrders(): Boolean {
+        if (fragNavController.isRootFragment && fragNavController.currentFrag is OrderFragment) {
+            return true
+        }
+        return false
+    }
+
     fun setTitleOnBar(title: String?) {
         tv_tool_title.text = title
     }

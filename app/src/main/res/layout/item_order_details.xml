@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:weightSum="4"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="0.5"
+                android:id="@+id/text_sr_no"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="11sp"
+                android:gravity="start"
+                android:maxLines="2"
+                android:text="@string/sr_no"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:layout_weight="2"
+                android:id="@+id/text_part_no"
+                android:layout_width="0dp"
+                android:gravity="center"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="11sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="@string/part_no_"
+
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:layout_weight="0.5"
+                android:id="@+id/text_quantity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="11sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="@string/quantity"
+
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/text_amount_label_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="11sp"
+                android:maxLines="2"
+                android:gravity="end"
+                android:ellipsize="end"
+                android:text="@string/amount"
+
+                android:textColor="@color/black"
+                />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>

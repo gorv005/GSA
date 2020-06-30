@@ -22,12 +22,18 @@ import com.gsa.ui.companyList.CompanyListViewModel
 import com.gsa.ui.featureList.FeatureListRepository
 import com.gsa.ui.featureList.FeatureListRepositoryImpl
 import com.gsa.ui.featureList.FeatureListViewModel
+import com.gsa.ui.landing.accounts.AccountRepository
+import com.gsa.ui.landing.accounts.AccountRepositoryImpl
+import com.gsa.ui.landing.accounts.AccountViewModel
 import com.gsa.ui.landing.home.HomeRepository
 import com.gsa.ui.landing.home.HomeRepositoryImpl
 import com.gsa.ui.landing.home.HomeViewModel
 import com.gsa.ui.login.LoginRepository
 import com.gsa.ui.login.LoginRepositoryImpl
 import com.gsa.ui.login.LoginViewModel
+import com.gsa.ui.order.OrderListRepositoryImpl
+import com.gsa.ui.order.OrderRepository
+import com.gsa.ui.order.OrderViewModel
 import com.gsa.ui.productList.ProductListRepository
 import com.gsa.ui.productList.ProductListRepositoryImpl
 import com.gsa.ui.productList.ProductListViewModel
@@ -81,8 +87,14 @@ object AppModule {
         single<FeatureListRepository> { FeatureListRepositoryImpl(get(), get()) }
         viewModel { FeatureListViewModel(get(),get(),get()) }
 
+        single<OrderRepository> { OrderListRepositoryImpl(get(), get()) }
+        viewModel { OrderViewModel(get(),get(),get()) }
+
         single<CartRepository> { CartRepositoryImpl(get(), get()) }
         viewModel { CartViewModel(get(),get(),get()) }
+
+        single<AccountRepository> { AccountRepositoryImpl(get(), get()) }
+        viewModel { AccountViewModel(get(),get(),get()) }
 
         viewModel { SplashViewModel(get()) }
 

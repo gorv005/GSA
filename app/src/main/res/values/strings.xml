@@ -81,5 +81,22 @@
     <string name="place_order">Place Order</string>
     <string name="shop_more">Shop Now</string>
     <string name="no_item_cart">No Item in cart</string>
+    <string name="order_no">Order No:</string>
+    <string name="date">Date:</string>
+    <string name="amount">Amount:</string>
+    <string name="status">Status:</string>
+    <string name="my_orders">My Order</string>
+    <string name="sr_no">S.No.</string>
+    <string name="quantity">Quantity</string>
+    <string name="part_no_">Part No</string>
+    <string name="amount_">Amount</string>
+    <string name="total">Total:</string>
+    <string name="order_details">Order Details</string>
+    <string name="discount_">Discount:</string>
+    <string name="grand_total_">Grand Total:</string>
+    <string name="dispatched_amount">Dispatched Amount</string>
+    <string name="update_password">Update Password:</string>
+    <string name="update">Update</string>
+    <string name="my_account">My Account</string>
 
 </resources>

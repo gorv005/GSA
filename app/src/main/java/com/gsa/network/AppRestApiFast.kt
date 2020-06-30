@@ -9,9 +9,11 @@ import com.gsa.model.feature_product.FeatureProductResponse
 import com.gsa.model.home.CompaniesListResponse
 import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.login.LoginResponsePayload
+import com.gsa.model.order.OrderListResponse
 import com.gsa.model.productList.ProductListResponse
 import com.gsa.model.register.RegisterResponsePayload
 import com.gsa.model.stateList.StateListResponse
+import com.gsa.model.user.UserResponsePayload
 import com.gsa.utils.Config
 import io.reactivex.Single
 import retrofit2.http.Field
@@ -95,7 +97,13 @@ interface AppRestApiFast {
 
     ): Single<ProductListResponse>
 
+    @FormUrlEncoded
+    @POST(Config.Endpoints.ORDER_LIST_API)
+    fun orderList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String
 
+    ): Single<OrderListResponse>
     @FormUrlEncoded
     @POST(Config.Endpoints.PRODUCT_LIST)
     fun productList1(
@@ -128,6 +136,47 @@ interface AppRestApiFast {
         , @Field("role_id") role_id: String
 
     ): Single<AddToCartResponse>
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.GET_USER_API)
+    fun getUser(
+        @Field("service") service: String, @Field("user_id") user_id: String
+
+
+    ): Single<UserResponsePayload>
+
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.UPDATE_USER_API)
+    fun updateUser(
+        @Field("service") service: String, @Field("user_id") user_id: String,
+        @Field("role_id")
+        role_id: String,
+        @Field("name")
+        name: String,
+        @Field("shop_name")
+        shopName: String,
+        @Field("email")
+        email: String,
+        @Field("pincode")
+        pincode: String,
+        @Field("address")
+        address: String,
+        @Field("state_id")
+        stateId: String,
+        @Field("city_id")
+        cityId: String,
+        @Field("gst_no")
+        gstNo: String,
+        @Field("pancard_no")
+        pancard_no: String,
+        @Field("adharcard_no")
+        aadharCard_no: String
+    ): Single<AddToCartResponse>
+
+
+
+
 /*
     @POST(Config.Endpoints.LOGIN_API)
     fun login(@Body data: LoginRequestPayload)

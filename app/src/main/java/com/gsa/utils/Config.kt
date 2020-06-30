@@ -76,7 +76,13 @@ class Config {
 
 
         const val CART_LIST = BASE_PATH + "order/cartlist"
+
         const val PLACE_ORDER_API = BASE_PATH + "order/add"
+
+        const val GET_USER_API = BASE_PATH + "user/getUser"
+
+        const val UPDATE_USER_API = BASE_PATH + "user/update_profile"
+
         const val CANCEL_ORDER_API = BASE_PATH + "shopping_carts/cancele_order"
 
         const val ORDER_DETAILS_API = BASE_PATH + "shopping_carts/{id}"
@@ -87,7 +93,7 @@ class Config {
         const val COUPON_LIST = BASE_PATH + "promotions"
         const val APPLY_COUPON = BASE_PATH + "shopping_carts/apply_promo"
 
-        const val ORDER_LIST_API = BASE_PATH + "shopping_carts"
+        const val ORDER_LIST_API = BASE_PATH + "order/order_list"
         const val BRAND_LIST_API = BASE_PATH + "brands"
         const val SEARCH_PRODUCT_API = BASE_PATH + "item_masters/search"
 

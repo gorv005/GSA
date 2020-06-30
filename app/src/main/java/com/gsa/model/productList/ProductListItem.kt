@@ -35,6 +35,6 @@ data class ProductListItem(@SerializedName("p_unit")
                            @SerializedName("CategoryName")
                            val categoryName: String = "",
                            @SerializedName("CartItemQty")
-                           val CartItemQty: Int=0 ,
+                           var CartItemQty: Int=0 ,
                            @SerializedName("id")
                            val id: String = "")
