@@ -28,18 +28,27 @@ import com.gsa.ui.landing.accounts.AccountViewModel
 import com.gsa.ui.landing.home.HomeRepository
 import com.gsa.ui.landing.home.HomeRepositoryImpl
 import com.gsa.ui.landing.home.HomeViewModel
+import com.gsa.ui.landing.ledger.LedgerRepository
+import com.gsa.ui.landing.ledger.LedgerRepositoryImpl
+import com.gsa.ui.landing.ledger.LedgerViewModel
 import com.gsa.ui.login.LoginRepository
 import com.gsa.ui.login.LoginRepositoryImpl
 import com.gsa.ui.login.LoginViewModel
 import com.gsa.ui.order.OrderListRepositoryImpl
 import com.gsa.ui.order.OrderRepository
 import com.gsa.ui.order.OrderViewModel
+import com.gsa.ui.points.PointsRepository
+import com.gsa.ui.points.PointsRepositoryImpl
+import com.gsa.ui.points.PointsViewModel
 import com.gsa.ui.productList.ProductListRepository
 import com.gsa.ui.productList.ProductListRepositoryImpl
 import com.gsa.ui.productList.ProductListViewModel
 import com.gsa.ui.register.RegisterRepository
 import com.gsa.ui.register.RegisterRepositoryImpl
 import com.gsa.ui.register.RegistrationViewModel
+import com.gsa.ui.search.SearchRepository
+import com.gsa.ui.search.SearchRepositoryImpl
+import com.gsa.ui.search.SearchViewModel
 import com.gsa.ui.splash.SplashViewModel
 
 import org.koin.android.ext.koin.androidApplication
@@ -95,6 +104,16 @@ object AppModule {
 
         single<AccountRepository> { AccountRepositoryImpl(get(), get()) }
         viewModel { AccountViewModel(get(),get(),get()) }
+
+        single<LedgerRepository> { LedgerRepositoryImpl(get(), get()) }
+        viewModel { LedgerViewModel(get(),get(),get()) }
+
+
+        single<PointsRepository> { PointsRepositoryImpl(get(), get()) }
+        viewModel { PointsViewModel(get(),get(),get()) }
+
+        single<SearchRepository> { SearchRepositoryImpl(get(), get()) }
+        viewModel { SearchViewModel(get(),get(),get()) }
 
         viewModel { SplashViewModel(get()) }
 

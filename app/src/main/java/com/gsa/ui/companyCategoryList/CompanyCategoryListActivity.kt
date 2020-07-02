@@ -24,6 +24,7 @@ import com.gsa.ui.companyCategoryList.adapter.AdapterCompanyCategories
 import com.gsa.ui.landing.home.adapter.AdapterHomeCategories
 import com.gsa.ui.productList.ProductListActivity
 import com.gsa.ui.productList.adapter.AdapterProductList
+import com.gsa.ui.search.SearchActivity
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Config
@@ -110,7 +111,17 @@ class CompanyCategoryListActivity : BaseActivity<CompanyCategoryListViewModel>(C
                 )
             }
         }
-
+        tvCategory.setOnClickListener {
+            let {
+                UiUtils.hideSoftKeyboard(it)
+                startActivity(
+                    SearchActivity.getIntent(
+                        it,company_id,""
+                    ),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                )
+            }
+        }
         subscribeLoading()
         subscribeUi()
         getData()

@@ -83,7 +83,9 @@ class Config {
 
         const val UPDATE_USER_API = BASE_PATH + "user/update_profile"
 
-        const val CANCEL_ORDER_API = BASE_PATH + "shopping_carts/cancele_order"
+        const val LEDGER_API = BASE_PATH + "common/report"
+
+        const val POINTS_API = BASE_PATH + "redeem/pointlist"
 
         const val ORDER_DETAILS_API = BASE_PATH + "shopping_carts/{id}"
 

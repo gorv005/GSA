@@ -147,7 +147,7 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
 
     override fun onResume() {
         super.onResume()
-        if ((activity as LandingNavigationActivity).getVisibleFragmentHome()) {
+        if ((activity as LandingNavigationActivity).getVisibleFragmentAccount()) {
 
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.my_account))
             (activity as LandingNavigationActivity).setBack(false)

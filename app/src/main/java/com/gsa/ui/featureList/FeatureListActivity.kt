@@ -24,12 +24,15 @@ import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.companyList.CompanyListViewModel
 import com.gsa.ui.landing.home.adapter.AdapterFeatureProduct
 import com.gsa.ui.landing.home.adapter.AdapterHomeCompanies
+import com.gsa.ui.search.SearchActivity
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Config
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
 import kotlinx.android.synthetic.main.activity_feature_list.*
+import kotlinx.android.synthetic.main.activity_feature_list.rv_products
+import kotlinx.android.synthetic.main.activity_product_list.*
 import kotlinx.android.synthetic.main.app_custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -142,7 +145,20 @@ class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewMo
                 )
             }
         }
+        tvProduct.setOnClickListener {
 
+                let {
+                    UiUtils.hideSoftKeyboard(it)
+                    startActivity(
+                        SearchActivity.getIntent(
+                            it,"",""
+                        ),
+                        ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                    )
+                }
+
+
+        }
         subscribeLoading()
         subscribeUi()
         getData()

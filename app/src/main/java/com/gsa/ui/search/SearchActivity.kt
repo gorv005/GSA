@@ -1,48 +1,37 @@
-package com.gsa.ui.productList
+package com.gsa.ui.search
 
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gsa.R
 import com.gsa.base.BaseActivity
-import com.gsa.callbacks.AdapterViewCompanyClickListener
 import com.gsa.callbacks.AdapterViewFeatureProductClickListener
 import com.gsa.model.cart.AddToCartResponse
-import com.gsa.model.cart.CartListItem
-import com.gsa.model.companyCategoryList.CompanyCategoryList
-import com.gsa.model.feature_product.FeatureProductListItem
-import com.gsa.model.home.CompanyListItem
 import com.gsa.model.productList.ProductListItem
 import com.gsa.model.productList.ProductListResponse
-import com.gsa.ui.cart.CartActivity
 import com.gsa.ui.cart.CartViewModel
-import com.gsa.ui.companyCategoryList.CompanyCategoryListActivity
-import com.gsa.ui.companyCategoryList.adapter.AdapterCompanyCategories
-import com.gsa.ui.companyList.CompanyListViewModel
-import com.gsa.ui.landing.home.HomeViewModel
-import com.gsa.ui.landing.home.adapter.AdapterHomeCompanies
+import com.gsa.ui.productList.ProductListActivity
+import com.gsa.ui.productList.ProductListViewModel
 import com.gsa.ui.productList.adapter.AdapterProductList
-import com.gsa.ui.search.SearchActivity
 import com.gsa.util.UiUtils
-import com.gsa.utils.AndroidUtils
-import com.gsa.utils.Config
-import com.gsa.utils.Logger
-import com.gsa.utils.NetworkUtil
-import kotlinx.android.synthetic.main.activity_company_category_list.*
+import com.gsa.utils.*
+import io.reactivex.ObservableSource
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Predicate
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_product_list.*
-import kotlinx.android.synthetic.main.app_custom_tool_bar.*
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.app_custom_tool_bar_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.concurrent.TimeUnit
 
-class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewModel::class),
+class SearchActivity : BaseActivity<SearchViewModel>(SearchViewModel::class),
     AdapterViewFeatureProductClickListener<ProductListItem> {
+    override fun layout(): Int = R.layout.activity_search
 
-    override fun layout(): Int = R.layout.activity_product_list
 
     override fun tag(): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -55,13 +44,6 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
     override fun titleColor(): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-    private var adapterProductList: AdapterProductList? = null
-    internal var productList: ArrayList<ProductListItem>? = null
-    var company_id: String?=null
-    var cat_id: String?=null
-    var fPos: Int = 0
-    var q: Int = 0
-    val modelCart: CartViewModel by viewModel()
 
     override fun onClickFeatureProductAdapterView(
         objectAtPosition: ProductListItem,
@@ -94,7 +76,6 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
         }
     }
 
-
     private fun updateData(objectAtPosition: ProductListItem, status: Int) {
 
         if (NetworkUtil.isInternetAvailable(this)) {
@@ -119,8 +100,17 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
 
     }
 
+    private var adapterProductList: AdapterProductList? = null
+    internal var productList: ArrayList<ProductListItem>? = null
+    var company_id: String?=null
+    var cat_id: String?=null
+    var fPos: Int = 0
+    var q: Int = 0
+    val modelCart: CartViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         productList = ArrayList()
 
         var manager2 = LinearLayoutManager(
@@ -131,8 +121,8 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
 
         intent?.run {
 
-            company_id = getStringExtra(KEY_COM_ID)
-            cat_id = getStringExtra(KEY_CAT_ID)
+            company_id = getStringExtra(ProductListActivity.KEY_COM_ID)
+            cat_id = getStringExtra(ProductListActivity.KEY_CAT_ID)
 
         }
         let {
@@ -140,50 +130,35 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
 
         }
         rv_products.adapter = adapterProductList
-        fl_left_img_container.setOnClickListener {
+        fl_left_img_container_search.setOnClickListener {
             onBackPressed()
         }
-        rlCart.setOnClickListener {
+        sv_product.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
-            let {
-                UiUtils.hideSoftKeyboard(it)
-                startActivity(
-                    CartActivity.getIntent(
-                        it
-                    ),
-                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
-                )
+            override fun onQueryTextChange(newText: String): Boolean {
+                if(newText.length>=2) {
+                    if (NetworkUtil.isInternetAvailable(this@SearchActivity)) {
+                        model.getProducts(
+                            "Product List",
+                            model.getUserID()!!,
+                            model.getRoleID()!!,
+                            company_id!!,
+                            cat_id!!,
+                            newText
+                        )
+                    }
+                }
+                return false
             }
-        }
-        tvProducts.setOnClickListener {
-            let {
-                UiUtils.hideSoftKeyboard(it)
-                startActivity(
-                    SearchActivity.getIntent(
-                        it,company_id,cat_id
-                    ),
-                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
-                )
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+
+                return false
             }
-        }
+
+        })
         subscribeLoading()
         subscribeUi()
-        getData()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_product)
-
-    }
-
-    private fun getData() {
-
-
-        if (NetworkUtil.isInternetAvailable(this)) {
-            model.getProducts("Product List", model.getUserID()!!, model.getRoleID()!!,company_id!!,cat_id!!,"")
-        }
-
     }
 
     private fun subscribeLoading() {
@@ -251,18 +226,46 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
             adapterProductList?.notifyDataSetChanged()
         }
     }
+/*
+    private fun setUpSearchObservable() {
+        RxSearchObservable.fromView(sv_product)
+            .debounce(300, TimeUnit.MILLISECONDS)
+            .filter(Predicate<String>() {
+
+
+            })
+            .distinctUntilChanged()
+            .switchMap(object : Function<String, ObservableSource<String>>() {
+                fun apply(query: String): ObservableSource<String> {
+                    return dataFromNetwork(query)
+                        .doOnError({ throwable ->
+                            // handle error
+                        })
+                        // continue emission in case of error also
+                        .onErrorReturn({ throwable -> "" })
+                }
+            })
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Consumer<String>() {
+                fun accept(result: String) {
+                    textViewResult.setText(result)
+                }
+            })
+    }
+*/
 
     companion object {
 
         const val KEY_COM_ID = "KEY_COM_ID"
         const val KEY_CAT_ID = "KEY_CAT_ID"
 
-        fun getIntent(context: Context?, com_d: String?,cat_d: String?): Intent? {
+        fun getIntent(context: Context?, com_d: String?, cat_d: String?): Intent? {
             if (context == null) {
                 return null
             }
 
-            return Intent(context, ProductListActivity::class.java).putExtra(
+            return Intent(context, SearchActivity::class.java).putExtra(
                 KEY_COM_ID,
                 com_d
             ).putExtra(KEY_CAT_ID,cat_d)

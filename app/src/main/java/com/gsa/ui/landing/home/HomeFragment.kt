@@ -31,6 +31,7 @@ import com.gsa.ui.landing.home.adapter.AdapterFeatureProduct
 import com.gsa.ui.landing.home.adapter.AdapterHomeCategories
 import com.gsa.ui.landing.home.adapter.AdapterHomeCompanies
 import com.gsa.ui.productList.ProductListActivity
+import com.gsa.ui.search.SearchActivity
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Config
@@ -253,7 +254,17 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
                 )
             }
         }
-
+        tvSearch.setOnClickListener {
+            activity?.let {
+                UiUtils.hideSoftKeyboard(it)
+                startActivity(
+                    SearchActivity.getIntent(
+                        it,"",""
+                    ),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                )
+            }
+        }
         rv_featuredProduct.adapter = adapterFeatureProduct
         subscribeLoading()
         subscribeUi()

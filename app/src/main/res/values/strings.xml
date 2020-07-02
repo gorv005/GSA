@@ -98,5 +98,15 @@
     <string name="update_password">Update Password:</string>
     <string name="update">Update</string>
     <string name="my_account">My Account</string>
+    <string name="my_ledger">My Ledger</string>
+    <string name="Rs">\u20B9</string>
+    <string name="earn_more_points">Earn more Points</string>
+    <string name="shop_now">Shop Now</string>
+    <string name="rewards">Rewards</string>
+    <string name="spend_points">Spend Points</string>
+    <string name="recent_points_history">Recent Points History</string>
+    <string name="points_">Points:</string>
+    <string name="my_points">My Points</string>
+    <string name="search_hint">Search Product</string>
 
 </resources>

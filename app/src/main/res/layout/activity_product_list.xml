@@ -11,7 +11,7 @@
         />
     <TextView
 
-        android:id="@+id/tvCategory"
+        android:id="@+id/tvProducts"
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:gravity="center_vertical"

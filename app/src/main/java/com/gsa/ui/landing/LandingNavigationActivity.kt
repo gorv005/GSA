@@ -17,7 +17,9 @@ import com.gsa.ui.cart.CartActivity
 import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.landing.accounts.FragmentAccount
 import com.gsa.ui.landing.home.HomeFragment
+import com.gsa.ui.landing.ledger.LedgerFragment
 import com.gsa.ui.order.OrderFragment
+import com.gsa.ui.points.PointsFragment
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Config
@@ -71,9 +73,9 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
     override fun getRootFragment(index: Int): Fragment {
         when (index) {
             INDEX_HOME -> return HomeFragment.getInstance(0)
-            INDEX_POINTS -> return HomeFragment.getInstance(0)
+            INDEX_POINTS -> return PointsFragment.getInstance(0)
             INDEX_ORDERS -> return OrderFragment.getInstance(0)
-            INDEX_LEDGER -> return HomeFragment.getInstance(0)
+            INDEX_LEDGER -> return LedgerFragment.getInstance(0)
             INDEX_ACCOUNT -> return FragmentAccount.getInstance(0)
 
         }
@@ -161,13 +163,13 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                 }
                 R.id.navigation_points -> {
                     fragNavController.switchTab(INDEX_POINTS)
-                 /*   setTitleOnBar(AndroidUtils.getString(R.string.order_list))
-                    setBack(false)*/
+                 setTitleOnBar(AndroidUtils.getString(R.string.my_points))
+                    setBack(false)
                 }
                 R.id.navigation_ledger -> {
                     fragNavController.switchTab(INDEX_LEDGER)
-                  /*  setTitleOnBar(AndroidUtils.getString(R.string.more))
-                    setBack(false)*/
+                    setTitleOnBar(AndroidUtils.getString(R.string.my_ledger))
+                    setBack(false)
                 }
                 R.id.navigation_account -> {
                     fragNavController.switchTab(INDEX_ACCOUNT)
@@ -207,13 +209,31 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
         }
         return false
     }
+
+    fun getVisibleFragmentLedger(): Boolean {
+        if (fragNavController.isRootFragment && fragNavController.currentFrag is LedgerFragment) {
+            return true
+        }
+        return false
+    }
+    fun getVisibleFragmentAccount(): Boolean {
+        if (fragNavController.isRootFragment && fragNavController.currentFrag is FragmentAccount) {
+            return true
+        }
+        return false
+    }
     fun getVisibleFragmentOrders(): Boolean {
         if (fragNavController.isRootFragment && fragNavController.currentFrag is OrderFragment) {
             return true
         }
         return false
     }
-
+    fun getVisibleFragmentPoints(): Boolean {
+        if (fragNavController.isRootFragment && fragNavController.currentFrag is PointsFragment) {
+            return true
+        }
+        return false
+    }
     fun setTitleOnBar(title: String?) {
         tv_tool_title.text = title
     }

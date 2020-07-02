@@ -8,8 +8,10 @@ import com.gsa.model.companyCategoryList.CompanyCategoryList
 import com.gsa.model.feature_product.FeatureProductResponse
 import com.gsa.model.home.CompaniesListResponse
 import com.gsa.model.home.categories.CategoriesListResponse
+import com.gsa.model.ledger.LedgerResponse
 import com.gsa.model.login.LoginResponsePayload
 import com.gsa.model.order.OrderListResponse
+import com.gsa.model.points.PointsResponse
 import com.gsa.model.productList.ProductListResponse
 import com.gsa.model.register.RegisterResponsePayload
 import com.gsa.model.stateList.StateListResponse
@@ -97,6 +99,16 @@ interface AppRestApiFast {
 
     ): Single<ProductListResponse>
 
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.PRODUCT_LIST)
+    fun searchProduct(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String,@Field("company_id") company_id: String,@Field("category_id") category_id: String
+,@Field("search_key") search_key: String
+    ): Single<ProductListResponse>
+
+
     @FormUrlEncoded
     @POST(Config.Endpoints.ORDER_LIST_API)
     fun orderList(
@@ -133,9 +145,15 @@ interface AppRestApiFast {
     @POST(Config.Endpoints.PLACE_ORDER_API)
     fun orderPlace(
         @Field("service") service: String, @Field("user_id") user_id: String
-        , @Field("role_id") role_id: String
+        , @Field("role_id") role_id: String    ): Single<AddToCartResponse>
 
-    ): Single<AddToCartResponse>
+    @FormUrlEncoded
+    @POST(Config.Endpoints.POINTS_API)
+    fun getPoints(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String ): Single<PointsResponse>
+
+
 
     @FormUrlEncoded
     @POST(Config.Endpoints.GET_USER_API)
@@ -176,7 +194,13 @@ interface AppRestApiFast {
 
 
 
+    @FormUrlEncoded
+    @POST(Config.Endpoints.LEDGER_API)
+    fun getLedgerReport(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String
 
+    ): Single<LedgerResponse>
 /*
     @POST(Config.Endpoints.LOGIN_API)
     fun login(@Body data: LoginRequestPayload)

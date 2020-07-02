@@ -16,13 +16,16 @@ import com.gsa.ui.cart.CartActivity
 import com.gsa.ui.companyCategoryList.CompanyCategoryListActivity
 import com.gsa.ui.landing.home.adapter.AdapterHomeCompanies
 import com.gsa.ui.productList.ProductListActivity
+import com.gsa.ui.search.SearchActivity
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Config
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
+import kotlinx.android.synthetic.main.activity_company_list.*
 import kotlinx.android.synthetic.main.app_custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.rv_companies
 
 class CompanyListActivity : BaseActivity<CompanyListViewModel>(CompanyListViewModel::class),
     AdapterViewCompanyClickListener<CompanyListItem> {
@@ -96,7 +99,17 @@ class CompanyListActivity : BaseActivity<CompanyListViewModel>(CompanyListViewMo
                 )
             }
         }
-
+        tvCompany.setOnClickListener {
+            let {
+                UiUtils.hideSoftKeyboard(it)
+                startActivity(
+                    SearchActivity.getIntent(
+                        it,"",""
+                    ),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                )
+            }
+        }
         subscribeLoading()
         subscribeUi()
         getData()

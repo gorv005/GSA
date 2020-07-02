@@ -77,7 +77,7 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
             } else {
                 model.addToCart(
                     "Add Cart", model.getUserID()!!, model.getRoleID()!!,
-                    objectAtPosition.id, "" + q, objectAtPosition.itemAmount
+                    objectAtPosition.itemId, "" + q, objectAtPosition.itemAmount
                 )
             }
         }

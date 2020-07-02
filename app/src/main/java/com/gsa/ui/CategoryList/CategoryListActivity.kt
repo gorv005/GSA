@@ -15,12 +15,16 @@ import com.gsa.model.home.categories.CategoryListItem
 import com.gsa.ui.cart.CartActivity
 import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.landing.home.adapter.AdapterHomeCategories
+import com.gsa.ui.productList.ProductListActivity
+import com.gsa.ui.search.SearchActivity
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
+import kotlinx.android.synthetic.main.activity_category_list.*
 import kotlinx.android.synthetic.main.app_custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.rv_categories
 
 class CategoryListActivity : BaseActivity<CategoryListViewModel>(CategoryListViewModel::class),
     AdapterViewClickListener<CategoryListItem> {
@@ -29,8 +33,15 @@ class CategoryListActivity : BaseActivity<CategoryListViewModel>(CategoryListVie
         viewType: Int,
         position: Int
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+        let {
+            UiUtils.hideSoftKeyboard(it)
+            startActivity(
+                ProductListActivity.getIntent(
+                    it, "", objectAtPosition.id
+                ),
+                ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+            )
+        }    }
 
     override fun layout(): Int = R.layout.activity_category_list
 
@@ -78,7 +89,17 @@ class CategoryListActivity : BaseActivity<CategoryListViewModel>(CategoryListVie
                 )
             }
         }
-
+        tvCategory.setOnClickListener {
+            let {
+                UiUtils.hideSoftKeyboard(it)
+                startActivity(
+                    SearchActivity.getIntent(
+                        it,"",""
+                    ),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                )
+            }
+        }
         subscribeLoading()
         subscribeUi()
         getData()
