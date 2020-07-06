@@ -1,6 +1,9 @@
 package com.gsa.ui.landing.accounts
 
 
+import android.app.ActivityOptions
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -13,20 +16,25 @@ import androidx.lifecycle.Observer
 
 import com.gsa.R
 import com.gsa.base.BaseFragment
+import com.gsa.managers.PreferenceManager
 import com.gsa.model.cart.AddToCartResponse
 import com.gsa.model.city_list.CityListItem
 import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.stateList.StateListItem
 import com.gsa.model.user.UserResponsePayload
 import com.gsa.ui.cart.CartViewModel
+import com.gsa.ui.change_password.ChangePasswordActivity
 import com.gsa.ui.landing.LandingNavigationActivity
 import com.gsa.ui.landing.home.HomeFragment
 import com.gsa.ui.landing.home.HomeViewModel
+import com.gsa.ui.login.LoginActivity
+import com.gsa.ui.register.RegistrationActivity
 import com.gsa.ui.register.RegistrationViewModel
 import com.gsa.ui.register.adapter.CityDropDownAdapter
 import com.gsa.ui.register.adapter.StateDropDownAdapter
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
+import com.gsa.utils.Config
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
 import kotlinx.android.synthetic.main.app_custom_tool_bar.*
@@ -120,6 +128,16 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
             }
 
         }
+
+        etPassword.setOnClickListener {
+            activity?.let {
+                startActivity(
+                    ChangePasswordActivity.getIntent(it),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+
+                )
+            }
+        }
         subscribeUi()
         subscribeLoading()
 
@@ -128,6 +146,10 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
 
         }
 
+        btnLogout.setOnClickListener {
+            logout()
+
+        }
         if (NetworkUtil.isInternetAvailable(context)) {
             modelReg.stateList("State List")
         }
@@ -153,6 +175,44 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
             (activity as LandingNavigationActivity).setBack(false)
         }
     }
+    private fun logout() {
+        activity?.let {
+            val dialogBuilder = AlertDialog.Builder(it)
+
+            // set message of alert dialog
+            dialogBuilder.setMessage("Do you want to logout from this application ?")
+                // if the dialog is cancelable
+                .setCancelable(false)
+                // positive button text and action
+                .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
+
+                    var preferenceManager = PreferenceManager(it)
+                    preferenceManager.savePreference(
+                        Config.SharedPreferences.PROPERTY_LOGIN_PREF,
+                        false
+                    )
+
+                    startActivity(
+                        LoginActivity.getIntent(it),
+                        ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()
+                    )
+
+
+                })
+                // negative button text and action
+                .setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                })
+
+            // create dialog box
+            val alert = dialogBuilder.create()
+            // set title for alert dialog box
+            alert.setTitle(AndroidUtils.getString(R.string.logout))
+            // show alert dialog
+            alert.show()
+        }
+    }
+
     fun doUpdate() {
 
         activity?.let { UiUtils.hideSoftKeyboard(it) }

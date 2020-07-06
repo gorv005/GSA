@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.search.SearchActivity"></activity>
+        <activity android:name=".ui.change_password.ChangePasswordActivity"></activity>
+        <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.order_details.OrderDetailsActivity" />
         <activity
             android:name=".ui.cart.CartActivity"

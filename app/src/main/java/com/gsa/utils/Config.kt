@@ -64,7 +64,7 @@ class Config {
 
         const val FETCH_USER_API = BASE_PATH + "users/account_profile"
         const val DELETE_USER_API = BASE_PATH + "users/account_profile"
-        const val CHANGE_PASSWORD_API = BASE_PATH + "users/update_password"
+        const val CHANGE_PASSWORD_API = BASE_PATH + "user/changepassword"
         const val CATEGORIES_API = BASE_PATH + "categories"
         const val PRODUCT_LIST_API = BASE_PATH + "item_masters/"
         const val SUB_CATEGORIES_LIST_API = BASE_PATH + "subcategories/"

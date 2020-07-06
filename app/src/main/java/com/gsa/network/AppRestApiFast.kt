@@ -163,6 +163,13 @@ interface AppRestApiFast {
 
     ): Single<UserResponsePayload>
 
+    @FormUrlEncoded
+    @POST(Config.Endpoints.CHANGE_PASSWORD_API)
+    fun changePassword(
+        @Field("user_id") user_id: String, @Field("old_password") old_password: String
+,@Field("new_password") new_password: String
+
+    ): Single<AddToCartResponse>
 
     @FormUrlEncoded
     @POST(Config.Endpoints.UPDATE_USER_API)
