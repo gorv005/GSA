@@ -12,6 +12,9 @@ import com.gsa.ui.CategoryList.CategoryListViewModel
 import com.gsa.ui.cart.CartRepository
 import com.gsa.ui.cart.CartRepositoryImpl
 import com.gsa.ui.cart.CartViewModel
+import com.gsa.ui.change_password.ChangePasswordRepository
+import com.gsa.ui.change_password.ChangePasswordViewModel
+import com.gsa.ui.change_password.Change_passwordRepositoryImpl
 import com.gsa.ui.companyCategoryList.CategoryCompanyListRepository
 import com.gsa.ui.companyCategoryList.CategoryCompanyListRepositoryImpl
 import com.gsa.ui.companyCategoryList.CompanyCategoryListViewModel
@@ -112,8 +115,11 @@ object AppModule {
         single<PointsRepository> { PointsRepositoryImpl(get(), get()) }
         viewModel { PointsViewModel(get(),get(),get()) }
 
-        single<SearchRepository> { SearchRepositoryImpl(get(), get()) }
+              single<SearchRepository> { SearchRepositoryImpl(get(), get()) }
         viewModel { SearchViewModel(get(),get(),get()) }
+
+        single<ChangePasswordRepository> { Change_passwordRepositoryImpl(get(), get()) }
+        viewModel { ChangePasswordViewModel(get(),get(),get()) }
 
         viewModel { SplashViewModel(get()) }
 
