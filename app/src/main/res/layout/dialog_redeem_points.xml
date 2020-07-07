@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/etPoints"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:paddingStart="@dimen/padding3x4"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:paddingEnd="@dimen/padding3x4"
+        android:layout_gravity="center"
+        android:inputType="numberDecimal"
+        android:animateLayoutChanges="@bool/show"
+        android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+        android:drawablePadding="@dimen/margin5x2"
+        android:fontFamily="@font/roboto_regular"
+        android:layout_marginTop="20dp"
+        android:hint="@string/enter_points"
+        android:maxLength="15"
+        android:drawableTint="@color/blue_a"
+        android:singleLine="@bool/show"
+        android:importantForAutofill="no"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_sp18"
+        tools:ignore="UnusedAttribute"/>
+
+</LinearLayout>

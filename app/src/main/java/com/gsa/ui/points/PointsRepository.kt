@@ -1,5 +1,6 @@
 package com.gsa.ui.points
 
+import com.gsa.model.cart.AddToCartResponse
 import com.gsa.model.feature_product.FeatureProductListItem
 import com.gsa.model.feature_product.FeatureProductResponse
 import com.gsa.model.home.CompaniesListResponse
@@ -12,4 +13,6 @@ interface PointsRepository {
     fun getPoints(service :String, user_id: String, role_id: String
                     ) : Single<PointsResponse>
 
+    fun redeemPointList(service :String, user_id: String, role_id: String,redeem_point: String
+    ) : Single<AddToCartResponse>
 }

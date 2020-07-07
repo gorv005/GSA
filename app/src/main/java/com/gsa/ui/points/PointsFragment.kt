@@ -1,28 +1,35 @@
 package com.gsa.ui.points
 
 
+import android.app.ActivityOptions
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.gsa.R
 import com.gsa.base.BaseFragment
 import com.gsa.callbacks.AdapterViewClickListener
+import com.gsa.managers.PreferenceManager
 import com.gsa.model.order.OrderListItem
 import com.gsa.model.order.OrderListResponse
 import com.gsa.model.points.PointListItem
 import com.gsa.model.points.PointsResponse
 import com.gsa.ui.landing.LandingNavigationActivity
+import com.gsa.ui.login.LoginActivity
 import com.gsa.ui.order.OrderFragment
 import com.gsa.ui.order.OrderViewModel
 import com.gsa.ui.order.adapter.AdapterOrderList
 import com.gsa.ui.points.adapter.AdapterPointsList
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
+import com.gsa.utils.Config
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
 import kotlinx.android.synthetic.main.fragment_order.*
@@ -65,6 +72,30 @@ class PointsFragment : BaseFragment<PointsViewModel>(PointsViewModel::class),
             rv_points.adapter = adapterPointsList
 
         }
+        rlRedeemPoints.setOnClickListener {
+            redeemPoints()
+        }
+        rlGetPoints.setOnClickListener {
+            activity?.let {
+                startActivity(LandingNavigationActivity.getIntent(it, 1))
+            }
+        }
+        llRewardPoint.setOnClickListener {
+            redeemPoints()
+        }
+        tvSpendPoint.setOnClickListener {
+            redeemPoints()
+        }
+        llShopNow.setOnClickListener {
+            activity?.let {
+                startActivity(LandingNavigationActivity.getIntent(it, 1))
+            }
+        }
+        tvEarnPoint.setOnClickListener {
+            activity?.let {
+                startActivity(LandingNavigationActivity.getIntent(it, 1))
+            }
+        }
         subscribeLoading()
         subscribeUi()
         getData()
@@ -86,7 +117,63 @@ class PointsFragment : BaseFragment<PointsViewModel>(PointsViewModel::class),
         }
 
     }
+    private fun redeemPoints(points : String) {
 
+        if (NetworkUtil.isInternetAvailable(activity)) {
+            model.reedemPoints("Redeem Request", model.getUserID()!!, model.getRoleID()!!,points)
+        }
+
+    }
+    private fun redeemPoints() {
+        activity?.let {
+            val dialogBuilder = android.app.AlertDialog.Builder(it)
+            val inflater = layoutInflater
+            dialogBuilder.setTitle("Redeem Points")
+            // set message of alert dialog
+            val dialogLayout = inflater.inflate(R.layout.dialog_redeem_points, null)
+            val editText  = dialogLayout.findViewById<EditText>(R.id.etPoints)                // if the dialog is cancelable
+            dialogBuilder.setView(dialogLayout)
+
+                // positive button text and action
+                .setPositiveButton("Done", DialogInterface.OnClickListener { dialog, id ->
+                    if(editText.text.toString().toDouble()<=tvPoints.text.toString().toDouble()) {
+                        redeemPoints(editText.text.toString())
+                        dialog.dismiss()
+                    }else{
+                        showSnackbar(AndroidUtils.getString(R.string.entered_points_greater), false)
+
+                    }
+
+                })
+                // negative button text and action
+                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
+                    dialog.cancel()
+                })
+
+            // create dialog box
+            val alert = dialogBuilder.create()
+            // set title for alert dialog box
+            alert.setTitle(AndroidUtils.getString(R.string.Redeem_Points))
+            // show alert dialog
+            alert.show()
+        }
+    }
+
+/*
+    fun withEditText(view: View) {
+        val builder = AlertDialog.Builder(context)
+        val inflater = layoutInflater
+        builder.setTitle("Redeem Points")
+        val dialogLayout = inflater.inflate(R.layout.dialog_redeem_points, null)
+        val editText  = dialogLayout.findViewById<EditText>(R.id.etPoints)
+        builder.setView(dialogLayout)
+        builder.setPositiveButton("Done") {
+                dialogInterface, i -> redeemPoints(editText.text.toString())
+            dialogInterface.dismiss()
+        }
+        builder.show()
+    }
+*/
     private fun subscribeLoading() {
 
         model.searchEvent.observe(this, Observer {
@@ -109,6 +196,17 @@ class PointsFragment : BaseFragment<PointsViewModel>(PointsViewModel::class),
 
             showData(it)
 
+        })
+        model.redeemPointsListModel.observe(this, Observer {
+            Logger.Debug("DEBUG", it.toString())
+            if(it.status) {
+                showSnackbar(it.message, true)
+                getData()
+            }
+            else{
+                showSnackbar(it.message, true)
+
+            }
         })
     }
 

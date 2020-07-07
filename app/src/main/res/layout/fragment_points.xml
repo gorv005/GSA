@@ -53,6 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/rlGetPoints"
                 android:layout_centerHorizontal="true"
                 android:padding="10dp"
                 android:background="@drawable/rounded_corners_app_black_edittext_bg"
@@ -60,7 +61,7 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content">
             <TextView
-
+                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -69,13 +70,16 @@
                 android:singleLine="@bool/show"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                android:id="@+id/tvEarnPoint"
                 android:text="@string/earn_more_points"
-                tools:ignore="UnusedAttribute" />
+                 />
 
 
                 <LinearLayout
+                    android:clickable="true"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
+                    android:id="@+id/llShopNow"
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -97,7 +101,7 @@
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:text="@string/shop_now"
-                            tools:ignore="UnusedAttribute" />
+                            />
                     <ImageView
                         app:srcCompat="@drawable/ic_chevron_right_black_24dp"
                         android:layout_width="wrap_content"
@@ -112,13 +116,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/rlRedeemPoints"
                 android:layout_centerHorizontal="true"
                 android:padding="10dp"
+                android:clickable="true"
+
                 android:background="@drawable/rounded_corners_app_black_edittext_bg"
                 android:orientation="vertical"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:clickable="true"
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -128,11 +136,14 @@
                     android:singleLine="@bool/show"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:id="@+id/tvSpendPoint"
                     android:text="@string/spend_points"
-                    tools:ignore="UnusedAttribute" />
+                   />
 
 
                 <LinearLayout
+                    android:clickable="true"
+                    android:id="@+id/llRewardPoint"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:layout_gravity="center"

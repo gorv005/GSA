@@ -45,9 +45,9 @@ class AdapterPointsList(
 
         fun bind(allProducts: PointListItem, adapterViewClick: AdapterViewClickListener<PointListItem>?) {
 
-            itemView.text_order_no?.text = allProducts.orderNumber
+         //   itemView.text_order_no?.text = allProducts.orderNumber
             itemView.text_date_name?.text = allProducts.date
-            itemView.text_points_name.setText(""+allProducts.totalPoint)
+            itemView.text_points_name.setText(""+allProducts.redeem_point)
 
 
 

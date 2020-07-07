@@ -154,6 +154,11 @@ interface AppRestApiFast {
         , @Field("role_id") role_id: String ): Single<PointsResponse>
 
 
+    @FormUrlEncoded
+    @POST(Config.Endpoints.REDEEM_POINT_LIST_API)
+    fun redeemPointList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String,@Field("redeem_point") redeem_point: String ): Single<AddToCartResponse>
 
     @FormUrlEncoded
     @POST(Config.Endpoints.GET_USER_API)

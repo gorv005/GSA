@@ -127,7 +127,7 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
 
         }
         tvShopMore.setOnClickListener {
-            startActivity(LandingNavigationActivity.getIntent(this, 3))
+            startActivity(LandingNavigationActivity.getIntent(this, 1))
 
         }
         subscribeLoading()

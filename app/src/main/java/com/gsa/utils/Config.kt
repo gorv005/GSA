@@ -87,7 +87,7 @@ class Config {
 
         const val POINTS_API = BASE_PATH + "redeem/pointlist"
 
-        const val ORDER_DETAILS_API = BASE_PATH + "shopping_carts/{id}"
+        const val REDEEM_POINT_LIST_API = BASE_PATH + "redeem/redeem_request"
 
         const val UPDATE_ADDRESS_API = BASE_PATH + "shopping_carts/add_address"
         const val SHIPPING_CHARGE_API = BASE_PATH + "shopping_carts/setting"

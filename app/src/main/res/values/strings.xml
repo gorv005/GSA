@@ -112,5 +112,8 @@
     <string name="change_password">Change Password</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
+    <string name="enter_points">Enter Points</string>
+    <string name="entered_points_greater">Entered points are greater than total points.</string>
+    <string name="Redeem_Points">Redeem Points</string>
 
 </resources>

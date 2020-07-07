@@ -11,4 +11,8 @@ data class PointsResponse(@SerializedName("PointList")
                           @SerializedName("status")
                           val status: Boolean = false,
                           @SerializedName("RedeemPoints")
-                          val redeemPoints: String = "")
+                          val redeemPoints: String = "",
+                          @SerializedName("UsePoints")
+                          val UsePoints: String = "",
+                          @SerializedName("BalancePoints")
+                          val BalancePoints: String = "")

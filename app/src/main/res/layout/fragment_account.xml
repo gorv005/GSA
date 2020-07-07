@@ -81,7 +81,7 @@
                     android:layout_width="0dp"
                     android:layout_height="43dp"
                     android:layout_weight="1"
-                    android:enabled="false"
+                    android:focusable="false"
                     android:clickable="true"
                     android:animateLayoutChanges="@bool/show"
                     android:background="@drawable/rounded_corners_app_blue_button_bg"
