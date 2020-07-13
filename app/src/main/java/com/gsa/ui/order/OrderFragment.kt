@@ -76,6 +76,11 @@ class OrderFragment : BaseFragment<OrderViewModel>(OrderViewModel::class),
             rv_orders.adapter = adapterOrderList
 
         }
+        tvShopMore.setOnClickListener {
+            activity?.let {
+                startActivity(LandingNavigationActivity.getIntent(it, 1))
+            }
+        }
         subscribeLoading()
         subscribeUi()
         getData()
@@ -87,6 +92,8 @@ class OrderFragment : BaseFragment<OrderViewModel>(OrderViewModel::class),
 
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.my_orders))
             (activity as LandingNavigationActivity).setBack(false)
+            (activity as LandingNavigationActivity).setSync(false)
+
         }
     }
 
@@ -137,6 +144,13 @@ class OrderFragment : BaseFragment<OrderViewModel>(OrderViewModel::class),
             adapterOrderList?.submitList(it)
 
             adapterOrderList?.notifyDataSetChanged()
+        }
+        orderListList?.let {
+            if(it.size==0){
+                rlNoData.visibility=View.VISIBLE
+
+            }
+
         }
     }
 }

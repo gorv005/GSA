@@ -107,6 +107,8 @@ class PointsFragment : BaseFragment<PointsViewModel>(PointsViewModel::class),
 
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.my_points))
             (activity as LandingNavigationActivity).setBack(false)
+            (activity as LandingNavigationActivity).setSync(false)
+
         }
     }
 
@@ -225,6 +227,12 @@ class PointsFragment : BaseFragment<PointsViewModel>(PointsViewModel::class),
             adapterPointsList?.submitList(it)
 
             adapterPointsList?.notifyDataSetChanged()
+        }
+
+        pointList?.let {
+            if(it.size==0){
+                tvRecentHistory.visibility=View.GONE
+            }
         }
     }
 }

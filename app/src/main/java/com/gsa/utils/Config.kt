@@ -83,7 +83,7 @@ class Config {
 
         const val UPDATE_USER_API = BASE_PATH + "user/update_profile"
 
-        const val LEDGER_API = BASE_PATH + "common/report"
+        const val LEDGER_API = BASE_PATH + "common/userreport"
 
         const val POINTS_API = BASE_PATH + "redeem/pointlist"
 

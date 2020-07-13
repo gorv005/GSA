@@ -278,6 +278,20 @@ class AndroidUtils {
 
             return null
         }
+
+        fun validatePasswordLength(name: String): CharSequence? {
+
+            if (TextUtils.isEmpty(name)) {
+                return AndroidUtils.getString(R.string.error_field_cant_blank)
+            }else if(name.length<4){
+                return AndroidUtils.getString(R.string.error_field_password_length)
+
+            }
+
+
+            return null
+        }
+
         fun validateCode(name: String): CharSequence? {
 
             if (TextUtils.isEmpty(name)) {

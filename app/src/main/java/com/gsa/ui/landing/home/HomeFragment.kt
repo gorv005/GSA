@@ -277,10 +277,12 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
 
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.welcome)+ " " +model.getUserName())
             (activity as LandingNavigationActivity).setBack(false)
+            (activity as LandingNavigationActivity).setSync(true)
+
         }
     }
 
-    private fun getData() {
+    public fun getData() {
 
         if (NetworkUtil.isInternetAvailable(activity)) {
             model.getCategories("Category List", model.getUserID()!!, model.getRoleID()!!)

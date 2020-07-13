@@ -12,6 +12,7 @@
     <string name="error_field_cant_blank">field can\'t blank</string>
     <string name="error_field_country_code">Please enter country code</string>
     <string name="error_field_cant_blank_address">Please enter additional details, it will help us to deliver the order</string>
+    <string name="error_field_password_length">Password length should be minimum 4 digits</string>
 
     <string name="error_field_not_valid_email">email is not valid</string>
     <string name="error_password_min_length">password min length is %1$d</string>
@@ -115,5 +116,12 @@
     <string name="enter_points">Enter Points</string>
     <string name="entered_points_greater">Entered points are greater than total points.</string>
     <string name="Redeem_Points">Redeem Points</string>
+    <string name="description">Description</string>
+    <string name="debit">Debit</string>
+    <string name="credit">Credit</string>
+    <string name="balance">Balance</string>
+    <string name="date_">Date</string>
+    <string name="no_orders_found">No Order Found</string>
+    <string name="description_">Description:</string>
 
 </resources>

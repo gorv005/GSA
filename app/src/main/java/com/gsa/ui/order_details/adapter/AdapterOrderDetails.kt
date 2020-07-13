@@ -52,9 +52,11 @@ class AdapterOrderDetails(
 
         fun bind(allProducts: ItemListItem, adapterViewClick: AdapterViewClickListener<ItemListItem>?, position: Int) {
 
-            itemView.text_sr_no?.text = ""+position
+            var p=position+1
+            itemView.text_sr_no?.text = ""+p
             itemView.text_part_no?.text = allProducts.itemName
             itemView.text_amount_label_list.setText(""+allProducts.itemAmount)
+            itemView.text_amount_label_list.visibility=View.GONE
             itemView.text_quantity.setText(""+allProducts.itemQty)
 
 

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class LedgerResponse(@SerializedName("message")
                           val message: String = "",
-                          @SerializedName("url")
-                          val url: String = "",
+                          @SerializedName("ReportList")
+                          val reportList: List<ReportListItem>?,
                           @SerializedName("status")
                           val status: Boolean = false)

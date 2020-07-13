@@ -28,7 +28,7 @@
                 android:textColor="@color/black"
                 />
             <TextView
-                android:layout_weight="2"
+                android:layout_weight="2.5"
                 android:id="@+id/text_part_no"
                 android:layout_width="0dp"
                 android:gravity="center"
@@ -45,7 +45,7 @@
                 android:textColor="@color/black"
                 />
             <TextView
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:id="@+id/text_quantity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -61,6 +61,7 @@
                 android:textColor="@color/black"
                 />
             <TextView
+                android:visibility="gone"
                 android:layout_weight="1"
                 android:id="@+id/text_amount_label_list"
                 android:layout_width="0dp"

@@ -8,9 +8,16 @@
     <include
         layout="@layout/app_custom_tool_bar"
         />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_marginTop="@dimen/toolbar_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
     <RelativeLayout
         android:padding="10dp"
-        android:layout_marginTop="70dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 <androidx.cardview.widget.CardView
@@ -86,9 +93,9 @@
 
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_weight="1"
                     android:gravity="center"
-                    android:id="@+id/ll_amount_no"
+                    android:layout_weight="1"
+                    android:id="@+id/ll_Status"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="0dp"
@@ -96,7 +103,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/text_amount_label"
+                        android:id="@+id/text_status_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -107,10 +114,10 @@
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:textColor="@color/black"
-                        android:text="@string/amount"
+                        android:text="@string/status"
                         />
                     <TextView
-                        android:id="@+id/text_amount"
+                        android:id="@+id/text_status_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -175,11 +182,11 @@
                         />
 
                 </LinearLayout>
-
                 <LinearLayout
-                    android:gravity="center"
                     android:layout_weight="1"
-                    android:id="@+id/ll_Status"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:id="@+id/ll_amount_no"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="0dp"
@@ -187,7 +194,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/text_status_label"
+                        android:id="@+id/text_amount_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -198,10 +205,10 @@
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:textColor="@color/black"
-                        android:text="@string/status"
+                        android:text="@string/amount"
                         />
                     <TextView
-                        android:id="@+id/text_status_name"
+                        android:id="@+id/text_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -214,6 +221,7 @@
                         />
 
                 </LinearLayout>
+
 
 
             </LinearLayout>
@@ -246,7 +254,7 @@
                 android:textColor="@color/black"
                 />
             <TextView
-                android:layout_weight="1.7"
+                android:layout_weight="2.5"
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:layout_height="wrap_content"
@@ -261,7 +269,7 @@
                 android:textColor="@color/black"
                 />
             <TextView
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -276,6 +284,7 @@
                 android:textColor="@color/black"
                 />
             <TextView
+                android:visibility="gone"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -310,6 +319,7 @@
             android:layout_height="0.5dp"/>
 
         <LinearLayout
+            android:id="@+id/llOrderPaymet"
             android:layout_marginEnd="50dp"
             android:layout_gravity="end"
             android:layout_width="wrap_content"
@@ -318,6 +328,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_total"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -356,6 +367,8 @@
 
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
+
                 android:id="@+id/ll_discount"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -394,6 +407,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_grand_total"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -477,4 +491,5 @@
     </LinearLayout>
 </androidx.cardview.widget.CardView>
     </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

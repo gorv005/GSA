@@ -68,9 +68,9 @@
 
             </LinearLayout>
             <LinearLayout
-                android:gravity="center"
                 android:layout_weight="1"
-                android:id="@+id/ll_amount_no"
+                android:id="@+id/ll_Status"
+                android:gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="0dp"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/text_amount_label"
+                    android:id="@+id/text_status_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -89,10 +89,10 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="@color/black"
-                    android:text="@string/amount"
+                    android:text="@string/status"
                     />
                 <TextView
-                    android:id="@+id/text_amount"
+                    android:id="@+id/text_status_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -157,11 +157,10 @@
                     />
 
             </LinearLayout>
-
             <LinearLayout
-                android:layout_weight="1"
-                android:id="@+id/ll_Status"
                 android:gravity="center"
+                android:layout_weight="1"
+                android:id="@+id/ll_amount_no"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="0dp"
@@ -169,7 +168,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/text_status_label"
+                    android:id="@+id/text_amount_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -180,10 +179,10 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="@color/black"
-                    android:text="@string/status"
+                    android:text="@string/amount"
                     />
                 <TextView
-                    android:id="@+id/text_status_name"
+                    android:id="@+id/text_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -196,6 +195,7 @@
                     />
 
             </LinearLayout>
+
 
 
         </LinearLayout>

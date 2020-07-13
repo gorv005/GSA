@@ -150,6 +150,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                             Config.SharedPreferences.PROPERTY_USER_NAME,
                             ""
                         ))
+                        setSync(true)
                         setBack(false)
 
                     }
@@ -160,16 +161,22 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
 
                     )
                     setBack(false)
+                    setSync(false)
+
                 }
                 R.id.navigation_points -> {
                     fragNavController.switchTab(INDEX_POINTS)
                  setTitleOnBar(AndroidUtils.getString(R.string.my_points))
                     setBack(false)
+                    setSync(false)
+
                 }
                 R.id.navigation_ledger -> {
                     fragNavController.switchTab(INDEX_LEDGER)
                     setTitleOnBar(AndroidUtils.getString(R.string.my_ledger))
                     setBack(false)
+                    setSync(false)
+
                 }
                 R.id.navigation_account -> {
                     fragNavController.switchTab(INDEX_ACCOUNT)
@@ -177,6 +184,8 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
 
                     )
                     setBack(false)
+                    setSync(false)
+
                 }
             }
         }, initial)
@@ -193,6 +202,12 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                 )
             }
         }
+
+        rlSync.setOnClickListener {
+            if(getVisibleFragmentHome()){
+                (fragNavController.currentFrag as HomeFragment).getData()
+            }
+        }
         bottomBar.setOnTabReselectListener { fragNavController.clearStack() }
     }
     fun setBack(isShow: Boolean) {
@@ -203,7 +218,16 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
 
         }
     }
-     fun getVisibleFragmentHome(): Boolean {
+    fun setSync(isShow: Boolean) {
+        if (isShow) {
+            rlSync.visibility = View.VISIBLE
+        } else {
+            rlSync.visibility = View.GONE
+
+        }
+    }
+
+    fun getVisibleFragmentHome(): Boolean {
         if (fragNavController.isRootFragment && fragNavController.currentFrag is HomeFragment) {
             return true
         }

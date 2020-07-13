@@ -183,6 +183,7 @@
 
     </LinearLayout>
     <TextView
+        android:id="@+id/tvRecentHistory"
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"

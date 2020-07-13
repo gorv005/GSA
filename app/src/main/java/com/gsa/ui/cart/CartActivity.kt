@@ -100,7 +100,7 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
     }
 
     private var adapterFeatureProduct: AdapterCartProduct? = null
-    internal var cartList: List<CartListItem>? = null
+    internal var cartList: ArrayList<CartListItem>? = null
     var fPos: Int = 0
     var q: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -210,6 +210,9 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
         if (data!!.status) {
             cartList?.get(fPos)?.itemQty = q
         }
+        if(q==0){
+            cartList?.removeAt(fPos)
+        }
         setData()
         cartList?.let {
             adapterFeatureProduct?.submitList(it)
@@ -231,10 +234,12 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
 
         cartList?.let {
             if(it.size>0){
-                llPaylow.visibility=View.VISIBLE
+                llPaylow.visibility=View.GONE
                 llCheckout.visibility=View.VISIBLE
             }else{
                 rlNoData.visibility=View.VISIBLE
+                llCheckout.visibility=View.GONE
+
             }
 
         }

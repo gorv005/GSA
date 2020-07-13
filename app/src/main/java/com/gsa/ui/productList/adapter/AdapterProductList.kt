@@ -52,7 +52,7 @@ class AdapterProductList(
         fun bind(allProducts: ProductListItem, adapterViewClick: AdapterViewFeatureProductClickListener<ProductListItem>?) {
 
             itemView.text_part_no?.text = allProducts.productName
-            itemView.text_mrp?.text = allProducts.pMrp
+            itemView.text_mrp?.text = allProducts.pDescription
             itemView.tvQuantity.setText(""+allProducts.CartItemQty)
             itemView.text_company_name.text=allProducts.companyName
 

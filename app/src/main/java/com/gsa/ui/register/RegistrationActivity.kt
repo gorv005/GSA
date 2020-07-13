@@ -75,6 +75,8 @@ class RegistrationActivity : BaseActivity<RegistrationViewModel>(RegistrationVie
         et_city.setOnClickListener {
             spinner_city.performClick()
         }
+
+        etName.filters
         spinner_state?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -134,14 +136,24 @@ class RegistrationActivity : BaseActivity<RegistrationViewModel>(RegistrationVie
         this?.let { UiUtils.hideSoftKeyboard(it) }
 
         val validateMobileError = AndroidUtils.mobilePassword(etMobile.text.toString())
-        val validatePasswordError = AndroidUtils.validateName(etPassword.text.toString())
+        val validatePasswordError = AndroidUtils.validatePasswordLength(etPassword.text.toString())
         val validateNameError = AndroidUtils.validateName(etName.text.toString())
         val validateShopNameError = AndroidUtils.validateName(etShop_name.text.toString())
         val validateGSTError = AndroidUtils.validateName(etGst.text.toString())
         val validateGSTValidError = AndroidUtils.gstValidation(etGst.text.toString())
+        var validatePanNumberError: CharSequence? =null
+        if(et_pan_number.text.toString().length>0) {
+             validatePanNumberError = AndroidUtils.panValidation(et_pan_number.text.toString())
+        }else{
+            validatePanNumberError=null
+        }
 
-        val validatePanNumberError = AndroidUtils.panValidation(et_pan_number.text.toString())
-        val validateaadharNumberError = AndroidUtils.aadharValidation(etaadhar_number.text.toString())
+        var validateaadharNumberError: CharSequence? =null
+        if(etaadhar_number.text.toString().length>0) {
+            validateaadharNumberError = AndroidUtils.aadharValidation(etaadhar_number.text.toString())
+        }else{
+            validateaadharNumberError=null
+        }
         val validateEmailError = AndroidUtils.validateEmail(et_email.text.toString())
         val validateAddressError = AndroidUtils.validateName(et_address.text.toString())
         val validateStateError = AndroidUtils.validateName(etState.text.toString())

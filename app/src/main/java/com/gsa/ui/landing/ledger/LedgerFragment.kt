@@ -15,30 +15,57 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.gsa.R
 import com.gsa.base.BaseFragment
+import com.gsa.callbacks.AdapterViewClickListener
+import com.gsa.callbacks.AdapterViewFeatureProductClickListener
+import com.gsa.model.feature_product.FeatureProductListItem
+import com.gsa.model.ledger.ReportListItem
 import com.gsa.ui.landing.LandingNavigationActivity
 import com.gsa.ui.landing.home.HomeFragment
 import com.gsa.ui.landing.home.HomeViewModel
+import com.gsa.ui.landing.home.adapter.AdapterFeatureProduct
+import com.gsa.ui.landing.ledger.adapter.AdapterLedger
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
+import kotlinx.android.synthetic.main.activity_feature_list.*
 import kotlinx.android.synthetic.main.fragment_ledger.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class){
+class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class),
+    AdapterViewClickListener<ReportListItem> {
+    override fun onClickAdapterView(
+        objectAtPosition: ReportListItem,
+        viewType: Int,
+        position: Int
+    ) {
+    }
+
     override fun getLayoutId() = R.layout.fragment_ledger
 
+    private var adapterLedger: AdapterLedger? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initWebView()
-        setWebClient()
+        var manager2 = LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL, false
+        )
+        rv_ledger_report.layoutManager = manager2
+
+
+        activity?.let {
+            adapterLedger = AdapterLedger(this, it)
+
+        }
+        rv_ledger_report.adapter = adapterLedger
         subscribeLoading()
         subscribeUi()
         if (NetworkUtil.isInternetAvailable(context)) {
@@ -64,6 +91,8 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class){
 
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.my_ledger))
             (activity as LandingNavigationActivity).setBack(false)
+            (activity as LandingNavigationActivity).setSync(false)
+
         }
     }
     private fun subscribeLoading() {
@@ -84,8 +113,10 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class){
         model.ledgerData.observe(this, Observer {
             Logger.Debug("DEBUG", it.toString())
             if (it.status) {
-                loadUrl(it.url)
-            }
+                it.reportList?.let {
+                    adapterLedger?.submitList(it)
+                    adapterLedger?.notifyDataSetChanged()
+                }            }
             else{
                 showSnackbar(it.message, true)
 
@@ -94,6 +125,7 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class){
 
     }
 
+/*
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWebView() {
         webView.settings.javaScriptEnabled = true
@@ -107,6 +139,8 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class){
             }
         }
     }
+*/
+/*
     private fun setWebClient() {
         webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(
@@ -124,9 +158,10 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class){
             }
         }
     }
-    private fun loadUrl(pageUrl: String) {
+*/
+  /*  private fun loadUrl(pageUrl: String) {
         webView.loadUrl(pageUrl)
-    }
+    }*/
     fun showProgressDialog() {
 
         showProgressDialog(null, AndroidUtils.getString(R.string.please_wait))

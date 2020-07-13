@@ -53,7 +53,8 @@ class AdapterCartProduct(
                  adapterViewClick: AdapterViewFeatureProductClickListener<CartListItem>?) {
 
             itemView.text_part_no?.text = allProducts.productName
-            itemView.text_mrp?.text = allProducts.itemAmount
+            itemView.text_mrp.visibility=View.GONE
+          //  itemView.text_mrp?.text = allProducts.itemAmount
             itemView.tvQuantity.setText(""+allProducts.itemQty)
             itemView.ll_company_name.visibility=View.GONE
 

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gsa.R
 import com.gsa.callbacks.AdapterViewClickListener
@@ -17,10 +18,11 @@ import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import kotlinx.android.synthetic.main.activity_order_details.*
 import kotlinx.android.synthetic.main.app_custom_tool_bar.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class OrderDetailsActivity : AppCompatActivity(), AdapterViewClickListener<ItemListItem> {
     override fun onClickAdapterView(objectAtPosition: ItemListItem, viewType: Int, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    //    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private var adapterOrderDetails: AdapterOrderDetails? = null
@@ -46,6 +48,8 @@ class OrderDetailsActivity : AppCompatActivity(), AdapterViewClickListener<ItemL
         }
         orderListItem?.itemList?.let {
             adapterOrderDetails?.submitList(it)
+            ViewCompat.setNestedScrollingEnabled(rv_orders_details, false)
+
             adapterOrderDetails?.notifyDataSetChanged()
         }
 
@@ -54,10 +58,16 @@ class OrderDetailsActivity : AppCompatActivity(), AdapterViewClickListener<ItemL
         text_amount.setText("" + orderListItem.amount)
         text_status_name.text = orderListItem.status
 
-        text_total?.setText("" + orderListItem.amount)
-        text_discount?.setText("" + 0.0)
-        text_grand_total.setText("" + orderListItem.saleAmount)
-        text_dispatched_amount.text = orderListItem.amount
+        if(orderListItem.status.equals("New Order",true)){
+            llOrderPaymet.visibility=View.GONE
+            ll_amount_no.visibility=View.GONE
+        }else {
+            llOrderPaymet.visibility=View.VISIBLE
+            text_total?.setText("" + orderListItem.amount)
+            text_discount?.setText("" + 0.0)
+            text_grand_total.setText("" + orderListItem.saleAmount)
+            text_dispatched_amount.text = orderListItem.amount
+        }
         fl_left_img_container.setOnClickListener {
             onBackPressed()
         }

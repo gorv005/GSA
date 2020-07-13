@@ -75,6 +75,44 @@
 
         </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_mrp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/text_mrp_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="8dp"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="11sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/black"
+                    android:text="@string/description_"
+                    />
+                <TextView
+                    android:id="@+id/text_mrp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="11sp"
+                    android:layout_marginEnd="110dp"
+
+                    android:maxLines="2"
+                    android:text=""
+                    android:ellipsize="end"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/ll_company_name"
                 android:layout_marginEnd="120dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -112,42 +150,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-            android:id="@+id/ll_mrp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/text_mrp_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="8dp"
-                android:textAlignment="center"
-                android:fontFamily="@font/roboto_regular"
-                android:textSize="11sp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textColor="@color/black"
-                android:text="@string/mrp"
-                />
-            <TextView
-                android:id="@+id/text_mrp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="8dp"
-                android:textAlignment="center"
-                android:fontFamily="@font/roboto_regular"
-                android:textSize="11sp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textColor="@color/black"
-                />
-
-        </LinearLayout>
         </LinearLayout>
 
 

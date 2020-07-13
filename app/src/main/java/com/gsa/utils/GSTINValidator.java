@@ -6,6 +6,7 @@ public class GSTINValidator {
     public static final String GSTINFORMAT_REGEX = "[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9A-Za-z]{1}[Z]{1}[0-9a-zA-Z]{1}";
     public static final String GSTN_CODEPOINT_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+/*
     public static void main(String args[]) {
         //Sample valid GSTIN - 09AAAUP8175A1ZG;
         Scanner sc = new Scanner(System.in);
@@ -21,6 +22,7 @@ public class GSTINValidator {
         }
 
     }
+*/
 
     /**
      * Method to check if a GSTIN is valid. Checks the GSTIN format and the
@@ -33,7 +35,8 @@ public class GSTINValidator {
      static boolean validGSTIN(String gstin) throws Exception {
         boolean isValidFormat = false;
         if (checkPattern(gstin, GSTINFORMAT_REGEX)) {
-            isValidFormat = verifyCheckDigit(gstin);
+         //   isValidFormat = verifyCheckDigit(gstin);
+            return  true;
         }
         return isValidFormat;
 
