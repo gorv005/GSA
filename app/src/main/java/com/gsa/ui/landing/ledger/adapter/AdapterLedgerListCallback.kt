@@ -9,7 +9,7 @@ import com.gsa.model.ledger.ReportListItem
 
 class AdapterLedgerListCallback : DiffUtil.ItemCallback<ReportListItem>() {
 
-    override fun areItemsTheSame(oldItem: ReportListItem, newItem: ReportListItem) = oldItem.typeID == newItem.typeID
+    override fun areItemsTheSame(oldItem: ReportListItem, newItem: ReportListItem) = oldItem.userId == newItem.userId
 
     /* This method is called only if {@link #areItemsTheSame(T, T)} returns {@code true} for these items */
     override fun areContentsTheSame(oldItem: ReportListItem, newItem: ReportListItem): Boolean {

@@ -161,21 +161,21 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
 
                     )
                     setBack(false)
-                    setSync(false)
+                    setSync(true)
 
                 }
                 R.id.navigation_points -> {
                     fragNavController.switchTab(INDEX_POINTS)
                  setTitleOnBar(AndroidUtils.getString(R.string.my_points))
                     setBack(false)
-                    setSync(false)
+                    setSync(true)
 
                 }
                 R.id.navigation_ledger -> {
                     fragNavController.switchTab(INDEX_LEDGER)
                     setTitleOnBar(AndroidUtils.getString(R.string.my_ledger))
                     setBack(false)
-                    setSync(false)
+                    setSync(true)
 
                 }
                 R.id.navigation_account -> {
@@ -184,7 +184,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
 
                     )
                     setBack(false)
-                    setSync(false)
+                    setSync(true)
 
                 }
             }
@@ -206,6 +206,18 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
         rlSync.setOnClickListener {
             if(getVisibleFragmentHome()){
                 (fragNavController.currentFrag as HomeFragment).getData()
+            }
+            else if(getVisibleFragmentOrders()){
+                (fragNavController.currentFrag as OrderFragment).getData()
+            }
+            else if(getVisibleFragmentPoints()){
+                (fragNavController.currentFrag as PointsFragment).getData()
+            }
+            else if(getVisibleFragmentLedger()){
+                (fragNavController.currentFrag as LedgerFragment).getData()
+            }
+            else if(getVisibleFragmentAccount()){
+                (fragNavController.currentFrag as FragmentAccount).getData()
             }
         }
         bottomBar.setOnTabReselectListener { fragNavController.clearStack() }

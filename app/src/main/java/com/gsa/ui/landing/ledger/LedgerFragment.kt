@@ -68,10 +68,17 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class),
         rv_ledger_report.adapter = adapterLedger
         subscribeLoading()
         subscribeUi()
-        if (NetworkUtil.isInternetAvailable(context)) {
+        getData()
+    }
+
+    public fun getData() {
+
+        if (NetworkUtil.isInternetAvailable(activity)) {
             model.getLedger("Ledger Report", model.getUserID()!!, model.getRoleID()!!)
         }
+
     }
+
     companion object {
         const val PAGE_URL = "pageUrl"
         const val MAX_PROGRESS = 100
@@ -91,7 +98,7 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class),
 
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.my_ledger))
             (activity as LandingNavigationActivity).setBack(false)
-            (activity as LandingNavigationActivity).setSync(false)
+            (activity as LandingNavigationActivity).setSync(true)
 
         }
     }

@@ -150,9 +150,15 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
             logout()
 
         }
-        if (NetworkUtil.isInternetAvailable(context)) {
+       getData()
+    }
+
+    public fun getData() {
+
+        if (NetworkUtil.isInternetAvailable(activity)) {
             modelReg.stateList("State List")
         }
+
     }
 
     companion object {
@@ -173,7 +179,7 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
 
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.my_account))
             (activity as LandingNavigationActivity).setBack(false)
-            (activity as LandingNavigationActivity).setSync(false)
+            (activity as LandingNavigationActivity).setSync(true)
 
         }
     }

@@ -107,12 +107,12 @@ class PointsFragment : BaseFragment<PointsViewModel>(PointsViewModel::class),
 
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.my_points))
             (activity as LandingNavigationActivity).setBack(false)
-            (activity as LandingNavigationActivity).setSync(false)
+            (activity as LandingNavigationActivity).setSync(true)
 
         }
     }
 
-    private fun getData() {
+    public fun getData() {
 
         if (NetworkUtil.isInternetAvailable(activity)) {
             model.getPoints("Point List", model.getUserID()!!, model.getRoleID()!!)

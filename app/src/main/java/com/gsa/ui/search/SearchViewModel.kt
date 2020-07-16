@@ -46,7 +46,7 @@ class SearchViewModel(
 
     fun getProducts(service :String, user_id: String, role_id: String
                      ,company_id: String,category_id: String,search_key: String) {
-        searchEvent.value = SearchEvent(isLoading = true)
+   //     searchEvent.value = SearchEvent(isLoading = true)
 
         launch {
             searchRepository.searchProduct(service,user_id,role_id,company_id,category_id,search_key)
@@ -55,8 +55,8 @@ class SearchViewModel(
                 .subscribe({
                     Logger.Debug(msg = it.toString())
                     productModel.value = it
-                    searchEvent.value =
-                        SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = true)
+                   /* searchEvent.value =
+                        SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = true)*/
                 }, {
 
                     try {
@@ -73,8 +73,8 @@ class SearchViewModel(
                             productModel.value =
                                 Gson().fromJson(error, ProductListResponse::class.java)
 
-                            searchEvent.value =
-                                SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)
+                          /*  searchEvent.value =
+                                SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)*/
 
                         }
 

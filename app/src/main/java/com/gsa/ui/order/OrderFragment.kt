@@ -92,12 +92,12 @@ class OrderFragment : BaseFragment<OrderViewModel>(OrderViewModel::class),
 
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.my_orders))
             (activity as LandingNavigationActivity).setBack(false)
-            (activity as LandingNavigationActivity).setSync(false)
+            (activity as LandingNavigationActivity).setSync(true)
 
         }
     }
 
-    private fun getData() {
+    public fun getData() {
 
         if (NetworkUtil.isInternetAvailable(activity)) {
             model.getOrders("Order List", model.getUserID()!!, model.getRoleID()!!)
