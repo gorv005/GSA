@@ -64,7 +64,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_height="match_parent">
                 <RelativeLayout
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:id="@+id/rlSync"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" >

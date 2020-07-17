@@ -74,6 +74,7 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class),
     public fun getData() {
 
         if (NetworkUtil.isInternetAvailable(activity)) {
+            AdapterLedger.balance=0.0
             model.getLedger("Ledger Report", model.getUserID()!!, model.getRoleID()!!)
         }
 

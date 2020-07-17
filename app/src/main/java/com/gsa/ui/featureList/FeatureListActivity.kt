@@ -159,6 +159,10 @@ class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewMo
 
 
         }
+        rlSync.setOnClickListener {
+            getData()
+
+        }
         subscribeLoading()
         subscribeUi()
         getData()
@@ -167,6 +171,8 @@ class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewMo
     override fun onResume() {
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_product)
+        rlSync.visibility= View.VISIBLE
+
     }
     private fun getData() {
 

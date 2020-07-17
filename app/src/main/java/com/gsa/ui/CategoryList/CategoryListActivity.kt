@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -100,6 +101,11 @@ class CategoryListActivity : BaseActivity<CategoryListViewModel>(CategoryListVie
                 )
             }
         }
+        rlSync.setOnClickListener {
+            getData()
+
+        }
+
         subscribeLoading()
         subscribeUi()
         getData()
@@ -109,6 +115,7 @@ class CategoryListActivity : BaseActivity<CategoryListViewModel>(CategoryListVie
     override fun onResume() {
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_category)
+        rlSync.visibility= View.VISIBLE
 
     }
 

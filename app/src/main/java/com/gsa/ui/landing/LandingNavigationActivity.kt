@@ -121,7 +121,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                 R.anim.slide_in_from_left,
                 R.anim.slide_out_to_right
             ).build()
-            fragmentHideStrategy = FragNavController.DETACH_ON_NAVIGATE_HIDE_ON_SWITCH
+            fragmentHideStrategy = FragNavController.HIDE
 
             navigationStrategy = UniqueTabHistoryStrategy(object : FragNavSwitchController {
                 override fun switchTab(index: Int, transactionOptions: FragNavTransactionOptions?) {

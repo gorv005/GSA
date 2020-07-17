@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -166,6 +167,10 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
                 )
             }
         }
+        rlSync.setOnClickListener {
+            getData()
+
+        }
         subscribeLoading()
         subscribeUi()
         getData()
@@ -174,6 +179,7 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
     override fun onResume() {
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_product)
+        rlSync.visibility= View.VISIBLE
 
     }
 

@@ -130,6 +130,10 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
             startActivity(LandingNavigationActivity.getIntent(this, 1))
 
         }
+        rlSync.setOnClickListener {
+            getData()
+
+        }
         subscribeLoading()
         subscribeUi()
         getData()
@@ -139,6 +143,7 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.cart)
         iv_cart.visibility=View.GONE
+        rlSync.visibility=View.VISIBLE
 
     }
 

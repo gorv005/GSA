@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -110,6 +111,11 @@ class CompanyListActivity : BaseActivity<CompanyListViewModel>(CompanyListViewMo
                 )
             }
         }
+        rlSync.setOnClickListener {
+            getData()
+
+        }
+
         subscribeLoading()
         subscribeUi()
         getData()
@@ -118,6 +124,7 @@ class CompanyListActivity : BaseActivity<CompanyListViewModel>(CompanyListViewMo
     override fun onResume() {
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_company)
+        rlSync.visibility= View.VISIBLE
 
     }
     private fun getData() {
