@@ -1,6 +1,7 @@
 package com.gsa.ui.order.adapter
 
 import android.app.Activity
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,9 +48,12 @@ class AdapterOrderList(
             if (allProducts.status.equals("New Order", true)) {
                 itemView.ll_amount_no.visibility = View.GONE
             }
-            itemView.text_amount.setText(""+allProducts.amount)
+            itemView.text_amount.setText("" + allProducts.invoice_amount)
             itemView.text_status_name.text=allProducts.status
-
+            if (allProducts.status.equals("Approved Order", true)) {
+              //  itemView.text_status_name.setTextColor(Color.GREEN)
+                itemView.setBackgroundColor(Color.GREEN)
+            }
 
 
 

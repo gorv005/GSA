@@ -27,4 +27,6 @@ data class OrderListItem(@SerializedName("order_status")
                          @SerializedName("invoice_date")
                          val invoiceDate: String?,
                          @SerializedName("sale_amount")
-                         val saleAmount: String?): Parcelable
+                         val saleAmount: String?,
+                         @SerializedName("invoice_amount")
+                         val invoice_amount: String?): Parcelable

@@ -278,6 +278,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.welcome)+ " " +model.getUserName())
             (activity as LandingNavigationActivity).setBack(false)
             (activity as LandingNavigationActivity).setSync(true)
+            (activity as LandingNavigationActivity).setNotification(true)
 
         }
     }

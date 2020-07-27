@@ -10,6 +10,7 @@ import com.gsa.model.home.CompaniesListResponse
 import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.ledger.LedgerResponse
 import com.gsa.model.login.LoginResponsePayload
+import com.gsa.model.notification.NotificationListResponse
 import com.gsa.model.order.OrderListResponse
 import com.gsa.model.points.PointsResponse
 import com.gsa.model.productList.ProductListResponse
@@ -213,6 +214,14 @@ interface AppRestApiFast {
         , @Field("role_id") role_id: String
 
     ): Single<LedgerResponse>
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.NOTIFICATION_API)
+    fun getNotificationList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String
+
+    ): Single<NotificationListResponse>
 /*
     @POST(Config.Endpoints.LOGIN_API)
     fun login(@Body data: LoginRequestPayload)

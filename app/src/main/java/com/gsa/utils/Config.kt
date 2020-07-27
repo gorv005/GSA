@@ -85,6 +85,8 @@ class Config {
 
         const val LEDGER_API = BASE_PATH + "common/userreport"
 
+        const val NOTIFICATION_API = BASE_PATH + "user/notificationlist"
+
         const val POINTS_API = BASE_PATH + "redeem/pointlist"
 
         const val REDEEM_POINT_LIST_API = BASE_PATH + "redeem/redeem_request"

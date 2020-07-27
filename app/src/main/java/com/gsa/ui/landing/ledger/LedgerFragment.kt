@@ -100,6 +100,7 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class),
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.my_ledger))
             (activity as LandingNavigationActivity).setBack(false)
             (activity as LandingNavigationActivity).setSync(true)
+            (activity as LandingNavigationActivity).setNotification(true)
 
         }
     }

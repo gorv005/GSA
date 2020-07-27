@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.Window
 import android.view.WindowManager
 import androidx.lifecycle.Observer
+import com.google.firebase.iid.FirebaseInstanceId
 import com.gsa.R
 import com.gsa.base.BaseActivity
 import com.gsa.ui.landing.LandingNavigationActivity
@@ -18,11 +19,13 @@ import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.app_custom_tool_bar.*
+import java.io.IOException
 
 class LoginActivity : BaseActivity<LoginViewModel>(LoginViewModel::class) {
     override fun layout(): Int = R.layout.activity_login
 
-
+    private val senderID = "116349758971"
+    var newToken=""
     override fun tag(): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -64,6 +67,9 @@ class LoginActivity : BaseActivity<LoginViewModel>(LoginViewModel::class) {
         }
         subscribeLoading()
         subscribeUiLogin()
+        getToken()
+
+
     }
     fun doSignIn() {
 
@@ -77,7 +83,7 @@ class LoginActivity : BaseActivity<LoginViewModel>(LoginViewModel::class) {
 
         ) {
             if (NetworkUtil.isInternetAvailable(this)) {
-                model.login(etUsername.text.toString(), etPassword.text.toString(), "123", "123456")
+                model.login(etUsername.text.toString(), etPassword.text.toString(), "123", newToken)
             }
 
         } else {
@@ -118,11 +124,27 @@ class LoginActivity : BaseActivity<LoginViewModel>(LoginViewModel::class) {
                 )
             }
             else{
-                showSnackbar(it.message, true)
+                showSnackbar(it.message, false)
 
             }
         })
 
+    }
+
+
+    private fun getToken() {
+
+        Thread(Runnable {
+            try {
+
+                 newToken = FirebaseInstanceId.getInstance()
+                    .getToken(senderID, "FCM")
+                println("Token --> $newToken")
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }).start()
     }
 
     fun showProgressDialog() {

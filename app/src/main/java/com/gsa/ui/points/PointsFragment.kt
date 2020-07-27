@@ -108,6 +108,7 @@ class PointsFragment : BaseFragment<PointsViewModel>(PointsViewModel::class),
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.my_points))
             (activity as LandingNavigationActivity).setBack(false)
             (activity as LandingNavigationActivity).setSync(true)
+            (activity as LandingNavigationActivity).setNotification(true)
 
         }
     }

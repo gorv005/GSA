@@ -62,7 +62,10 @@ class AdapterLedger(
                 itemView.tvBalance_ledger.setText("" + balance)
 
             }
+            if (allProducts.description.equals("Cheque", true)) {
+                itemView.tvDescription_ledger?.text = allProducts.description +" "+allProducts.Ref
 
+            }
             itemView.setOnClickListener {
                 adapterViewClick?.onClickAdapterView(
                     allProducts,

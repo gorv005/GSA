@@ -3,6 +3,7 @@ package com.gsa.ui.order_details
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ import com.gsa.utils.AndroidUtils
 import kotlinx.android.synthetic.main.activity_order_details.*
 import kotlinx.android.synthetic.main.app_custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.item_orders.view.*
 
 class OrderDetailsActivity : AppCompatActivity(), AdapterViewClickListener<ItemListItem> {
     override fun onClickAdapterView(objectAtPosition: ItemListItem, viewType: Int, position: Int) {
@@ -55,9 +57,13 @@ class OrderDetailsActivity : AppCompatActivity(), AdapterViewClickListener<ItemL
 
         text_order_no?.text = orderListItem.orderNumber
         text_date_name?.text = orderListItem.cDate
-        text_amount.setText("" + orderListItem.amount)
+        text_amount.setText("" + orderListItem.invoice_amount)
         text_status_name.text = orderListItem.status
+        if (orderListItem?.status.equals("Approved Order", true)) {
+         //   text_status_name.setTextColor(Color.GREEN)
+            llOrder.setBackgroundColor(Color.GREEN)
 
+        }
         if(orderListItem.status.equals("New Order",true)){
             llOrderPaymet.visibility=View.GONE
             ll_amount_no.visibility=View.GONE
@@ -66,7 +72,7 @@ class OrderDetailsActivity : AppCompatActivity(), AdapterViewClickListener<ItemL
             text_total?.setText("" + orderListItem.amount)
             text_discount?.setText("" + 0.0)
             text_grand_total.setText("" + orderListItem.saleAmount)
-            text_dispatched_amount.text = orderListItem.amount
+            text_dispatched_amount.text = orderListItem.invoice_amount
         }
         fl_left_img_container.setOnClickListener {
             onBackPressed()

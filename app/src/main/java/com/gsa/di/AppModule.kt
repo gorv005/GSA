@@ -37,6 +37,9 @@ import com.gsa.ui.landing.ledger.LedgerViewModel
 import com.gsa.ui.login.LoginRepository
 import com.gsa.ui.login.LoginRepositoryImpl
 import com.gsa.ui.login.LoginViewModel
+import com.gsa.ui.notification.NotificationRepository
+import com.gsa.ui.notification.NotificationRepositoryImpl
+import com.gsa.ui.notification.NotificationViewModel
 import com.gsa.ui.order.OrderListRepositoryImpl
 import com.gsa.ui.order.OrderRepository
 import com.gsa.ui.order.OrderViewModel
@@ -120,6 +123,9 @@ object AppModule {
 
         single<ChangePasswordRepository> { Change_passwordRepositoryImpl(get(), get()) }
         viewModel { ChangePasswordViewModel(get(),get(),get()) }
+
+        single<NotificationRepository> { NotificationRepositoryImpl(get(), get()) }
+        viewModel { NotificationViewModel(get(),get(),get()) }
 
         viewModel { SplashViewModel(get()) }
 

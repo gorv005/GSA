@@ -18,6 +18,7 @@ import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.landing.accounts.FragmentAccount
 import com.gsa.ui.landing.home.HomeFragment
 import com.gsa.ui.landing.ledger.LedgerFragment
+import com.gsa.ui.notification.NotificationActivity
 import com.gsa.ui.order.OrderFragment
 import com.gsa.ui.points.PointsFragment
 import com.gsa.util.UiUtils
@@ -152,7 +153,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                         ))
                         setSync(true)
                         setBack(false)
-
+                        setNotification(true)
                     }
                 }
                 R.id.navigation_orders -> {
@@ -162,6 +163,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                     )
                     setBack(false)
                     setSync(true)
+                    setNotification(true)
 
                 }
                 R.id.navigation_points -> {
@@ -169,6 +171,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                  setTitleOnBar(AndroidUtils.getString(R.string.my_points))
                     setBack(false)
                     setSync(true)
+                    setNotification(true)
 
                 }
                 R.id.navigation_ledger -> {
@@ -176,6 +179,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                     setTitleOnBar(AndroidUtils.getString(R.string.my_ledger))
                     setBack(false)
                     setSync(true)
+                    setNotification(true)
 
                 }
                 R.id.navigation_account -> {
@@ -185,6 +189,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                     )
                     setBack(false)
                     setSync(true)
+                    setNotification(true)
 
                 }
             }
@@ -196,6 +201,18 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                 UiUtils.hideSoftKeyboard(it)
                 startActivity(
                     CartActivity.getIntent(
+                        it
+                    ),
+                    ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
+                )
+            }
+        }
+        rlNotification.setOnClickListener {
+
+            let {
+                UiUtils.hideSoftKeyboard(it)
+                startActivity(
+                    NotificationActivity.getIntent(
                         it
                     ),
                     ActivityOptions.makeSceneTransitionAnimation(it).toBundle()
@@ -235,6 +252,14 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
             rlSync.visibility = View.VISIBLE
         } else {
             rlSync.visibility = View.GONE
+
+        }
+    }
+    fun setNotification(isShow: Boolean) {
+        if (isShow) {
+            rlNotification.visibility = View.VISIBLE
+        } else {
+            rlNotification.visibility = View.GONE
 
         }
     }

@@ -180,6 +180,7 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
             (activity as LandingNavigationActivity).setTitleOnBar(AndroidUtils.getString(R.string.my_account))
             (activity as LandingNavigationActivity).setBack(false)
             (activity as LandingNavigationActivity).setSync(true)
+            (activity as LandingNavigationActivity).setNotification(true)
 
         }
     }
