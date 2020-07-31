@@ -116,7 +116,18 @@ class CategoryListActivity : BaseActivity<CategoryListViewModel>(CategoryListVie
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_category)
         rlSync.visibility= View.VISIBLE
+        if (!model.getCartValue().toString()!!.equals("0")
+            &&!model.getCartValue().toString()!!.equals("")) {
+            ivCounter.visibility = View.VISIBLE
+            ivCounter.setText(
+                model.getCartValue().toString()
+            )
 
+
+        } else {
+            ivCounter.visibility = View.INVISIBLE
+
+        }
     }
 
     private fun getData() {

@@ -68,7 +68,7 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class),
         rv_ledger_report.adapter = adapterLedger
         subscribeLoading()
         subscribeUi()
-        getData()
+
     }
 
     public fun getData() {
@@ -101,7 +101,7 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class),
             (activity as LandingNavigationActivity).setBack(false)
             (activity as LandingNavigationActivity).setSync(true)
             (activity as LandingNavigationActivity).setNotification(true)
-
+            getData()
         }
     }
     private fun subscribeLoading() {

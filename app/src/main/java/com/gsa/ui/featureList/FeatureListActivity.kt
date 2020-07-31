@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gsa.R
 import com.gsa.base.BaseActivity
+import com.gsa.base.StoreProducts
 import com.gsa.callbacks.AdapterViewFeatureProductClickListener
 import com.gsa.model.cart.AddToCartResponse
 import com.gsa.model.feature_product.FeatureProductListItem
@@ -38,7 +39,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewModel::class),
-    AdapterViewFeatureProductClickListener<FeatureProductListItem> {
+    AdapterViewFeatureProductClickListener<ProductListItem> {
     override fun layout(): Int = R.layout.activity_feature_list
 
 
@@ -55,7 +56,7 @@ class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewMo
     }
 
     override fun onClickFeatureProductAdapterView(
-        objectAtPosition: FeatureProductListItem,
+        objectAtPosition: ProductListItem,
         viewType: Int,
         position: Int
     ) {
@@ -85,7 +86,7 @@ class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewMo
         }
     }
 
-    private fun updateData(objectAtPosition: FeatureProductListItem, status: Int) {
+    private fun updateData(objectAtPosition: ProductListItem, status: Int) {
 
         if (NetworkUtil.isInternetAvailable(this)) {
             if (status == 1) {
@@ -110,7 +111,7 @@ class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewMo
     }
 
     private var adapterFeatureProduct: AdapterFeatureProduct? = null
-    internal var featureProductList: List<FeatureProductListItem>? = null
+    internal var featureProductList: List<ProductListItem>? = null
     val modelCart: CartViewModel by viewModel()
     var fPos: Int = 0
     var q: Int = 0
@@ -172,7 +173,18 @@ class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewMo
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_product)
         rlSync.visibility= View.VISIBLE
+        if (!model.getCartValue().toString()!!.equals("0")
+            &&!model.getCartValue().toString()!!.equals("")) {
+            ivCounter.visibility = View.VISIBLE
+            ivCounter.setText(
+                model.getCartValue().toString()
+            )
 
+
+        } else {
+            ivCounter.visibility = View.INVISIBLE
+
+        }
     }
     private fun getData() {
 
@@ -226,7 +238,23 @@ class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewMo
     }
     private fun showData(data: AddToCartResponse?) {
         if (data!!.status) {
+
+
+                var cartValue=model.getCartValue()
+                if (q == 0) {
+                    cartValue=cartValue?.minus(1)
+                    model.saveCartValue(cartValue)
+
+                }else   if (q == 1) {
+                    cartValue=cartValue?.plus(1)
+                    model.saveCartValue(cartValue)
+
+                }
+            ivCounter.setText(cartValue.toString())
             featureProductList?.get(fPos)?.CartItemQty = q
+
+
+            StoreProducts.getInstance().addProduct(featureProductList?.get(fPos))
 
             featureProductList?.let {
                 adapterFeatureProduct?.submitList(it)
@@ -242,6 +270,7 @@ class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewMo
 
     private fun showData(data: FeatureProductResponse?) {
         featureProductList = data?.featureProductList
+        StoreProducts.getInstance().saveProducts(featureProductList)
         featureProductList?.let {
             adapterFeatureProduct?.submitList(it)
             adapterFeatureProduct?.notifyDataSetChanged()

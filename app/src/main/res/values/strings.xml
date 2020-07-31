@@ -129,4 +129,8 @@
     <string name="channel_name" translatable="false">GSA</string>
     <string name="notifications">Notifications</string>
     <string name="no_notification_found">No Notification Found</string>
+    <string name="no_favorites_found">No Favorites Found</string>
+
+    <string name="favorites">Favorites</string>
+    <string name="my_favorites">My Favorites</string>
 </resources>

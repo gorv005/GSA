@@ -38,4 +38,8 @@
     <color name="grey_15">#6c6c6c</color>
     <color name="divider">#32E5E5E5</color>
     <color name="yellow">#EFCC0C</color>
+    <color name="green_1">#32B475</color>
+    <color name="red_1">#FF0000</color>
+    <color name="orange_1">#FF4500</color>
+    <color name="brown">#8B0000</color>
 </resources>

@@ -125,7 +125,18 @@ class CompanyListActivity : BaseActivity<CompanyListViewModel>(CompanyListViewMo
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_company)
         rlSync.visibility= View.VISIBLE
+        if (!model.getCartValue().toString()!!.equals("0")
+            &&!model.getCartValue().toString()!!.equals("")) {
+            ivCounter.visibility = View.VISIBLE
+            ivCounter.setText(
+                model.getCartValue().toString()
+            )
 
+
+        } else {
+            ivCounter.visibility = View.INVISIBLE
+
+        }
     }
     private fun getData() {
 

@@ -28,6 +28,9 @@ import com.gsa.ui.featureList.FeatureListViewModel
 import com.gsa.ui.landing.accounts.AccountRepository
 import com.gsa.ui.landing.accounts.AccountRepositoryImpl
 import com.gsa.ui.landing.accounts.AccountViewModel
+import com.gsa.ui.landing.favorites.FavoritesRepository
+import com.gsa.ui.landing.favorites.FavoritesRepositoryImpl
+import com.gsa.ui.landing.favorites.FavoritesViewModel
 import com.gsa.ui.landing.home.HomeRepository
 import com.gsa.ui.landing.home.HomeRepositoryImpl
 import com.gsa.ui.landing.home.HomeViewModel
@@ -55,6 +58,8 @@ import com.gsa.ui.register.RegistrationViewModel
 import com.gsa.ui.search.SearchRepository
 import com.gsa.ui.search.SearchRepositoryImpl
 import com.gsa.ui.search.SearchViewModel
+import com.gsa.ui.splash.SplashRepository
+import com.gsa.ui.splash.SplashRepositoryImpl
 import com.gsa.ui.splash.SplashViewModel
 
 import org.koin.android.ext.koin.androidApplication
@@ -127,7 +132,11 @@ object AppModule {
         single<NotificationRepository> { NotificationRepositoryImpl(get(), get()) }
         viewModel { NotificationViewModel(get(),get(),get()) }
 
-        viewModel { SplashViewModel(get()) }
+        single<FavoritesRepository> { FavoritesRepositoryImpl(get(), get()) }
+        viewModel { FavoritesViewModel(get(),get(),get()) }
+
+        single<SplashRepository> { SplashRepositoryImpl(get(), get()) }
+        viewModel { SplashViewModel(get(),get(),get()) }
 
         /*  single<SignUpRepository> { SignUpRepositoryImpl(get(), get()) }
          viewModel { SignUpViewModel(get(),get()) }

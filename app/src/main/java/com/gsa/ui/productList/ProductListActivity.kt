@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gsa.R
 import com.gsa.base.BaseActivity
+import com.gsa.base.StoreProducts
 import com.gsa.callbacks.AdapterViewCompanyClickListener
 import com.gsa.callbacks.AdapterViewFeatureProductClickListener
 import com.gsa.model.cart.AddToCartResponse
 import com.gsa.model.cart.CartListItem
 import com.gsa.model.companyCategoryList.CompanyCategoryList
+import com.gsa.model.favorites.FavoriteListItem
 import com.gsa.model.feature_product.FeatureProductListItem
 import com.gsa.model.home.CompanyListItem
 import com.gsa.model.productList.ProductListItem
@@ -25,6 +27,7 @@ import com.gsa.ui.cart.CartViewModel
 import com.gsa.ui.companyCategoryList.CompanyCategoryListActivity
 import com.gsa.ui.companyCategoryList.adapter.AdapterCompanyCategories
 import com.gsa.ui.companyList.CompanyListViewModel
+import com.gsa.ui.landing.favorites.FavoritesViewModel
 import com.gsa.ui.landing.home.HomeViewModel
 import com.gsa.ui.landing.home.adapter.AdapterHomeCompanies
 import com.gsa.ui.productList.adapter.AdapterProductList
@@ -63,6 +66,7 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
     var fPos: Int = 0
     var q: Int = 0
     val modelCart: CartViewModel by viewModel()
+    val modelFavorites: FavoritesViewModel by viewModel()
 
     override fun onClickFeatureProductAdapterView(
         objectAtPosition: ProductListItem,
@@ -91,6 +95,31 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
                     updateData(objectAtPosition, 1)
 
                 }
+            }
+            Config.AdapterClickViewTypes.CLICK_VIEW_DELETE_FAVORITES_PRODUCT -> {
+
+                let {
+                    updateFavorites(objectAtPosition, -1)
+
+                }
+            }
+            Config.AdapterClickViewTypes.CLICK_VIEW_ADD_FAVORITES_PRODUCT -> {
+
+                let {
+                    updateFavorites(objectAtPosition, 1)
+
+                }
+            }
+        }
+    }
+    private fun updateFavorites(objectAtPosition: ProductListItem, status: Int) {
+        if (NetworkUtil.isInternetAvailable(this@ProductListActivity)) {
+            if(status==1) {
+
+                modelFavorites.addProductToFavorites("Add Favorite",model.getUserID()!!,objectAtPosition.id)
+            }else{
+                modelFavorites.removeProductToFavorites("Remove Favorite List",model.getUserID()!!,objectAtPosition.id)
+
             }
         }
     }
@@ -180,7 +209,18 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.shop_by_product)
         rlSync.visibility= View.VISIBLE
+        if (!model.getCartValue().toString()!!.equals("0")
+            &&!model.getCartValue().toString()!!.equals("")) {
+            ivCounter.visibility = View.VISIBLE
+            ivCounter.setText(
+                model.getCartValue().toString()
+            )
 
+
+        } else {
+            ivCounter.visibility = View.INVISIBLE
+
+        }
     }
 
     private fun getData() {
@@ -231,11 +271,56 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
             showData(it)
 
         })
+        modelFavorites.addProductFromFavoritesModel.observe(this, Observer {
+            Logger.Debug("DEBUG", it.toString())
+
+            if(it!!.status){
+                productList?.get(fPos)?.is_favorites="1"
+                StoreProducts.getInstance().addProduct(productList?.get(fPos))
+
+                showSnackbar(it.message, true)
+            }else{
+                showSnackbar(it.message, false)
+
+            }
+            adapterProductList?.notifyDataSetChanged()
+
+        })
+        modelFavorites.removeProductFromFavoritesModel.observe(this, Observer {
+            Logger.Debug("DEBUG", it.toString())
+
+            if(it!!.status){
+                productList?.get(fPos)?.is_favorites = "0"
+
+                StoreProducts.getInstance().addProduct(productList?.get(fPos))
+
+                productList?.get(fPos)?.is_favorites="0"
+
+                showSnackbar(it.message, true)
+            }else{
+                showSnackbar(it.message, false)
+            }
+            adapterProductList?.notifyDataSetChanged()
+
+        })
     }
+
     private fun showData(data: AddToCartResponse?) {
         if (data!!.status) {
-            productList?.get(fPos)?.CartItemQty = q
 
+            var cartValue=model.getCartValue()
+            if (q == 0) {
+                cartValue=cartValue?.minus(1)
+                model.saveCartValue(cartValue)
+
+            }else   if (q == 1) {
+                cartValue=cartValue?.plus(1)
+                model.saveCartValue(cartValue)
+
+            }
+            ivCounter.setText(cartValue.toString())
+            productList?.get(fPos)?.CartItemQty = q
+            StoreProducts.getInstance().addProduct(productList?.get(fPos))
             productList?.let {
                 adapterProductList?.submitList(it)
                 adapterProductList?.notifyDataSetChanged()
@@ -251,6 +336,7 @@ class ProductListActivity : BaseActivity<ProductListViewModel>(ProductListViewMo
     private fun showData(data: ProductListResponse?) {
 
         productList = data?.productList
+        StoreProducts.getInstance().saveProducts(productList)
         productList?.let {
 
             adapterProductList?.submitList(it)

@@ -5,6 +5,7 @@ import com.gsa.model.cart.AddToCartResponse
 import com.gsa.model.cart.CartListResponse
 import com.gsa.model.city_list.CityListResponse
 import com.gsa.model.companyCategoryList.CompanyCategoryList
+import com.gsa.model.favorites.FavoritesListResponse
 import com.gsa.model.feature_product.FeatureProductResponse
 import com.gsa.model.home.CompaniesListResponse
 import com.gsa.model.home.categories.CategoriesListResponse
@@ -15,6 +16,7 @@ import com.gsa.model.order.OrderListResponse
 import com.gsa.model.points.PointsResponse
 import com.gsa.model.productList.ProductListResponse
 import com.gsa.model.register.RegisterResponsePayload
+import com.gsa.model.splash.VersionResponse
 import com.gsa.model.stateList.StateListResponse
 import com.gsa.model.user.UserResponsePayload
 import com.gsa.utils.Config
@@ -169,6 +171,14 @@ interface AppRestApiFast {
 
     ): Single<UserResponsePayload>
 
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.VERSION_CHECK_API)
+    fun getVersion(
+        @Field("service") service: String
+    ): Single<VersionResponse>
+
+
     @FormUrlEncoded
     @POST(Config.Endpoints.CHANGE_PASSWORD_API)
     fun changePassword(
@@ -222,6 +232,29 @@ interface AppRestApiFast {
         , @Field("role_id") role_id: String
 
     ): Single<NotificationListResponse>
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.GET_FAVORITES_LIST_API)
+    fun getFavoritesList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+
+
+    ): Single<FavoritesListResponse>
+    @FormUrlEncoded
+    @POST(Config.Endpoints.ADD_FAVORITES_API)
+    fun addFavorites(
+        @Field("service") service: String, @Field("user_id") user_id: String,@Field("product_id") product_id: String
+
+
+    ): Single<AddToCartResponse>
+    @FormUrlEncoded
+    @POST(Config.Endpoints.DELETE_FAVORITES_API)
+    fun removeFavorites(
+        @Field("service") service: String, @Field("user_id") user_id: String,
+        @Field("product_id") product_id: String
+
+    ): Single<AddToCartResponse>
+
 /*
     @POST(Config.Endpoints.LOGIN_API)
     fun login(@Body data: LoginRequestPayload)

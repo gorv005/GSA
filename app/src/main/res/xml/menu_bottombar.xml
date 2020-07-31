@@ -10,10 +10,16 @@
         id="@+id/navigation_orders"
         title="@string/orders"
         />
-    <tab
+    <!--<tab
+
         icon="@drawable/ic_stars_black_24dp"
         id="@+id/navigation_points"
         title="@string/points"
+        />-->
+    <tab
+        icon="@drawable/ic_favorite_border_black_24dp"
+        id="@+id/navigation_favorites"
+        title="@string/favorites"
         />
     <tab
         icon="@drawable/ic_library_books_black_24dp"

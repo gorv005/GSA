@@ -9,21 +9,23 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.drawee.drawable.ScalingUtils
 import com.gsa.R
+import com.gsa.base.StoreProducts
 import com.gsa.callbacks.AdapterViewClickListener
 import com.gsa.callbacks.AdapterViewCompanyClickListener
 import com.gsa.callbacks.AdapterViewFeatureProductClickListener
 import com.gsa.managers.ImageRequestManager
 import com.gsa.model.feature_product.FeatureProductListItem
 import com.gsa.model.home.CompanyListItem
+import com.gsa.model.productList.ProductListItem
 import com.gsa.util.UiUtils
 import com.gsa.utils.Config
 import kotlinx.android.synthetic.main.item_feature_product.view.*
 import kotlinx.android.synthetic.main.item_product.view.*
 
 class AdapterFeatureProduct(
-    private val adapterViewClickListener: AdapterViewFeatureProductClickListener<FeatureProductListItem>?,
+    private val adapterViewClickListener: AdapterViewFeatureProductClickListener<ProductListItem>?,
     val activity: Activity
-) : ListAdapter<FeatureProductListItem, AdapterFeatureProduct.ViewHolder>(
+) : ListAdapter<ProductListItem, AdapterFeatureProduct.ViewHolder>(
     AdapterFeatureProductCallback()
 )
 {
@@ -43,18 +45,28 @@ class AdapterFeatureProduct(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), adapterViewClickListener)
+        var allProduct =
+            StoreProducts.getInstance().getProduct(getItem(position)?.id?.toInt())
+        if (allProduct == null) {
+            allProduct = getItem(position)
+        }
+        holder.bind(allProduct!!, adapterViewClickListener)
     }
     class ViewHolder(itemView: View, val activity: Activity) : RecyclerView.ViewHolder(itemView) {
 
 
-        fun bind(allProducts: FeatureProductListItem, adapterViewClick: AdapterViewFeatureProductClickListener<FeatureProductListItem>?) {
+        fun bind(allProducts: ProductListItem, adapterViewClick: AdapterViewFeatureProductClickListener<ProductListItem>?) {
 
             itemView.text_part_no?.text = allProducts.productName
             itemView.text_mrp?.text = allProducts.pDescription
             itemView.tvQuantity.setText(""+allProducts.CartItemQty)
             itemView.text_company_name.text=allProducts.companyName
+            if(allProducts.is_favorites.equals("1")){
+                itemView.iv_favorites.setImageResource(R.drawable.ic_favorite_black_24dp)
+            }else{
+                itemView.iv_favorites.setImageResource(R.drawable.ic_favorite_border_black_24dp)
 
+            }
             itemView.tvQuantity.setOnEditorActionListener { v, actionId, event ->
                 if(actionId == EditorInfo.IME_ACTION_DONE){
                     UiUtils.hideSoftKeyboard(activity)
@@ -70,6 +82,23 @@ class AdapterFeatureProduct(
                 }
             }
 
+            itemView.rl_favorites.setOnClickListener {
+                if(allProducts.is_favorites.equals("1")){
+                    itemView.iv_favorites.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                    adapterViewClick?.onClickFeatureProductAdapterView(
+                        allProducts,
+                        Config.AdapterClickViewTypes.CLICK_VIEW_DELETE_FAVORITES_PRODUCT, adapterPosition
+                    )
+
+                }else{
+                    itemView.iv_favorites.setImageResource(R.drawable.ic_favorite_black_24dp)
+                    adapterViewClick?.onClickFeatureProductAdapterView(
+                        allProducts,
+                        Config.AdapterClickViewTypes.CLICK_VIEW_ADD_FAVORITES_PRODUCT, adapterPosition
+                    )
+
+                }
+            }
 
             itemView.rlMinus.setOnClickListener {
                 adapterViewClick?.onClickFeatureProductAdapterView(

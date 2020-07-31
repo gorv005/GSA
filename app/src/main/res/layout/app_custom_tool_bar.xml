@@ -102,9 +102,9 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-
                     android:layout_alignParentRight="true"
                     android:gravity="right"
+                    android:layout_marginEnd="10dp"
                     android:layout_gravity="right"
                     android:id="@+id/rlCart"
                     android:layout_width="wrap_content"
@@ -128,10 +128,11 @@
                         android:layout_width="17dp"
                         android:layout_marginTop="12dp"
                         android:layout_height="17dp"
-                        android:text=""
+                        android:text="1"
                         android:gravity="center"
+                        android:background="@drawable/circular_back_white"
                         android:fontFamily="@font/roboto_regular"
-                        android:textColor="@color/white"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="10sp"
                     />
 

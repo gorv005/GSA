@@ -4,7 +4,9 @@ class Config {
 
     object AdapterClickViewTypes {
 
+        const val CLICK_VIEW_DELETE_FAVORITES_PRODUCT= 1008
 
+        const  val CLICK_VIEW_ADD_FAVORITES_PRODUCT= 1007
         const val CLICK_VIEW_CATEGORY = 99
         const val CLICK_VIEW_COMPANIES = 100
         const val CLICK_VIEW_FEATURE_PRODUCT = 97
@@ -91,6 +93,12 @@ class Config {
 
         const val REDEEM_POINT_LIST_API = BASE_PATH + "redeem/redeem_request"
 
+        const val GET_FAVORITES_LIST_API = BASE_PATH + "common/favoritelist"
+
+        const val ADD_FAVORITES_API = BASE_PATH + "common/addtofavorite"
+
+        const val DELETE_FAVORITES_API = BASE_PATH + "common/removefavoritelist"
+
         const val UPDATE_ADDRESS_API = BASE_PATH + "shopping_carts/add_address"
         const val SHIPPING_CHARGE_API = BASE_PATH + "shopping_carts/setting"
 
@@ -98,7 +106,7 @@ class Config {
         const val APPLY_COUPON = BASE_PATH + "shopping_carts/apply_promo"
 
         const val ORDER_LIST_API = BASE_PATH + "order/order_list"
-        const val BRAND_LIST_API = BASE_PATH + "brands"
+        const val VERSION_CHECK_API = BASE_PATH + "common/getappversion"
         const val SEARCH_PRODUCT_API = BASE_PATH + "item_masters/search"
 
 

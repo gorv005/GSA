@@ -20,18 +20,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:paddingTop="5dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@color/white"
+        android:minHeight="80dp"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/ll_data"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="wrap_content"
@@ -151,11 +150,28 @@
             </LinearLayout>
 
         </LinearLayout>
+        <RelativeLayout
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/rl_favorites"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+
+
+            >
+            <ImageView
+                android:id="@+id/iv_favorites"
+                android:tint="@color/red_a"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_favorite_border_black_24dp" />
+
+        </RelativeLayout>
 
 
         <RelativeLayout
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/rl"
             android:layout_width="wrap_content"

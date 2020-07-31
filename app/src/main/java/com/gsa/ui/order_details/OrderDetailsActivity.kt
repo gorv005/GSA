@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gsa.R
@@ -59,9 +60,34 @@ class OrderDetailsActivity : AppCompatActivity(), AdapterViewClickListener<ItemL
         text_date_name?.text = orderListItem.cDate
         text_amount.setText("" + orderListItem.invoice_amount)
         text_status_name.text = orderListItem.status
-        if (orderListItem?.status.equals("Approved Order", true)) {
-         //   text_status_name.setTextColor(Color.GREEN)
-            llOrder.setBackgroundColor(Color.GREEN)
+        if (orderListItem?.orderStatus.equals("1", true)) {
+         //  text_status_name.setTextColor(Color.parseColor("#32B475"))
+           // llOrder.setBackgroundColor(Color.GREEN)
+            text_status_name.setBackgroundTintList(ContextCompat.getColorStateList(this@OrderDetailsActivity, R.color.green_1));
+
+        }
+        else if (orderListItem?.orderStatus.equals("3", true)) {
+         //   text_status_name.setTextColor(Color.parseColor("#FF0000"))
+            // llOrder.setBackgroundColor(Color.GREEN)
+            text_status_name.setBackgroundTintList(ContextCompat.getColorStateList(this@OrderDetailsActivity, R.color.red_1));
+
+        }
+        else if (orderListItem?.orderStatus.equals("0", true)) {
+        //    text_status_name.setTextColor(Color.parseColor("#CCCC00"))
+            // llOrder.setBackgroundColor(Color.GREEN)
+            text_status_name.setBackgroundTintList(ContextCompat.getColorStateList(this@OrderDetailsActivity, R.color.orange_1));
+
+        }
+        else if (orderListItem?.orderStatus.equals("2", true)) {
+        //    text_status_name.setTextColor(Color.parseColor("#00008B"))
+            // llOrder.setBackgroundColor(Color.GREEN)
+            text_status_name.setBackgroundTintList(ContextCompat.getColorStateList(this@OrderDetailsActivity, R.color.colorPrimary));
+
+        }
+        else if (orderListItem?.orderStatus.equals("4", true)) {
+        //    text_status_name.setTextColor(Color.parseColor("#8B0000"))
+            // llOrder.setBackgroundColor(Color.GREEN)
+            text_status_name.setBackgroundTintList(ContextCompat.getColorStateList(this@OrderDetailsActivity, R.color.brown));
 
         }
         if(orderListItem.status.equals("New Order",true)){

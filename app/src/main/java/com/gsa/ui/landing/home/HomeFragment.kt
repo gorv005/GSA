@@ -11,22 +11,27 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gsa.R
 import com.gsa.base.BaseFragment
+import com.gsa.base.StoreProducts
 import com.gsa.callbacks.AdapterViewClickListener
 import com.gsa.callbacks.AdapterViewCompanyClickListener
 import com.gsa.callbacks.AdapterViewFeatureProductClickListener
 import com.gsa.model.cart.AddToCartResponse
+import com.gsa.model.cart.CartListResponse
+import com.gsa.model.favorites.FavoriteListItem
 import com.gsa.model.feature_product.FeatureProductListItem
 import com.gsa.model.feature_product.FeatureProductResponse
 import com.gsa.model.home.CompaniesListResponse
 import com.gsa.model.home.CompanyListItem
 import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.home.categories.CategoryListItem
+import com.gsa.model.productList.ProductListItem
 import com.gsa.ui.CategoryList.CategoryListActivity
 import com.gsa.ui.cart.CartViewModel
 import com.gsa.ui.companyCategoryList.CompanyCategoryListActivity
 import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.featureList.FeatureListActivity
 import com.gsa.ui.landing.LandingNavigationActivity
+import com.gsa.ui.landing.favorites.FavoritesViewModel
 import com.gsa.ui.landing.home.adapter.AdapterFeatureProduct
 import com.gsa.ui.landing.home.adapter.AdapterHomeCategories
 import com.gsa.ui.landing.home.adapter.AdapterHomeCompanies
@@ -45,9 +50,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
     AdapterViewClickListener<CategoryListItem>, AdapterViewCompanyClickListener<CompanyListItem>,
-    AdapterViewFeatureProductClickListener<FeatureProductListItem> {
+    AdapterViewFeatureProductClickListener<ProductListItem> {
     override fun onClickFeatureProductAdapterView(
-        objectAtPosition: FeatureProductListItem,
+        objectAtPosition: ProductListItem,
         viewType: Int,
         position: Int
     ) {
@@ -74,10 +79,34 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
 
                 }
             }
+            Config.AdapterClickViewTypes.CLICK_VIEW_DELETE_FAVORITES_PRODUCT -> {
+
+                let {
+                    updateFavorites(objectAtPosition, -1)
+
+                }
+            }
+            Config.AdapterClickViewTypes.CLICK_VIEW_ADD_FAVORITES_PRODUCT -> {
+
+                let {
+                    updateFavorites(objectAtPosition, 1)
+
+                }
+            }
         }
     }
 
+    private fun updateFavorites(objectAtPosition: ProductListItem, status: Int) {
+        if (NetworkUtil.isInternetAvailable(activity)) {
+            if(status==1) {
 
+                modelFavorites.addProductToFavorites("Add Favorite",model.getUserID()!!,objectAtPosition.id)
+            }else{
+                modelFavorites.removeProductToFavorites("Remove Favorite List",model.getUserID()!!,objectAtPosition.id)
+
+            }
+        }
+    }
     override fun onClickCompanyAdapterView(
         objectAtPosition: CompanyListItem,
         viewType: Int,
@@ -107,11 +136,12 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
     private var adapterCategories: AdapterHomeCategories? = null
     private var adapterFeatureProduct: AdapterFeatureProduct? = null
     val modelCart: CartViewModel by viewModel()
+    val modelFavorites: FavoritesViewModel by viewModel()
 
     private var adapterCompanies: AdapterHomeCompanies? = null
     internal var categoriesList: ArrayList<CategoryListItem>? = null
     internal var companyList: ArrayList<CompanyListItem>? = null
-    internal var featureProductList: List<FeatureProductListItem>? = null
+    internal var featureProductList: ArrayList<ProductListItem>? = null
     var fPos:Int=0
     var q: Int=0
     override fun onClickAdapterView(
@@ -139,7 +169,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
         }
     }
 
-    private fun updateData(objectAtPosition: FeatureProductListItem,status: Int) {
+    private fun updateData(objectAtPosition: ProductListItem,status: Int) {
 
         if (NetworkUtil.isInternetAvailable(activity)) {
             if(status==1) {
@@ -280,9 +310,15 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
             (activity as LandingNavigationActivity).setSync(true)
             (activity as LandingNavigationActivity).setNotification(true)
 
+
         }
     }
 
+   public fun notified(){
+        if(adapterFeatureProduct!=null){
+            adapterFeatureProduct?.notifyDataSetChanged()
+        }
+    }
     public fun getData() {
 
         if (NetworkUtil.isInternetAvailable(activity)) {
@@ -293,6 +329,10 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
         }
         if (NetworkUtil.isInternetAvailable(activity)) {
             model.getFeatureProduct("Product List", model.getUserID()!!, model.getRoleID()!!)
+        }
+
+        if (NetworkUtil.isInternetAvailable(activity)) {
+            modelCart.cartList("Cart List", model.getUserID()!!, model.getRoleID()!!)
         }
     }
 
@@ -323,6 +363,11 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
     }
 
     private fun subscribeUi() {
+        modelCart.cartListModel.observe(this, Observer {
+            Logger.Debug("DEBUG", it.toString())
+            showData(it)
+
+        })
         model.categoryModel.observe(this, Observer {
             Logger.Debug("DEBUG", it.toString())
 
@@ -344,6 +389,35 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
             showData(it)
 
         })
+        modelFavorites.addProductFromFavoritesModel.observe(this, Observer {
+            Logger.Debug("DEBUG", it.toString())
+
+            if(it!!.status){
+                featureProductList?.get(fPos)?.is_favorites="1"
+                StoreProducts.getInstance().addProduct(featureProductList?.get(fPos))
+
+                showSnackbar(it.message, true)
+            }else{
+                showSnackbar(it.message, false)
+
+            }
+            adapterFeatureProduct?.notifyDataSetChanged()
+
+        })
+        modelFavorites.removeProductFromFavoritesModel.observe(this, Observer {
+            Logger.Debug("DEBUG", it.toString())
+
+            if(it!!.status){
+                featureProductList?.get(fPos)?.is_favorites="0"
+                StoreProducts.getInstance().addProduct(featureProductList?.get(fPos))
+                showSnackbar(it.message, true)
+            }else{
+                showSnackbar(it.message, false)
+
+            }
+            adapterFeatureProduct?.notifyDataSetChanged()
+
+        })
     }
 
     fun showProgressDialog() {
@@ -351,6 +425,25 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
         showProgressDialog(null, AndroidUtils.getString(R.string.please_wait))
     }
 
+    private fun showData(data: CartListResponse?) {
+        activity?.let {
+
+            var cartValue:Int?=0
+            if (data?.cartList?.size == 0) {
+                cartValue=0
+                model.saveCartValue(cartValue)
+
+            }else{
+                cartValue=data?.cartList?.size
+                model.saveCartValue(cartValue)
+
+            }
+            (it as LandingNavigationActivity).setCounter(
+                true,cartValue.toString()
+            )
+        }
+
+    }
 
     private fun showData(data: CategoriesListResponse?) {
 
@@ -386,6 +479,8 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
 
     private fun showData(data: FeatureProductResponse?) {
         featureProductList = data?.featureProductList
+        StoreProducts.getInstance().saveProducts(featureProductList)
+
         featureProductList?.let {
             adapterFeatureProduct?.submitList(it)
             ViewCompat.setNestedScrollingEnabled(rv_featuredProduct, false)
@@ -395,7 +490,25 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
     }
     private fun showData(data: AddToCartResponse?) {
         if(data!!.status){
+            activity?.let {
+                var cartValue=model.getCartValue()
+                if (q == 0) {
+                    cartValue=cartValue?.minus(1)
+                    model.saveCartValue(cartValue)
+
+                }else   if (q == 1) {
+                    cartValue=cartValue?.plus(1)
+                    model.saveCartValue(cartValue)
+
+                }
+                (it as LandingNavigationActivity).setCounter(
+                    true,cartValue.toString()
+                )
+            }
+
             featureProductList?.get(fPos)?.CartItemQty=q
+            StoreProducts.getInstance().addProduct(featureProductList?.get(fPos))
+
         }
         featureProductList?.let {
             adapterFeatureProduct?.submitList(it)

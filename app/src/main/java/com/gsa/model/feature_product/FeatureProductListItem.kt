@@ -17,7 +17,7 @@ data class FeatureProductListItem(@SerializedName("p_unit")
                                   @SerializedName("p_op_stock")
                                   val pOpStock: String = "",
                                   @SerializedName("is_feature")
-                                  val isFeature: String = "",
+                                  var isFeature: String = "",
                                   @SerializedName("CompanyName")
                                   val companyName: String = "",
                                   @SerializedName("p_tax_cat")
@@ -34,5 +34,7 @@ data class FeatureProductListItem(@SerializedName("p_unit")
                                   val pDescription: String = "",
                                   @SerializedName("CartItemQty")
                                   var CartItemQty: Int=0,
+                                  @SerializedName("is_favorites")
+                                  var is_favorites: Boolean =false,
                                   @SerializedName("id")
                                   val id: String = "")

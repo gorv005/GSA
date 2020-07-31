@@ -36,5 +36,7 @@ data class ProductListItem(@SerializedName("p_unit")
                            val categoryName: String = "",
                            @SerializedName("CartItemQty")
                            var CartItemQty: Int=0 ,
+                           @SerializedName("is_favroite")
+                           var is_favorites: String="0",
                            @SerializedName("id")
                            val id: String = "")

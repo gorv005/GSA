@@ -186,7 +186,7 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
     }
     private fun logout() {
         activity?.let {
-            val dialogBuilder = AlertDialog.Builder(it)
+            val dialogBuilder = androidx.appcompat.app.AlertDialog.Builder(it)
 
             // set message of alert dialog
             dialogBuilder.setMessage("Do you want to logout from this application ?")

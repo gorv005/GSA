@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gsa.R
@@ -50,13 +51,36 @@ class AdapterOrderList(
             }
             itemView.text_amount.setText("" + allProducts.invoice_amount)
             itemView.text_status_name.text=allProducts.status
-            if (allProducts.status.equals("Approved Order", true)) {
-              //  itemView.text_status_name.setTextColor(Color.GREEN)
-                itemView.setBackgroundColor(Color.GREEN)
+            if (allProducts.orderStatus.equals("1", true)) {//approved order
+          //      itemView.text_status_name.setBackgroundColor(Color.parseColor("#32B475"))
+               // itemView.setBackgroundColor(Color.GREEN)
+                itemView.text_status_name.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.green_1));
+
             }
+            else if (allProducts.orderStatus.equals("3", true)) {//cancel order
+               // itemView.text_status_name.setBackgroundColor(Color.parseColor("#FF0000"))
+                // llOrder.setBackgroundColor(Color.GREEN)
+                itemView.text_status_name.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.red_1));
 
+            }
+            else if (allProducts.orderStatus.equals("0", true)) {//new order
+              //  itemView.text_status_name.setBackgroundColor(Color.parseColor("#FF4500"))
+                // llOrder.setBackgroundColor(Color.GREEN)
+                itemView.text_status_name.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.orange_1));
 
+            }
+            else if (allProducts.orderStatus.equals("2", true)) {//fully paid
+            //    itemView.text_status_name.setBackgroundColor(Color.parseColor("#00BCD4"))
+                // llOrder.setBackgroundColor(Color.GREEN)
+                itemView.text_status_name.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.colorPrimary));
 
+            }
+            else if (allProducts.orderStatus.equals("4", true)) {//partially paid
+           //     itemView.text_status_name.setBackgroundColor(Color.parseColor("#8B0000"))
+                // llOrder.setBackgroundColor(Color.GREEN)
+                itemView.text_status_name.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.brown));
+
+            }
             itemView.setOnClickListener {
                 adapterViewClick?.onClickAdapterView(
                     allProducts,

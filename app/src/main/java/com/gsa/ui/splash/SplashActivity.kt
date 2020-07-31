@@ -1,15 +1,26 @@
 package com.gsa.ui.splash
 
 import android.app.ActivityOptions
+import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.gsa.R
 import com.gsa.base.BaseActivity
+import com.gsa.model.home.CompaniesListResponse
+import com.gsa.model.splash.VersionResponse
 import com.gsa.ui.landing.LandingNavigationActivity
 import com.gsa.ui.login.LoginActivity
+import com.gsa.util.UiUtils
+import com.gsa.utils.AndroidUtils
+import com.gsa.utils.Logger
 
 class SplashActivity : BaseActivity<SplashViewModel>(SplashViewModel::class) {
     override fun tag(): String {
@@ -34,11 +45,31 @@ class SplashActivity : BaseActivity<SplashViewModel>(SplashViewModel::class) {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(layout())
-
+        subscribeLoading()
         subscribeUi()
 
-        model.loadData()
     }
+
+    override fun onResume() {
+        super.onResume()
+        model.getVersion("Version")
+    }
+    private fun subscribeLoading() {
+
+        model.searchEvent.observe(this, Observer {
+            if (it.isLoading) {
+                showProgressDialog()
+            } else {
+                hideProgressDialog()
+            }
+            it.error?.let {
+                UiUtils.showInternetDialog(this@SplashActivity, R.string.something_went_wrong)
+            }
+        })
+
+
+    }
+
     private fun subscribeUi() {
         model.nextIntent.observe(this, Observer {
             startActivity(
@@ -58,6 +89,61 @@ class SplashActivity : BaseActivity<SplashViewModel>(SplashViewModel::class) {
 
             finish()
         })
+
+        model.versionModel.observe(this, Observer {
+            Logger.Debug("DEBUG", it.toString())
+
+                showData(it)
+        })
     }
 
+    private fun showData(data: VersionResponse?) {
+        if(data!!.status){
+            val versionName = GetAppVersion(this)
+
+            if(versionName.equals(data?.versionList?.versionName)){
+                model.loadData()
+
+               // onUpdateNeeded(data?.versionList?.playstoreUrl)
+
+            }else{
+               // model.loadData()
+                onUpdateNeeded(data?.versionList?.playstoreUrl)
+            }
+        }
+
+    }
+
+    fun onUpdateNeeded(updateUrl: String) {
+        val dialog = AlertDialog.Builder(this)
+        dialog.setCancelable(false)
+        dialog.setTitle("New version available")
+            .setMessage("Please, update app to new version to continue.")
+            .setPositiveButton("Update",
+                DialogInterface.OnClickListener { dialog, which -> redirectStore(updateUrl) })
+            .setNegativeButton("No, thanks",
+                DialogInterface.OnClickListener { dialog, which -> finish() }).create()
+        dialog.show()
+    }
+
+    private fun redirectStore(updateUrl: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl))
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
+    fun GetAppVersion(context: Context): String {
+        var version = ""
+        try {
+            val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            version = pInfo.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+
+        return version
+    }
+    fun showProgressDialog() {
+
+        showProgressDialog(null, AndroidUtils.getString(R.string.please_wait))
+    }
 }

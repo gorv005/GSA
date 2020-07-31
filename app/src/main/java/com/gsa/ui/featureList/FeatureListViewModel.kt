@@ -78,4 +78,11 @@ class FeatureListViewModel(
     fun getUserName(): String?{
         return pre.getStringPreference(Config.SharedPreferences.PROPERTY_USER_NAME)
     }
+
+    fun getCartValue(): Int?{
+        return pre.getIntPreference(Config.SharedPreferences.PROPERTY_IS_CART_VALUE)
+    }
+    fun saveCartValue(cartValue:Int?){
+        return pre.savePreference(Config.SharedPreferences.PROPERTY_IS_CART_VALUE,cartValue,0)
+    }
 }

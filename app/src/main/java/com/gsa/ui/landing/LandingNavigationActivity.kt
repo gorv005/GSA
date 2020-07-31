@@ -16,6 +16,7 @@ import com.gsa.managers.PreferenceManager
 import com.gsa.ui.cart.CartActivity
 import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.landing.accounts.FragmentAccount
+import com.gsa.ui.landing.favorites.FavoritesFragment
 import com.gsa.ui.landing.home.HomeFragment
 import com.gsa.ui.landing.ledger.LedgerFragment
 import com.gsa.ui.notification.NotificationActivity
@@ -34,7 +35,9 @@ import kotlinx.android.synthetic.main.app_custom_tool_bar.*
 
 const val INDEX_HOME = FragNavController.TAB1
 const val INDEX_ORDERS = FragNavController.TAB2
-const val INDEX_POINTS = FragNavController.TAB3
+const val INDEX_POINTS = FragNavController.TAB6
+const val INDEX_FAVORITES = FragNavController.TAB3
+
 const val INDEX_LEDGER = FragNavController.TAB4
 const val INDEX_ACCOUNT = FragNavController.TAB5
 
@@ -75,6 +78,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
         when (index) {
             INDEX_HOME -> return HomeFragment.getInstance(0)
             INDEX_POINTS -> return PointsFragment.getInstance(0)
+            INDEX_FAVORITES -> return FavoritesFragment.getInstance(0)
             INDEX_ORDERS -> return OrderFragment.getInstance(0)
             INDEX_LEDGER -> return LedgerFragment.getInstance(0)
             INDEX_ACCOUNT -> return FragmentAccount.getInstance(0)
@@ -100,7 +104,6 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
         }
     }
     var preferenceManager: PreferenceManager? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing_navigation)
@@ -151,6 +154,9 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                             Config.SharedPreferences.PROPERTY_USER_NAME,
                             ""
                         ))
+                        if(getVisibleFragmentHome()){
+                            (fragNavController.currentFrag as HomeFragment).notified()
+                        }
                         setSync(true)
                         setBack(false)
                         setNotification(true)
@@ -173,6 +179,16 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
                     setSync(true)
                     setNotification(true)
 
+                }
+                R.id.navigation_favorites -> {
+                    fragNavController.switchTab(INDEX_FAVORITES)
+                    setTitleOnBar(AndroidUtils.getString(R.string.my_favorites))
+                    setBack(false)
+                    setSync(true)
+                    setNotification(true)
+                     if(getVisibleFragmentFavorites()){
+                        (fragNavController.currentFrag as FavoritesFragment).getData()
+                    }
                 }
                 R.id.navigation_ledger -> {
                     fragNavController.switchTab(INDEX_LEDGER)
@@ -229,6 +245,9 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
             }
             else if(getVisibleFragmentPoints()){
                 (fragNavController.currentFrag as PointsFragment).getData()
+            }
+            else if(getVisibleFragmentFavorites()){
+                (fragNavController.currentFrag as FavoritesFragment).getData()
             }
             else if(getVisibleFragmentLedger()){
                 (fragNavController.currentFrag as LedgerFragment).getData()
@@ -295,10 +314,45 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
         }
         return false
     }
+    fun getVisibleFragmentFavorites(): Boolean {
+        if (fragNavController.isRootFragment && fragNavController.currentFrag is FavoritesFragment) {
+            return true
+        }
+        return false
+    }
     fun setTitleOnBar(title: String?) {
         tv_tool_title.text = title
     }
 
+    fun setCounter(isShow: Boolean, text: String?) {
+        if (text.equals("") || text.equals("0")) {
+            ivCounter.visibility = View.INVISIBLE
+        } else {
+            ivCounter.setText(text)
+            ivCounter.visibility = View.VISIBLE
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (preferenceManager?.getIntPreference(Config.SharedPreferences.PROPERTY_IS_CART_VALUE,0)!=0
+          ) {
+            ivCounter.visibility = View.VISIBLE
+            ivCounter.setText(
+                preferenceManager?.getIntPreference(
+                    Config.SharedPreferences.PROPERTY_IS_CART_VALUE,
+                    0
+                ).toString()
+            )
+
+
+        } else {
+            ivCounter.visibility = View.INVISIBLE
+
+        }
+
+    }
     override fun onBackPressed() {
         if (fragNavController.popFragment().not()) {
             super.onBackPressed()

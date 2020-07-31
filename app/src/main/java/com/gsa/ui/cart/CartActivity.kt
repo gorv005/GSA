@@ -142,7 +142,7 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
     override fun onResume() {
         super.onResume()
         tv_tool_title.text = AndroidUtils.getString(R.string.cart)
-        iv_cart.visibility=View.GONE
+        rlCart.visibility=View.GONE
         rlSync.visibility=View.VISIBLE
 
     }
@@ -201,6 +201,20 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
     }
 
     private fun showData(data: CartListResponse?) {
+        let {
+
+            var cartValue:Int?=0
+            if (data?.cartList?.size == 0) {
+                cartValue=0
+                model.saveCartValue(cartValue)
+
+            }else{
+                cartValue=data?.cartList?.size
+                model.saveCartValue(cartValue)
+
+            }
+
+        }
 
         cartList = data?.cartList
         setData()
@@ -213,11 +227,27 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
 
     private fun showData(data: AddToCartResponse?) {
         if (data!!.status) {
+
+            var cartValue=model.getCartValue()
+            if (q == 0) {
+                cartValue=cartValue?.minus(1)
+                model.saveCartValue(cartValue)
+
+            }else   if (q == 1) {
+                cartValue=cartValue?.plus(1)
+                model.saveCartValue(cartValue)
+
+            }
+
             cartList?.get(fPos)?.itemQty = q
+
+
         }
         if(q==0){
             cartList?.removeAt(fPos)
         }
+
+
         setData()
         cartList?.let {
             adapterFeatureProduct?.submitList(it)
