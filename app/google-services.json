@@ -8,6 +8,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:116349758971:android:3e150596014cc435b5af5e",
+        "android_client_info": {
+          "package_name": "com.dartmic.gsa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116349758971-dq410hbqa9s8b2185bk2j7f7va93nl3r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvjZREiFDGgiHu8LLkQQzYGwBefhQuVYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116349758971-dq410hbqa9s8b2185bk2j7f7va93nl3r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:116349758971:android:ad2745efa761aedbb5af5e",
         "android_client_info": {
           "package_name": "com.gsa"

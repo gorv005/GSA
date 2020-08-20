@@ -222,6 +222,15 @@ class FavoritesFragment: BaseFragment<FavoritesViewModel>(FavoritesViewModel::cl
                 showSnackbar(it.message, false)
 
             }
+            favListList?.let {
+                if(it.size==0){
+                    rlNoData.visibility=View.VISIBLE
+
+                }else{
+                    rlNoData.visibility=View.GONE
+
+                }
+            }
             adapterFavoritesList?.notifyDataSetChanged()
 
         })
@@ -281,6 +290,9 @@ class FavoritesFragment: BaseFragment<FavoritesViewModel>(FavoritesViewModel::cl
         favListList?.let {
             if(it.size==0){
                 rlNoData.visibility=View.VISIBLE
+
+            }else{
+                rlNoData.visibility=View.GONE
 
             }
 

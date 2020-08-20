@@ -81,6 +81,13 @@ class AdapterOrderList(
                 itemView.text_status_name.setBackgroundTintList(ContextCompat.getColorStateList(activity, R.color.brown));
 
             }
+            itemView.text_status_name.setOnClickListener {
+                adapterViewClick?.onClickAdapterView(
+                    allProducts,
+                    Config.AdapterClickViewTypes.CLICK_VIEW_PRODUCT, adapterPosition
+                )
+            }
+
             itemView.setOnClickListener {
                 adapterViewClick?.onClickAdapterView(
                     allProducts,
