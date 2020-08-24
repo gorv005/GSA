@@ -13,6 +13,7 @@ import com.gsa.R
 import com.gsa.base.BaseActivity
 import com.gsa.ui.landing.LandingNavigationActivity
 import com.gsa.ui.register.RegistrationActivity
+import com.gsa.ui.retailer_List.RetailerListActivity
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Logger
@@ -118,10 +119,19 @@ class LoginActivity : BaseActivity<LoginViewModel>(LoginViewModel::class) {
 
 
                 this.let { UiUtils.hideSoftKeyboard(it) }
-                startActivity(
-                    LandingNavigationActivity.getIntent(this, 1),
-                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle()
-                )
+
+                if(it.userList.roleId.equals("5")){
+                    startActivity(
+                        RetailerListActivity.getIntent(this),
+                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle()
+                    )
+                }else{
+                    startActivity(
+                        LandingNavigationActivity.getIntent(this,1),
+                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle()
+                    )
+                }
+
             }
             else{
                 showSnackbar(it.message, false)

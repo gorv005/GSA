@@ -33,6 +33,75 @@
 
         tools:ignore="UnusedAttribute" />
 
+    <RelativeLayout
+        android:id="@+id/rlChangeRetailor"
+        android:visibility="visible"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        >
+
+        <LinearLayout
+            android:layout_marginEnd="60dp"
+            android:layout_centerVertical="true"
+            android:padding="2dp"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_corners_app_grey_edittext_bg"
+            android:layout_width="match_parent"
+            android:layout_height="55dp">
+            <TextView
+                android:id="@+id/tvRetailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="start"
+                android:lines="1"
+                android:text="@string/selected_retailer"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvSelectedRetailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_below="@id/tvRetailer"
+                android:gravity="start"
+                android:lines="1"
+                android:text="@string/app_name"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:background="@color/colorPrimary"
+            android:id="@+id/rlRetailor"
+            android:layout_width="55dp"
+            android:layout_centerVertical="true"
+            android:layout_height="55dp">
+
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_edit"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"

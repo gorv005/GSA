@@ -130,7 +130,11 @@
     <string name="notifications">Notifications</string>
     <string name="no_notification_found">No Notification Found</string>
     <string name="no_favorites_found">No Favorites Found</string>
+    <string name="no_retailor_found">No Retailer Found</string>
+    <string name="retailor_list">Retailer List</string>
 
     <string name="favorites">Favorites</string>
     <string name="my_favorites">My Favorites</string>
+    <string name="name">Name</string>
+    <string name="selected_retailer">Selected Retailer</string>
 </resources>

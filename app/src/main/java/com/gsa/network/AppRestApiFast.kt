@@ -15,6 +15,7 @@ import com.gsa.model.notification.NotificationListResponse
 import com.gsa.model.order.OrderListResponse
 import com.gsa.model.points.PointsResponse
 import com.gsa.model.productList.ProductListResponse
+import com.gsa.model.reatilter_list.RetailterListResponse
 import com.gsa.model.register.RegisterResponsePayload
 import com.gsa.model.splash.VersionResponse
 import com.gsa.model.stateList.StateListResponse
@@ -247,6 +248,7 @@ interface AppRestApiFast {
 
 
     ): Single<AddToCartResponse>
+
     @FormUrlEncoded
     @POST(Config.Endpoints.DELETE_FAVORITES_API)
     fun removeFavorites(
@@ -254,6 +256,13 @@ interface AppRestApiFast {
         @Field("product_id") product_id: String
 
     ): Single<AddToCartResponse>
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.RETAILTER_LIST_API)
+    fun getRetailterList(
+        @Field("service") service: String
+
+    ): Single<RetailterListResponse>
 
 /*
     @POST(Config.Endpoints.LOGIN_API)

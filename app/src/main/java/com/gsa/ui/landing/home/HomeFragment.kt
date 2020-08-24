@@ -25,6 +25,7 @@ import com.gsa.model.home.CompanyListItem
 import com.gsa.model.home.categories.CategoriesListResponse
 import com.gsa.model.home.categories.CategoryListItem
 import com.gsa.model.productList.ProductListItem
+import com.gsa.model.reatilter_list.RetailerlListItem
 import com.gsa.ui.CategoryList.CategoryListActivity
 import com.gsa.ui.cart.CartViewModel
 import com.gsa.ui.companyCategoryList.CompanyCategoryListActivity
@@ -36,6 +37,7 @@ import com.gsa.ui.landing.home.adapter.AdapterFeatureProduct
 import com.gsa.ui.landing.home.adapter.AdapterHomeCategories
 import com.gsa.ui.landing.home.adapter.AdapterHomeCompanies
 import com.gsa.ui.productList.ProductListActivity
+import com.gsa.ui.retailer_List.RetailerListActivity
 import com.gsa.ui.search.SearchActivity
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
@@ -144,6 +146,8 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
     internal var featureProductList: ArrayList<ProductListItem>? = null
     var fPos:Int=0
     var q: Int=0
+     var retailerlListItem: RetailerlListItem?=null
+
     override fun onClickAdapterView(
         objectAtPosition: CategoryListItem,
         viewType: Int,
@@ -214,6 +218,31 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(model.getRoleID().equals("5")){
+            rlChangeRetailor.visibility=View.VISIBLE
+        }else{
+            rlChangeRetailor.visibility=View.GONE
+
+        }
+
+        try {
+            let {
+                retailerlListItem = activity?.intent?.getParcelableExtra("passselectedretailer")!!
+            }
+        }catch (e: Exception){
+
+        }
+        if(retailerlListItem!=null){
+            tvSelectedRetailer.text=retailerlListItem?.name
+        }
+        rlRetailor.setOnClickListener {
+            startActivity(
+                RetailerListActivity.getIntent(activity),
+                ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()
+            )
+
+        }
         val manager = GridLayoutManager(context, 4)
 
         rv_categories.layoutManager = manager

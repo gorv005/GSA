@@ -55,6 +55,9 @@ import com.gsa.ui.productList.ProductListViewModel
 import com.gsa.ui.register.RegisterRepository
 import com.gsa.ui.register.RegisterRepositoryImpl
 import com.gsa.ui.register.RegistrationViewModel
+import com.gsa.ui.retailer_List.RetailerListRepository
+import com.gsa.ui.retailer_List.RetailterListRepositoryImpl
+import com.gsa.ui.retailer_List.RetailterListViewModel
 import com.gsa.ui.search.SearchRepository
 import com.gsa.ui.search.SearchRepositoryImpl
 import com.gsa.ui.search.SearchViewModel
@@ -138,6 +141,9 @@ object AppModule {
         single<SplashRepository> { SplashRepositoryImpl(get(), get()) }
         viewModel { SplashViewModel(get(),get(),get()) }
 
+
+        single<RetailerListRepository> { RetailterListRepositoryImpl(get(), get()) }
+        viewModel { RetailterListViewModel(get(),get(),get()) }
         /*  single<SignUpRepository> { SignUpRepositoryImpl(get(), get()) }
          viewModel { SignUpViewModel(get(),get()) }
 

@@ -99,6 +99,8 @@ class Config {
 
         const val DELETE_FAVORITES_API = BASE_PATH + "common/removefavoritelist"
 
+        const val RETAILTER_LIST_API = BASE_PATH + "common/retailer_list"
+
         const val UPDATE_ADDRESS_API = BASE_PATH + "shopping_carts/add_address"
         const val SHIPPING_CHARGE_API = BASE_PATH + "shopping_carts/setting"
 

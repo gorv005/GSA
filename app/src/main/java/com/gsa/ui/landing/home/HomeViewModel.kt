@@ -153,4 +153,8 @@ class HomeViewModel(
     fun saveCartValue(cartValue:Int?){
         return pre.savePreference(Config.SharedPreferences.PROPERTY_IS_CART_VALUE,cartValue,0)
     }
+
+    fun saveCartValue():String?{
+        return pre.getRoleId()
+    }
 }

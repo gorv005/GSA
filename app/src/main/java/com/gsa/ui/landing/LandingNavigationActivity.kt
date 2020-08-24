@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.gsa.R
 import com.gsa.base.BaseFragment
 import com.gsa.managers.PreferenceManager
+import com.gsa.model.reatilter_list.RetailerlListItem
 import com.gsa.ui.cart.CartActivity
 import com.gsa.ui.companyList.CompanyListActivity
 import com.gsa.ui.landing.accounts.FragmentAccount
@@ -104,6 +105,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
         }
     }
     var preferenceManager: PreferenceManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing_navigation)
@@ -134,6 +136,7 @@ class LandingNavigationActivity : AppCompatActivity(), BaseFragment.FragmentNavi
             })
         }
         var i = intent.getIntExtra(KEY_TAB, 1)
+
 
         fragNavController.initialize(INDEX_HOME, savedInstanceState)
         val initial = savedInstanceState == null
