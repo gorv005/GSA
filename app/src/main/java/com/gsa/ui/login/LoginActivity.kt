@@ -121,11 +121,13 @@ class LoginActivity : BaseActivity<LoginViewModel>(LoginViewModel::class) {
                 this.let { UiUtils.hideSoftKeyboard(it) }
 
                 if(it.userList.roleId.equals("5")){
+                    model.saveisSalesMan(true)
                     startActivity(
                         RetailerListActivity.getIntent(this),
                         ActivityOptions.makeSceneTransitionAnimation(this).toBundle()
                     )
                 }else{
+                    model.saveisSalesMan(false)
                     startActivity(
                         LandingNavigationActivity.getIntent(this,1),
                         ActivityOptions.makeSceneTransitionAnimation(this).toBundle()

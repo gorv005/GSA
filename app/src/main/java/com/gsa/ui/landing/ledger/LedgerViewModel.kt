@@ -69,6 +69,16 @@ class LedgerViewModel(private val ledgerRepository: LedgerRepository,
     fun getUserID(): String?{
         return pre.getStringPreference(Config.SharedPreferences.PROPERTY_USER_ID)
     }
+
+    fun isSalesMan(): Boolean{
+        return pre.getBooleanPreference(Config.SharedPreferences.IS_SALESMAN_LOGIN)
+    }
+    fun getRetailerUSERID(): String?{
+        return pre.getStringPreference(Config.SharedPreferences.PROPERTY_RETAILTER_ID)
+    }
+    fun getRetailerROLEID(): String?{
+        return pre.getStringPreference(Config.SharedPreferences.PROPERTY_RETAILTER__ROLE_ID)
+    }
     fun getRoleID(): String?{
         return pre.getStringPreference(Config.SharedPreferences.PROPERTY_ROLE_ID)
     }

@@ -147,13 +147,18 @@ class HomeViewModel(
     fun getUserName(): String?{
         return pre.getStringPreference(Config.SharedPreferences.PROPERTY_USER_NAME)
     }
+    fun getRetailerName(): String?{
+        return pre.getStringPreference(Config.SharedPreferences.PROPERTY_RETAILTER_NAME)
+    }
     fun getCartValue(): Int?{
         return pre.getIntPreference(Config.SharedPreferences.PROPERTY_IS_CART_VALUE)
     }
     fun saveCartValue(cartValue:Int?){
         return pre.savePreference(Config.SharedPreferences.PROPERTY_IS_CART_VALUE,cartValue,0)
     }
-
+    fun getIsSalesMan(): Boolean{
+        return pre.getIsSalesMan()
+    }
     fun saveCartValue():String?{
         return pre.getRoleId()
     }

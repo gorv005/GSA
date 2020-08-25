@@ -10,12 +10,14 @@ import com.gsa.base.AbstractViewModel
 import com.gsa.base.SingleLiveEvent
 import com.gsa.common.CommonBoolean
 import com.gsa.interfaces.SchedulerProvider
+import com.gsa.managers.PreferenceManager
 
 import com.gsa.ui.login.LoginRepository
+import com.gsa.utils.Config
 import com.gsa.utils.Logger
 import retrofit2.HttpException
 
-class LoginViewModel(private val loginRepository: LoginRepository, private val scheduler: SchedulerProvider) :
+class LoginViewModel(private val loginRepository: LoginRepository, private val scheduler: SchedulerProvider,private val pre: PreferenceManager) :
     AbstractViewModel() {
     val loginData = MutableLiveData<LoginResponsePayload>()
     val searchEvent = SingleLiveEvent<SearchEvent>()
@@ -67,6 +69,13 @@ class LoginViewModel(private val loginRepository: LoginRepository, private val s
    public fun saveUserDetail(token:String?, user: UserList, isRemember :Boolean) {
 
         loginRepository.saveUserData(token,user,isRemember)
+
+
+    }
+
+    public fun saveisSalesMan(b:Boolean) {
+
+        pre.savePreference(Config.SharedPreferences.IS_SALESMAN_LOGIN,b)
 
 
     }

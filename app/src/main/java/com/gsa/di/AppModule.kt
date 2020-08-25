@@ -85,7 +85,7 @@ object AppModule {
         single { getSharedPrefrence(androidApplication()) }
 
        single<LoginRepository> { LoginRepositoryImpl(get(), get()) }
-        viewModel { LoginViewModel(get(),get()) }
+        viewModel { LoginViewModel(get(),get(),get()) }
 
         single { ApplicationSchedulerProvider() as SchedulerProvider }
 

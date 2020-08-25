@@ -9,6 +9,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.gsa.R
+import com.gsa.managers.PreferenceManager
 import com.gsa.model.reatilter_list.RetailerlListItem
 import com.gsa.ui.landing.LandingNavigationActivity
 import kotlinx.android.synthetic.main.item_retailor.view.*
@@ -47,6 +48,9 @@ class AdapterRetailorList(private var retList: ArrayList<RetailerlListItem>) :
         holder.itemView.tv_address?.text =
             relFilterList.get(position).cityName + " " + relFilterList.get(position).stateName
        holder.itemView.setOnClickListener {
+
+           var pre=PreferenceManager(mcontext)
+           pre.saveRetailerData(relFilterList[position])
             val intent = Intent(mcontext, LandingNavigationActivity::class.java)
             intent.putExtra("passselectedretailer", relFilterList[position])
             mcontext.startActivity(intent)

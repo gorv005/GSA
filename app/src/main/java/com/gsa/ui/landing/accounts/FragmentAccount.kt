@@ -200,7 +200,10 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
                         Config.SharedPreferences.PROPERTY_LOGIN_PREF,
                         false
                     )
-
+                    preferenceManager.savePreference(
+                        Config.SharedPreferences.IS_SALESMAN_LOGIN,
+                        false
+                    )
                     startActivity(
                         LoginActivity.getIntent(it),
                         ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()

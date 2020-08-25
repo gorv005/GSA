@@ -86,4 +86,5 @@ class RetailterListViewModel(
     fun saveCartValue(cartValue: Int?) {
         return pre.savePreference(Config.SharedPreferences.PROPERTY_IS_CART_VALUE, cartValue, 0)
     }
+
 }

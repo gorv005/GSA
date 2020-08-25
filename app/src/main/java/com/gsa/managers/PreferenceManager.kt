@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import com.gsa.model.login.UserList
+import com.gsa.model.reatilter_list.RetailerlListItem
 import com.gsa.utils.Config
 import com.gsa.utils.Config.SharedPreferences.PROPERTY_FCM_REGISTRATION_TOKEN
 
@@ -37,6 +38,14 @@ class PreferenceManager(context: Context) /*: BasePrefManager(context)*/ {
      //   saveUserImage(user?.profilePicture?.url)
 
     }
+    fun saveRetailerData(user: RetailerlListItem?) {
+        savePreference(Config.SharedPreferences.PROPERTY_RETAILTER_ID, user?.userId)
+        savePreference(Config.SharedPreferences.PROPERTY_RETAILTER_NAME, user?.name)
+        savePreference(Config.SharedPreferences.PROPERTY_RETAILTER__ROLE_ID, user?.roleId)
+
+        //   saveUserImage(user?.profilePicture?.url)
+
+    }
 
     fun saveUserID(userID: String?) {
         savePreference(Config.SharedPreferences.PROPERTY_USER_ID, userID)
@@ -55,7 +64,7 @@ class PreferenceManager(context: Context) /*: BasePrefManager(context)*/ {
     fun getLoggedInUserEmail() = getStringPreference(Config.SharedPreferences.PROPERTY_USER_EMAIL)
     fun getLoggedInUserImage() = getStringPreference(Config.SharedPreferences.PROPERTY_USER_IMAGE)
     fun getLoggedInUserImageThumb() = getStringPreference(Config.SharedPreferences.PROPERTY_USER_IMAGE_THUMB)
-    fun getLoggedInUserId() = getIntPreference(Config.SharedPreferences.PROPERTY_USER_ID)
+    fun getIsSalesMan() = getBooleanPreference(Config.SharedPreferences.IS_SALESMAN_LOGIN)
 
 
     val sharedPreferences = context.getSharedPreferences(

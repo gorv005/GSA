@@ -1,38 +1,21 @@
 package com.gsa.ui.landing.ledger
 
 
-import android.annotation.SuppressLint
-import android.app.ActivityOptions
-import android.net.http.SslError
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.webkit.SslErrorHandler
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.ProgressBar
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.gsa.R
 import com.gsa.base.BaseFragment
 import com.gsa.callbacks.AdapterViewClickListener
-import com.gsa.callbacks.AdapterViewFeatureProductClickListener
-import com.gsa.model.feature_product.FeatureProductListItem
 import com.gsa.model.ledger.ReportListItem
 import com.gsa.ui.landing.LandingNavigationActivity
-import com.gsa.ui.landing.home.HomeFragment
-import com.gsa.ui.landing.home.HomeViewModel
-import com.gsa.ui.landing.home.adapter.AdapterFeatureProduct
 import com.gsa.ui.landing.ledger.adapter.AdapterLedger
 import com.gsa.util.UiUtils
 import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
-import kotlinx.android.synthetic.main.activity_feature_list.*
 import kotlinx.android.synthetic.main.fragment_ledger.*
 
 /**
@@ -74,8 +57,18 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class),
     public fun getData() {
 
         if (NetworkUtil.isInternetAvailable(activity)) {
-            AdapterLedger.balance=0.0
-            model.getLedger("Ledger Report", model.getUserID()!!, model.getRoleID()!!)
+            AdapterLedger.balance = 0.0
+            if (model.isSalesMan()) {
+                model.getLedger(
+                    "Ledger Report",
+                    model.getRetailerUSERID()!!,
+                    model.getRetailerROLEID()!!
+                )
+            } else {
+                model.getLedger("Ledger Report", model.getUserID()!!, model.getRoleID()!!)
+
+
+            }
         }
 
     }

@@ -126,6 +126,10 @@ class Config {
         const val PROPERTY_JWT_TOKEN = "PROPERTY_JWT_TOKEN" // auth token
         const val PROPERTY_USER_ID = "PROPERTY_USER_ID" // user id
         const val PROPERTY_ROLE_ID = "PROPERTY_ROLE_ID" // user id
+        const val PROPERTY_RETAILTER_ID = "PROPERTY_RETAILTER_ID" // user id
+        const val PROPERTY_RETAILTER_NAME = "PROPERTY_RETAILTER_NAME" // user name
+        const val IS_SALESMAN_LOGIN = "IS_SALESMAN_LOGIN" // user id
+        const val PROPERTY_RETAILTER__ROLE_ID = "PROPERTY_RETAILTER__ROLE_ID" // user name
 
         const val PROPERTY_USER_NAME = "PROPERTY_USER_NAME" // user name
         const val PROPERTY_USER_EMAIL = "PROPERTY_USER_EMAIL" // user email
