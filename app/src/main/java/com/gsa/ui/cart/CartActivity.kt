@@ -75,10 +75,17 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
             if (status === 0 && objectAtPosition.itemQty.toInt() === 0) {
 
             } else {
-                model.addToCart(
-                    "Add Cart", model.getUserID()!!, model.getRoleID()!!,
-                    objectAtPosition.itemId, "" + q, objectAtPosition.itemAmount
-                )
+                if(model.getIsSalesMan()){
+                    model.addToCart(
+                        "Add Cart", model.getUserID()!!, model.getRoleID()!!,
+                        objectAtPosition.itemId, "" + q, objectAtPosition.itemAmount,model.getRetailerID()!!
+                    )
+                }else {
+                    model.addToCart(
+                        "Add Cart", model.getUserID()!!, model.getRoleID()!!,
+                        objectAtPosition.itemId, "" + q, objectAtPosition.itemAmount
+                    )
+                }
             }
         }
 
@@ -122,7 +129,13 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
         }
         rlBuyNow.setOnClickListener {
             if (NetworkUtil.isInternetAvailable(this)) {
-                model.orderPlace("Add Order", model.getUserID()!!, model.getRoleID()!!)
+
+                if(model.getIsSalesMan()) {
+                    model.orderPlace("Add Order", model.getUserID()!!, model.getRoleID()!!,model.getRetailerID()!!)
+                }else{
+                    model.orderPlace("Add Order", model.getUserID()!!, model.getRoleID()!!)
+
+                }
             }
 
         }
@@ -151,7 +164,13 @@ class CartActivity : BaseActivity<CartViewModel>(CartViewModel::class),
     private fun getData() {
 
         if (NetworkUtil.isInternetAvailable(this)) {
-            model.cartList("Cart List", model.getUserID()!!, model.getRoleID()!!)
+            if(model.getIsSalesMan()){
+                model.cartList("Cart List", model.getUserID()!!, model.getRoleID()!!,model.getRetailerID()!!)
+
+            }else{
+                model.cartList("Cart List", model.getUserID()!!, model.getRoleID()!!)
+
+            }
         }
 
     }

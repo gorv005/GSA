@@ -66,8 +66,6 @@ class LedgerFragment : BaseFragment<LedgerViewModel>(LedgerViewModel::class),
                 )
             } else {
                 model.getLedger("Ledger Report", model.getUserID()!!, model.getRoleID()!!)
-
-
             }
         }
 

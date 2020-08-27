@@ -15,8 +15,15 @@ interface CartRepository {
     fun addToCart(service :String, user_id: String, role_id: String,
                   item_id: String,item_qty: String,item_amount: String) : Single<AddToCartResponse>
 
+    fun addToCart(service :String, user_id: String, role_id: String,
+                  item_id: String,item_qty: String,item_amount: String,retailer_id: String) : Single<AddToCartResponse>
     fun cartList(service :String, user_id: String, role_id: String) : Single<CartListResponse>
+
+    fun cartList(service :String, user_id: String, role_id: String,retailer_id: String) : Single<CartListResponse>
+
     fun orderPlace(service :String, user_id: String, role_id: String) : Single<AddToCartResponse>
+
+    fun orderPlace(service :String, user_id: String, role_id: String,retailer_id: String) : Single<AddToCartResponse>
 
 /*
     fun cartList(service :String, user_id: String, role_id: String) : Single<CartListResponse>

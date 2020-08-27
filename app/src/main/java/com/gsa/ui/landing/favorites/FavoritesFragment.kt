@@ -151,10 +151,17 @@ class FavoritesFragment: BaseFragment<FavoritesViewModel>(FavoritesViewModel::cl
 
             }
             else {
-                modelCart.addToCart(
-                    "Add Cart", model.getUserID()!!, model.getRoleID()!!,
-                    objectAtPosition.id, "" + q, objectAtPosition.pMrp
-                )
+                if(model.getIsSalesMan()){
+                    modelCart.addToCart(
+                        "Add Cart", model.getUserID()!!, model.getRoleID()!!,
+                        objectAtPosition.id, "" + q, objectAtPosition.pMrp,model.getRetailerID()!!
+                    )
+                }else {
+                    modelCart.addToCart(
+                        "Add Cart", model.getUserID()!!, model.getRoleID()!!,
+                        objectAtPosition.id, "" + q, objectAtPosition.pMrp
+                    )
+                }
             }
         }
 

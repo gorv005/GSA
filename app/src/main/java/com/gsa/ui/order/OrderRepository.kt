@@ -9,6 +9,7 @@ import io.reactivex.Single
 
 interface OrderRepository {
     fun getOrders(service :String, user_id: String, role_id: String) : Single<OrderListResponse>
+    fun getOrders(service :String, user_id: String, role_id: String,retailer_id: String) : Single<OrderListResponse>
 
 
 }

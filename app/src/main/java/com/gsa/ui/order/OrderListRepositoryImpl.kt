@@ -19,4 +19,13 @@ class OrderListRepositoryImpl(
         return restApi.orderList(service, user_id, role_id)
     }
 
+    override fun getOrders(
+        service: String,
+        user_id: String,
+        role_id: String,
+        retailer_id: String
+    ): Single<OrderListResponse> {
+        return restApi.orderList(service, user_id, role_id,retailer_id)
+    }
+
 }

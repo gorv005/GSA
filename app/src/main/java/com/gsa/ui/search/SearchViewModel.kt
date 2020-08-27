@@ -152,4 +152,12 @@ class SearchViewModel(
     fun getUserName(): String?{
         return pre.getStringPreference(Config.SharedPreferences.PROPERTY_USER_NAME)
     }
+
+    fun getRetailerID(): String?{
+        return pre.getStringPreference(Config.SharedPreferences.PROPERTY_RETAILTER_ID)
+    }
+    fun getIsSalesMan(): Boolean{
+        return pre.getIsSalesMan()
+    }
+
 }

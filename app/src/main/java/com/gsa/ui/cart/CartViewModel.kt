@@ -34,6 +34,49 @@ class CartViewModel(
     val cartListModel = MutableLiveData<CartListResponse>()
 
 
+
+    fun addToCart(service :String, user_id: String, role_id: String,
+                  item_id: String,item_qty: String,item_amount: String,retailer_id: String) {
+        searchEvent.value = SearchEvent(isLoading = true)
+
+        launch {
+            cartRepository.addToCart(service,user_id,role_id,item_id,item_qty,item_amount,retailer_id)
+                .subscribeOn(scheduler.io())
+                .observeOn(scheduler.ui())
+                .subscribe({
+                    Logger.Debug(msg = it.toString())
+                    addToCartModel.value = it
+                    searchEvent.value =
+                        SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = true)
+
+                }, {
+
+                    try {
+                        Logger.Debug(msg = it.toString())
+                        val error = it as HttpException
+                        val errorBody = error?.response()?.errorBody()?.run {
+
+                            val r = string()
+                            Logger.Debug(msg = r)
+                            val error = r.replaceRange(0, 0, "")
+                                .replaceRange(r.length, r.length, "")
+                            //  val json = Gson().toJson(error)
+
+                            addToCartModel.value =
+                                Gson().fromJson(error, AddToCartResponse::class.java)
+                            searchEvent.value =
+                                SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)
+
+
+                        }
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }// searchEvent.value = SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)
+                })
+        }
+    }
+
     fun addToCart(service :String, user_id: String, role_id: String,
                   item_id: String,item_qty: String,item_amount: String) {
         searchEvent.value = SearchEvent(isLoading = true)
@@ -76,6 +119,46 @@ class CartViewModel(
         }
     }
 
+    fun cartList(service :String, user_id: String, role_id: String,retailer_id: String) {
+        searchEvent.value = SearchEvent(isLoading = true)
+
+        launch {
+            cartRepository.cartList(service,user_id,role_id,retailer_id)
+                .subscribeOn(scheduler.io())
+                .observeOn(scheduler.ui())
+                .subscribe({
+                    Logger.Debug(msg = it.toString())
+                    cartListModel.value = it
+                    searchEvent.value =
+                        SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = true)
+
+                }, {
+
+                    try {
+                        Logger.Debug(msg = it.toString())
+                        val error = it as HttpException
+                        val errorBody = error?.response()?.errorBody()?.run {
+
+                            val r = string()
+                            Logger.Debug(msg = r)
+                            val error = r.replaceRange(0, 0, "")
+                                .replaceRange(r.length, r.length, "")
+                            //  val json = Gson().toJson(error)
+
+                            cartListModel.value =
+                                Gson().fromJson(error, CartListResponse::class.java)
+                            searchEvent.value =
+                                SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)
+
+
+                        }
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }// searchEvent.value = SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)
+                })
+        }
+    }
 
     fun cartList(service :String, user_id: String, role_id: String) {
         searchEvent.value = SearchEvent(isLoading = true)
@@ -118,6 +201,46 @@ class CartViewModel(
         }
     }
 
+    fun orderPlace(service :String, user_id: String, role_id: String, retailerId: String) {
+        searchEvent.value = SearchEvent(isLoading = true)
+
+        launch {
+            cartRepository.orderPlace(service,user_id,role_id,retailerId)
+                .subscribeOn(scheduler.io())
+                .observeOn(scheduler.ui())
+                .subscribe({
+                    Logger.Debug(msg = it.toString())
+                    orderPlaceModel.value = it
+                    searchEvent.value =
+                        SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = true)
+
+                }, {
+
+                    try {
+                        Logger.Debug(msg = it.toString())
+                        val error = it as HttpException
+                        val errorBody = error?.response()?.errorBody()?.run {
+
+                            val r = string()
+                            Logger.Debug(msg = r)
+                            val error = r.replaceRange(0, 0, "")
+                                .replaceRange(r.length, r.length, "")
+                            //  val json = Gson().toJson(error)
+
+                            orderPlaceModel.value =
+                                Gson().fromJson(error, AddToCartResponse::class.java)
+                            searchEvent.value =
+                                SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)
+
+
+                        }
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }// searchEvent.value = SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)
+                })
+        }
+    }
 
     fun orderPlace(service :String, user_id: String, role_id: String) {
         searchEvent.value = SearchEvent(isLoading = true)
@@ -176,4 +299,12 @@ class CartViewModel(
     fun saveCartValue(cartValue:Int?){
         return pre.savePreference(Config.SharedPreferences.PROPERTY_IS_CART_VALUE,cartValue,0)
     }
+
+    fun getRetailerID(): String?{
+        return pre.getStringPreference(Config.SharedPreferences.PROPERTY_RETAILTER_ID)
+    }
+    fun getIsSalesMan(): Boolean{
+        return pre.getIsSalesMan()
+    }
+
 }

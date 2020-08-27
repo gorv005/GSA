@@ -87,4 +87,11 @@ class ProductListViewModel(
     fun saveCartValue(cartValue:Int?){
         return pre.savePreference(Config.SharedPreferences.PROPERTY_IS_CART_VALUE,cartValue,0)
     }
+
+    fun getRetailerID(): String?{
+        return pre.getStringPreference(Config.SharedPreferences.PROPERTY_RETAILTER_ID)
+    }
+    fun getIsSalesMan(): Boolean{
+        return pre.getIsSalesMan()
+    }
 }

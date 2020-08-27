@@ -24,12 +24,30 @@ class CartRepositoryImpl(
         return restApi.orderPlace(service, user_id, role_id)
     }
 
+    override fun orderPlace(
+        service: String,
+        user_id: String,
+        role_id: String,
+        retailer_id: String
+    ): Single<AddToCartResponse> {
+        return restApi.orderPlace(service, user_id, role_id,retailer_id)
+    }
+
     override fun cartList(
         service: String,
         user_id: String,
         role_id: String
     ): Single<CartListResponse> {
         return restApi.cartList(service, user_id, role_id)
+    }
+
+    override fun cartList(
+        service: String,
+        user_id: String,
+        role_id: String,
+        retailer_id: String
+    ): Single<CartListResponse> {
+        return restApi.cartList(service, user_id, role_id,retailer_id)
     }
 
     override fun addToCart(
@@ -43,10 +61,17 @@ class CartRepositoryImpl(
         return restApi.addToCart(service, user_id, role_id,item_id,item_qty,item_amount)
     }
 
-
-
-
-
+    override fun addToCart(
+        service: String,
+        user_id: String,
+        role_id: String,
+        item_id: String,
+        item_qty: String,
+        item_amount: String,
+        retailer_id: String
+    ): Single<AddToCartResponse> {
+        return restApi.addToCart(service, user_id, role_id,item_id,item_qty,item_amount,retailer_id)
+    }
 
 
 }

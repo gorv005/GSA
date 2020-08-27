@@ -101,10 +101,17 @@ class FeatureListActivity : BaseActivity<FeatureListViewModel>(FeatureListViewMo
             if (status === 0 && objectAtPosition.CartItemQty.toInt() === 0) {
 
             } else {
-                modelCart.addToCart(
-                    "Add Cart", model.getUserID()!!, model.getRoleID()!!,
-                    objectAtPosition.id, "" + q, objectAtPosition.pMrp
-                )
+                if(model.getIsSalesMan()){
+                    modelCart.addToCart(
+                        "Add Cart", model.getUserID()!!, model.getRoleID()!!,
+                        objectAtPosition.id, "" + q, objectAtPosition.pMrp,model.getRetailerID()!!
+                    )
+                }else {
+                    modelCart.addToCart(
+                        "Add Cart", model.getUserID()!!, model.getRoleID()!!,
+                        objectAtPosition.id, "" + q, objectAtPosition.pMrp
+                    )
+                }
             }
         }
 

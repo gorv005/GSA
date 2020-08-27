@@ -120,6 +120,16 @@ interface AppRestApiFast {
         , @Field("role_id") role_id: String
 
     ): Single<OrderListResponse>
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.ORDER_LIST_API_RETAILER)
+    fun orderList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String, @Field("retailer_id") retailer_id: String
+
+    ): Single<OrderListResponse>
+
+
     @FormUrlEncoded
     @POST(Config.Endpoints.PRODUCT_LIST)
     fun productList1(
@@ -136,7 +146,15 @@ interface AppRestApiFast {
 
     ): Single<AddToCartResponse>
 
+    @FormUrlEncoded
+    @POST(Config.Endpoints.ADD_PRODUCT_API_RETAILER)
+    fun addToCart(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String,@Field("item_id") item_id: String,
+        @Field("item_qty") item_qty: String,@Field("item_amount") item_amount: String,
+        @Field("retailer_id") retailer_id: String
 
+    ): Single<AddToCartResponse>
     @FormUrlEncoded
     @POST(Config.Endpoints.CART_LIST)
     fun cartList(
@@ -146,10 +164,25 @@ interface AppRestApiFast {
     ): Single<CartListResponse>
 
     @FormUrlEncoded
+    @POST(Config.Endpoints.CART_LIST_RETAILER)
+    fun cartList(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String,@Field("retailer_id") retailer_id: String
+
+    ): Single<CartListResponse>
+    @FormUrlEncoded
     @POST(Config.Endpoints.PLACE_ORDER_API)
     fun orderPlace(
         @Field("service") service: String, @Field("user_id") user_id: String
         , @Field("role_id") role_id: String    ): Single<AddToCartResponse>
+
+
+    @FormUrlEncoded
+    @POST(Config.Endpoints.PLACE_ORDER_API_RETAILER)
+    fun orderPlace(
+        @Field("service") service: String, @Field("user_id") user_id: String
+        , @Field("role_id") role_id: String,@Field("retailer_id") retailer_id: String    ): Single<AddToCartResponse>
+
 
     @FormUrlEncoded
     @POST(Config.Endpoints.POINTS_API)

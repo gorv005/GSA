@@ -28,6 +28,45 @@ class OrderViewModel(
     val searchEvent = SingleLiveEvent<SearchEvent>()
 
 
+    fun getOrders(service :String, user_id: String, role_id: String,retailer_id: String) {
+        searchEvent.value = SearchEvent(isLoading = true)
+        launch {
+            orderRepository.getOrders(service,user_id,role_id,retailer_id)
+                .subscribeOn(scheduler.io())
+                .observeOn(scheduler.ui())
+                .subscribe({
+                    Logger.Debug(msg = it.toString())
+                    orderListModel.value = it
+                    searchEvent.value =
+                        SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = true)
+
+                }, {
+
+                    try {
+                        Logger.Debug(msg = it.toString())
+                        val error = it as HttpException
+                        val errorBody = error?.response()?.errorBody()?.run {
+
+                            val r = string()
+                            Logger.Debug(msg = r)
+                            val error = r.replaceRange(0, 0, "")
+                                .replaceRange(r.length, r.length, "")
+                            //  val json = Gson().toJson(error)
+
+                            orderListModel.value =
+                                Gson().fromJson(error, OrderListResponse::class.java)
+                            searchEvent.value =
+                                SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)
+
+                        }
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }// searchEvent.value = SearchEvent(isLoading = CommonBoolean.FALSE, isSuccess = false)
+                })
+        }
+    }
+
     fun getOrders(service :String, user_id: String, role_id: String) {
         searchEvent.value = SearchEvent(isLoading = true)
         launch {
@@ -70,7 +109,12 @@ class OrderViewModel(
 
 
 
-
+    fun getRetailerID(): String?{
+        return pre.getStringPreference(Config.SharedPreferences.PROPERTY_RETAILTER_ID)
+    }
+    fun getIsSalesMan(): Boolean{
+        return pre.getIsSalesMan()
+    }
    fun getUserID(): String?{
       return pre.getStringPreference(Config.SharedPreferences.PROPERTY_USER_ID)
    }

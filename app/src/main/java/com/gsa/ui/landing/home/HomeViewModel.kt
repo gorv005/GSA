@@ -141,6 +141,10 @@ class HomeViewModel(
    fun getUserID(): String?{
       return pre.getStringPreference(Config.SharedPreferences.PROPERTY_USER_ID)
    }
+
+    fun getRetailerID(): String?{
+        return pre.getStringPreference(Config.SharedPreferences.PROPERTY_RETAILTER_ID)
+    }
     fun getRoleID(): String?{
         return pre.getStringPreference(Config.SharedPreferences.PROPERTY_ROLE_ID)
     }

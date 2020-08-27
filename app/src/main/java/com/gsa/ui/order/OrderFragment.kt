@@ -101,7 +101,12 @@ class OrderFragment : BaseFragment<OrderViewModel>(OrderViewModel::class),
     public fun getData() {
 
         if (NetworkUtil.isInternetAvailable(activity)) {
-            model.getOrders("Order List", model.getUserID()!!, model.getRoleID()!!)
+            if(model.getIsSalesMan()) {
+                model.getOrders("Order List", model.getUserID()!!, model.getRoleID()!!,model.getRetailerID()!!)
+            }else{
+                model.getOrders("Order List", model.getUserID()!!, model.getRoleID()!!)
+
+            }
         }
 
     }
