@@ -37,11 +37,14 @@ import com.gsa.utils.AndroidUtils
 import com.gsa.utils.Config
 import com.gsa.utils.Logger
 import com.gsa.utils.NetworkUtil
+import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.android.synthetic.main.app_custom_tool_bar.*
 import kotlinx.android.synthetic.main.fragment_account.*
+import kotlinx.android.synthetic.main.fragment_account.btnRegister
 import kotlinx.android.synthetic.main.fragment_account.etGst
 import kotlinx.android.synthetic.main.fragment_account.etMobile
 import kotlinx.android.synthetic.main.fragment_account.etName
+import kotlinx.android.synthetic.main.fragment_account.etPassword
 import kotlinx.android.synthetic.main.fragment_account.etShop_name
 import kotlinx.android.synthetic.main.fragment_account.etState
 import kotlinx.android.synthetic.main.fragment_account.et_address
@@ -229,14 +232,23 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
 
         activity?.let { UiUtils.hideSoftKeyboard(it) }
 
-        val validateMobileError = AndroidUtils.mobilePassword(etMobile.text.toString())
+      //  val validateMobileError = AndroidUtils.mobilePassword(etMobile.text.toString())
+        val validateMobileError =null
+
         val validateNameError = AndroidUtils.validateName(etName.text.toString())
         val validateShopNameError = AndroidUtils.validateName(etShop_name.text.toString())
         val validateGSTError = AndroidUtils.validateName(etGst.text.toString())
         val validateGSTValidError = AndroidUtils.gstValidation(etGst.text.toString())
 
         val validatePanNumberError = AndroidUtils.panValidation(et_pan_number.text.toString())
-        val validateaadharNumberError = AndroidUtils.aadharValidation(etaadhar_number.text.toString())
+        var validateaadharNumberError: CharSequence? =null
+
+        if(etaadhar_number.text.toString().length>0) {
+            validateaadharNumberError = AndroidUtils.aadharValidation(etaadhar_number.text.toString())
+        }else{
+            validateaadharNumberError=null
+        }
+      //  val validateaadharNumberError = AndroidUtils.aadharValidation(etaadhar_number.text.toString())
         val validateEmailError = AndroidUtils.validateEmail(et_email.text.toString())
         val validateAddressError = AndroidUtils.validateName(et_address.text.toString())
         val validateStateError = AndroidUtils.validateName(etState.text.toString())
@@ -245,9 +257,9 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
         if (
             TextUtils.isEmpty(validateMobileError)
             && TextUtils.isEmpty(validateNameError) && TextUtils.isEmpty(validateShopNameError)
-            && TextUtils.isEmpty(validateMobileError) && TextUtils.isEmpty(validateMobileError)
-            && TextUtils.isEmpty(validateMobileError)
-            && TextUtils.isEmpty(validateMobileError) && TextUtils.isEmpty(validateEmailError)
+            && TextUtils.isEmpty(validateGSTError) && TextUtils.isEmpty(validateGSTValidError)
+            && TextUtils.isEmpty(validatePanNumberError)
+            && TextUtils.isEmpty(validateaadharNumberError) && TextUtils.isEmpty(validateEmailError)
             && TextUtils.isEmpty(validateAddressError) && TextUtils.isEmpty(validateStateError)
             && TextUtils.isEmpty(validateCityError)
         ) {
@@ -362,13 +374,14 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
 
     private fun showData(data: UserResponsePayload?) {
         if (data!!.status) {
+            model.saveUserDetails(data?.userList)
             userResponsePayload = data
             etMobile.setText(data?.userList?.phone)
             etName.setText(data?.userList?.name)
             etShop_name.setText(data?.userList?.shopName)
             etGst.setText(data?.userList?.gstNo)
             et_pan_number.setText(data?.userList?.pancardNo)
-            etaadhar_number.setText(data?.userList?.pancardNo)
+            etaadhar_number.setText(data?.userList?.adharcardNo)
             et_email.setText(data?.userList?.email)
             et_address.setText(data?.userList?.address)
             state_id = data?.userList?.stateId
@@ -390,8 +403,13 @@ class FragmentAccount : BaseFragment<AccountViewModel>(AccountViewModel::class){
     }
     private fun showData(data: AddToCartResponse?) {
 
-        showSnackbar(data?.message, true)
+        if(data?.status!!) {
+            getUser()
+            showSnackbar(data?.message, true)
+        }else{
+            showSnackbar(data?.message, false)
 
+        }
 
 
     }

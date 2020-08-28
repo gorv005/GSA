@@ -12,6 +12,7 @@ import com.gsa.model.cart.AddToCartResponse
 import com.gsa.model.feature_product.FeatureProductResponse
 import com.gsa.model.home.CompaniesListResponse
 import com.gsa.model.home.categories.CategoriesListResponse
+import com.gsa.model.login.UserList
 import com.gsa.model.user.UserResponsePayload
 import com.gsa.utils.Config
 import com.gsa.utils.Logger
@@ -131,5 +132,9 @@ class AccountViewModel(
     }
     fun getUserName(): String?{
         return pre.getStringPreference(Config.SharedPreferences.PROPERTY_USER_NAME)
+    }
+    fun saveUserDetails(user : UserList){
+        pre.saveUserData(user)
+
     }
 }

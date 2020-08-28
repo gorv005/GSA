@@ -40,5 +40,7 @@ data class UserList(@SerializedName("pincode")
                     val email: String = "",
                     @SerializedName("city_id")
                     val cityId: String = "",
+                    @SerializedName("phone")
+                    val phone: String = "",
                     @SerializedName("status")
                     val status: String = "")

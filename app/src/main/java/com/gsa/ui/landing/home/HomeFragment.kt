@@ -341,8 +341,9 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
         super.onResume()
         if ((activity as LandingNavigationActivity).getVisibleFragmentHome()) {
 
+            var r=model.getRetailerName()
             if(model.getIsSalesMan()){
-                tvSelectedRetailer.text=model.getRetailerName()
+                tvSelectedRetailer.text=r
 
             }else{
                 rlChangeRetailor.visibility=View.GONE
@@ -357,6 +358,13 @@ class HomeFragment : BaseFragment<HomeViewModel>(HomeViewModel::class),
     }
 
    public fun notified(){
+       var r=model.getRetailerName()
+       if(model.getIsSalesMan()){
+           tvSelectedRetailer?.text=r
+
+       }else{
+           rlChangeRetailor?.visibility=View.GONE
+       }
         if(adapterFeatureProduct!=null){
             adapterFeatureProduct?.notifyDataSetChanged()
         }

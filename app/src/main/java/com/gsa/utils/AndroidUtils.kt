@@ -22,6 +22,7 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
@@ -176,6 +177,34 @@ class AndroidUtils {
 
             return null
         }
+
+        fun aadharValidation(str: String?): CharSequence? {
+            // Regex to check valid Aadhar number.
+            val regex = "^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$"
+            if (TextUtils.isEmpty(str)) {
+                return getString(R.string.error_field_cant_blank)
+            }else {
+                // Compile the ReGex
+                val p = Pattern.compile(regex)
+
+                // Pattern class contains matcher() method
+                // to find matching between given string
+                // and regular expression.
+                val m: Matcher = p.matcher(str)
+
+                // Return if the string
+                // matched the ReGex
+                if (m.matches()) {
+                    return null
+                } else {
+                    return AndroidUtils.getString(
+                        R.string.error_aadhar_number
+                    )
+                }
+            }
+        }
+
+/*
         fun aadharValidation(pan: String): CharSequence? {
             val REGEX: String? = "^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$"
             var pattern = Pattern.compile(REGEX)
@@ -191,6 +220,7 @@ class AndroidUtils {
 
             return null
         }
+*/
 
         fun gstValidation(gst: String): CharSequence? {
 

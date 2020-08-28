@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gsa.R
 import com.gsa.base.BaseActivity
+import com.gsa.base.StoreProducts
 import com.gsa.callbacks.AdapterViewFeatureProductClickListener
 import com.gsa.model.cart.AddToCartResponse
 import com.gsa.model.productList.ProductListItem
@@ -211,6 +212,7 @@ class SearchActivity : BaseActivity<SearchViewModel>(SearchViewModel::class),
     private fun showData(data: AddToCartResponse?) {
         if (data!!.status) {
             productList?.get(fPos)?.CartItemQty = q
+            StoreProducts.getInstance().addProduct(productList?.get(fPos))
 
             productList?.let {
                 adapterProductList?.submitList(it)
