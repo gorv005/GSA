@@ -29,13 +29,13 @@ import retrofit2.http.POST
 
 interface AppRestApiFast {
 
-    @FormUrlEncoded
-    @POST(Config.Endpoints.LOGIN_API)
-    fun login(
-        @Field("user_name") username: String, @Field("password") password: String,
-        @Field("device_type") device_type: String, @Field("gcm_id") gcm_id: String
-    )
-            : Single<LoginResponsePayload>
+        @FormUrlEncoded
+        @POST(Config.Endpoints.LOGIN_API)
+        fun login(
+            @Field("user_name") username: String, @Field("password") password: String,
+            @Field("device_type") device_type: String, @Field("gcm_id") gcm_id: String
+        )
+                : Single<LoginResponsePayload>
 
 
     @FormUrlEncoded
